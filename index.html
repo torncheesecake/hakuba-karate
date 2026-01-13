@@ -1569,7 +1569,7 @@
                         border-radius: 4px;
                     "
                 >
-                    v1.2.5
+                    v1.2.6
                 </p>
             </div>
         </header>
@@ -5527,6 +5527,9 @@
                 if (!select) return;
                 select.innerHTML = "";
 
+                // Add "No Belt / White Belt" option for beginners
+                select.innerHTML += '<option value="none">No Belt / White Belt</option>';
+
                 const beltKeys = Object.keys(beltData);
                 beltKeys.forEach((key, index) => {
                     if (index < beltKeys.length - 1) {
@@ -5546,6 +5549,10 @@
             }
 
             function getNextBelt(currentKey) {
+                // Handle "none" (white belt) case - next belt is 9th Kyu (Red)
+                if (currentKey === "none") {
+                    return "9th";
+                }
                 const keys = Object.keys(beltData);
                 const currentIndex = keys.indexOf(currentKey);
                 if (currentIndex < keys.length - 1) {

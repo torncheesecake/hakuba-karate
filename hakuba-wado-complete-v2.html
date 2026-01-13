@@ -912,25 +912,28 @@
                 display: none;
                 flex-direction: column;
                 justify-content: space-around;
-                width: 30px;
-                height: 24px;
+                width: 32px;
+                height: 26px;
                 background: transparent;
                 border: none;
                 cursor: pointer;
                 padding: 0;
                 z-index: 200;
+                -webkit-tap-highlight-color: transparent;
             }
 
             .hamburger span {
-                width: 30px;
-                height: 3px;
+                display: block;
+                width: 32px;
+                height: 4px;
                 background: #1e5ba8;
                 border-radius: 3px;
                 transition: all 0.3s ease;
+                pointer-events: none;
             }
 
             .hamburger.active span:nth-child(1) {
-                transform: rotate(45deg) translate(5px, 6px);
+                transform: rotate(45deg) translate(6px, 7px);
             }
 
             .hamburger.active span:nth-child(2) {
@@ -938,7 +941,7 @@
             }
 
             .hamburger.active span:nth-child(3) {
-                transform: rotate(-45deg) translate(5px, -6px);
+                transform: rotate(-45deg) translate(6px, -7px);
             }
 
             .nav-overlay {
@@ -956,13 +959,17 @@
                 display: block;
             }
 
-            /* Hide nav-label on desktop */
+            /* Hide nav-label and nav-close on desktop */
             .nav-label {
                 display: none;
             }
 
-            /* Mobile-first responsive styles */
-            @media (max-width: 768px) {
+            .nav-close {
+                display: none;
+            }
+
+            /* MOBILE STYLES - Using 1024px to catch all phones and tablets */
+            @media screen and (max-width: 1024px) {
                 /* Header adjustments */
                 header {
                     padding: 1.5rem 0;
@@ -995,7 +1002,7 @@
 
                 /* Hamburger Navigation */
                 .hamburger {
-                    display: flex;
+                    display: flex !important;
                 }
 
                 nav {
@@ -1005,62 +1012,70 @@
                 }
 
                 nav .container {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 0.75rem 1rem;
+                    display: flex !important;
+                    justify-content: space-between !important;
+                    align-items: center !important;
+                    padding: 0.75rem 1rem !important;
                 }
 
                 .nav-container {
-                    position: fixed;
-                    top: 0;
-                    right: -280px;
-                    width: 280px;
-                    height: 100vh;
-                    background: white;
-                    flex-direction: column;
-                    overflow-y: auto;
-                    z-index: 150;
-                    transition: right 0.3s ease;
-                    padding: 4rem 0 2rem 0;
-                    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+                    display: flex !important;
+                    position: fixed !important;
+                    top: 0 !important;
+                    right: -300px !important;
+                    width: 280px !important;
+                    height: 100vh !important;
+                    height: 100dvh !important;
+                    background: white !important;
+                    flex-direction: column !important;
+                    overflow-y: auto !important;
+                    overflow-x: hidden !important;
+                    z-index: 150 !important;
+                    transition: right 0.3s ease !important;
+                    padding: 4rem 0 2rem 0 !important;
+                    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1) !important;
+                    -webkit-overflow-scrolling: touch;
                 }
 
                 .nav-container.active {
-                    right: 0;
+                    right: 0 !important;
                 }
 
                 .nav-button {
-                    padding: 1rem 1.5rem;
-                    text-align: left;
-                    border-bottom: 1px solid #e5e7eb;
-                    width: 100%;
-                    font-size: 1rem;
+                    display: block !important;
+                    padding: 1rem 1.5rem !important;
+                    text-align: left !important;
+                    border-bottom: 1px solid #e5e7eb !important;
+                    width: 100% !important;
+                    font-size: 1rem !important;
+                    white-space: nowrap !important;
                 }
 
                 .nav-button.active {
-                    background: #eff6ff;
-                    border-bottom-color: #e5e7eb;
+                    background: #eff6ff !important;
+                    border-bottom-color: #e5e7eb !important;
                 }
 
                 .nav-label {
-                    display: block;
-                    font-weight: 600;
-                    color: #1e5ba8;
-                    font-size: 0.875rem;
+                    display: block !important;
+                    font-weight: 600 !important;
+                    color: #1e5ba8 !important;
+                    font-size: 1rem !important;
                 }
 
                 .nav-close {
-                    position: absolute;
-                    top: 1rem;
-                    right: 1rem;
-                    background: none;
-                    border: none;
-                    font-size: 1.5rem;
-                    color: #6b7280;
-                    cursor: pointer;
-                    padding: 0.5rem;
-                    line-height: 1;
+                    display: block !important;
+                    position: absolute !important;
+                    top: 1rem !important;
+                    right: 1rem !important;
+                    background: none !important;
+                    border: none !important;
+                    font-size: 2rem !important;
+                    color: #374151 !important;
+                    cursor: pointer !important;
+                    padding: 0.5rem !important;
+                    line-height: 1 !important;
+                    -webkit-tap-highlight-color: transparent;
                 }
 
                 /* Main content */
@@ -1094,27 +1109,27 @@
 
                 /* Belt Selector - stack on mobile */
                 .belt-selector {
-                    grid-template-columns: 1fr;
-                    gap: 0.75rem;
+                    grid-template-columns: 1fr !important;
+                    gap: 0.75rem !important;
                 }
 
                 .belt-button {
-                    min-height: 80px;
-                    padding: 1rem;
+                    min-height: 80px !important;
+                    padding: 1rem !important;
                 }
 
                 .belt-button .belt-name {
-                    font-size: 1rem;
+                    font-size: 1rem !important;
                 }
 
                 .belt-button .belt-color {
-                    font-size: 0.875rem;
+                    font-size: 0.875rem !important;
                 }
 
                 /* Technique Grid - single column on mobile */
                 .technique-grid {
-                    grid-template-columns: 1fr;
-                    gap: 1rem;
+                    grid-template-columns: 1fr !important;
+                    gap: 1rem !important;
                 }
 
                 .technique-card {
@@ -1135,7 +1150,7 @@
 
                 /* Counting Grid - 2 columns on mobile */
                 .counting-grid {
-                    grid-template-columns: repeat(2, 1fr);
+                    grid-template-columns: repeat(2, 1fr) !important;
                 }
 
                 .count-card {
@@ -1179,8 +1194,8 @@
                 }
 
                 .quiz-options {
-                    grid-template-columns: 1fr;
-                    gap: 0.75rem;
+                    grid-template-columns: 1fr !important;
+                    gap: 0.75rem !important;
                 }
 
                 .quiz-option {
@@ -1189,8 +1204,8 @@
                 }
 
                 .quiz-stats {
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 0.75rem;
+                    grid-template-columns: repeat(2, 1fr) !important;
+                    gap: 0.75rem !important;
                 }
 
                 .quiz-stat {

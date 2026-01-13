@@ -1151,6 +1151,48 @@
                     font-size: 0.875rem !important;
                 }
 
+                /* Fix striped belts on mobile */
+                .belt-brown-white,
+                .belt-brown-black,
+                .belt-black-1dan {
+                    padding-bottom: 2rem !important;
+                    min-height: 90px !important;
+                }
+                .belt-black-2dan {
+                    padding-bottom: 2.75rem !important;
+                    min-height: 100px !important;
+                }
+                .belt-black-3dan {
+                    padding-bottom: 3.5rem !important;
+                    min-height: 110px !important;
+                }
+                .belt-brown-white::after,
+                .belt-brown-black::after,
+                .belt-black-1dan::after {
+                    bottom: 8px !important;
+                    height: 4px !important;
+                }
+                .belt-black-2dan::before {
+                    bottom: 8px !important;
+                    height: 4px !important;
+                }
+                .belt-black-2dan::after {
+                    bottom: 18px !important;
+                    height: 4px !important;
+                }
+                .belt-black-3dan::before {
+                    bottom: 8px !important;
+                    height: 4px !important;
+                }
+                .belt-black-3dan::after {
+                    bottom: 18px !important;
+                    height: 4px !important;
+                }
+                .belt-black-3dan .belt-color::before {
+                    bottom: 28px !important;
+                    height: 4px !important;
+                }
+
                 /* Technique Grid - single column on mobile */
                 .technique-grid {
                     grid-template-columns: 1fr !important;
@@ -1527,7 +1569,7 @@
                         border-radius: 4px;
                     "
                 >
-                    v1.2.2
+                    v1.2.3
                 </p>
             </div>
         </header>

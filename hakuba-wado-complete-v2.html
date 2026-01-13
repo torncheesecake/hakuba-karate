@@ -303,12 +303,16 @@
             .belt-brown-white {
                 background: #92400e;
                 color: white;
-                border-top: 6px solid white;
+            }
+            .belt-brown-white .belt-color::before {
+                content: "◇ ";
             }
             .belt-brown-black {
                 background: #92400e;
                 color: white;
-                border-top: 6px solid #000;
+            }
+            .belt-brown-black .belt-color::before {
+                content: "◆ ";
             }
             .belt-black {
                 background: #000;
@@ -317,46 +321,26 @@
             .belt-black-1dan {
                 background: #000;
                 color: white;
-                border-bottom: 5px solid #fbbf24;
+            }
+            .belt-black-1dan .belt-color::after {
+                content: " ●";
+                color: #fbbf24;
             }
             .belt-black-2dan {
                 background: #000;
                 color: white;
-                border-bottom: 5px solid #fbbf24;
-                position: relative;
             }
-            .belt-black-2dan::after {
-                content: "";
-                position: absolute;
-                bottom: 11px;
-                left: 0;
-                right: 0;
-                height: 4px;
-                background: #fbbf24;
+            .belt-black-2dan .belt-color::after {
+                content: " ● ●";
+                color: #fbbf24;
             }
             .belt-black-3dan {
                 background: #000;
                 color: white;
-                border-bottom: 5px solid #fbbf24;
-                position: relative;
             }
-            .belt-black-3dan::before {
-                content: "";
-                position: absolute;
-                bottom: 11px;
-                left: 0;
-                right: 0;
-                height: 4px;
-                background: #fbbf24;
-            }
-            .belt-black-3dan::after {
-                content: "";
-                position: absolute;
-                bottom: 21px;
-                left: 0;
-                right: 0;
-                height: 4px;
-                background: #fbbf24;
+            .belt-black-3dan .belt-color::after {
+                content: " ● ● ●";
+                color: #fbbf24;
             }
 
             .technique-grid {
@@ -1479,7 +1463,7 @@
                         border-radius: 4px;
                     "
                 >
-                    v1.2.0
+                    v1.2.1
                 </p>
             </div>
         </header>
@@ -2084,14 +2068,29 @@
                                     "
                                 ></div>
 
-                                <button onclick="startQuiz()" class="btn-primary">Try Again</button>
-                                <button
-                                    onclick="exitQuiz()"
-                                    style="background: #6b7280; margin-left: 1rem"
-                                    class="btn-primary"
+                                <div
+                                    style="
+                                        display: flex;
+                                        flex-wrap: wrap;
+                                        gap: 1rem;
+                                        justify-content: center;
+                                    "
                                 >
-                                    Change Level
-                                </button>
+                                    <button
+                                        onclick="startQuiz()"
+                                        class="btn-primary"
+                                        style="width: auto"
+                                    >
+                                        Try Again
+                                    </button>
+                                    <button
+                                        onclick="exitQuiz()"
+                                        style="background: #6b7280; width: auto"
+                                        class="btn-primary"
+                                    >
+                                        Change Level
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

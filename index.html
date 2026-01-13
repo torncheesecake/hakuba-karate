@@ -1569,7 +1569,7 @@
                         border-radius: 4px;
                     "
                 >
-                    v1.2.4
+                    v1.2.5
                 </p>
             </div>
         </header>
@@ -1617,18 +1617,65 @@
                         </p>
                     </div>
 
-                    <!-- Overall Progress Bar -->
-                    <div class="progress-summary" id="overall-progress">
-                        <div class="progress-text" id="overall-progress-text">
-                            0 / 0 techniques learned
+                    <!-- Overall Progress Bar (Rainbow Belt Journey) -->
+                    <div
+                        class="progress-summary"
+                        id="overall-progress"
+                        style="flex-direction: column; gap: 0.75rem"
+                    >
+                        <div
+                            style="
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                width: 100%;
+                                flex-wrap: wrap;
+                                gap: 0.5rem;
+                            "
+                        >
+                            <div class="progress-text" style="font-weight: 700">
+                                Your Karate Journey
+                            </div>
+                            <div class="progress-text" id="overall-progress-text">
+                                0 / 0 techniques learned
+                            </div>
                         </div>
-                        <div class="progress-bar-large">
+                        <div style="position: relative; width: 100%">
                             <div
-                                class="progress-bar-large-fill"
-                                id="overall-progress-fill"
-                                style="width: 0%"
+                                id="rainbow-progress-bar"
+                                style="
+                                    height: 12px;
+                                    border-radius: 6px;
+                                    overflow: hidden;
+                                    display: flex;
+                                "
+                            ></div>
+                            <div
+                                id="progress-marker"
+                                style="
+                                    position: absolute;
+                                    top: -4px;
+                                    width: 4px;
+                                    height: 20px;
+                                    background: white;
+                                    border: 2px solid #374151;
+                                    border-radius: 2px;
+                                    transform: translateX(-50%);
+                                    left: 0%;
+                                    transition: left 0.3s ease;
+                                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                                "
                             ></div>
                         </div>
+                        <div
+                            id="current-belt-label"
+                            style="
+                                text-align: center;
+                                font-size: 0.95rem;
+                                color: #374151;
+                                font-weight: 600;
+                            "
+                        ></div>
                     </div>
 
                     <div class="belt-selector" id="belt-selector"></div>
@@ -3940,25 +3987,52 @@
                 const content = document.getElementById("belt-content");
                 const progress = getBeltProgress(key);
 
+                // Get belt color for progress bar
+                const beltColors = {
+                    "9th": "#dc2626", // Red
+                    "8th": "#fbbf24", // Yellow
+                    "7th": "#f97316", // Orange
+                    "6th": "#059669", // Green
+                    "5th": "#2563eb", // Blue
+                    "4th": "#7c3aed", // Purple
+                    "3rd": "#92400e", // Brown
+                    "2nd": "#92400e", // Brown
+                    "1st": "#92400e", // Brown
+                    Shodan: "#000", // Black
+                    Nidan: "#000", // Black
+                    Sandan: "#000", // Black
+                };
+                const beltColor = beltColors[key] || "#1e5ba8";
+
                 let html = '<div class="card">';
 
-                // Progress summary
+                // Progress summary with belt color
                 if (progress.total > 0) {
-                    html += '<div class="progress-summary">';
+                    html +=
+                        '<div class="progress-summary" style="flex-direction: column; gap: 0.75rem;">';
+                    html +=
+                        '<div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">';
+                    html +=
+                        '<div class="progress-text" style="font-weight: 700; color: ' +
+                        beltColor +
+                        ';">' +
+                        belt.color +
+                        " Progress</div>";
                     html +=
                         '<div class="progress-text">' +
                         progress.learned +
                         " / " +
                         progress.total +
-                        " learned</div>";
-                    html +=
-                        '<div class="progress-bar-large"><div class="progress-bar-large-fill" style="width: ' +
+                        " techniques (" +
                         progress.percentage +
-                        '%"></div></div>';
+                        "%)</div>";
+                    html += "</div>";
                     html +=
-                        '<div class="progress-text" style="text-align: right;">' +
+                        '<div class="progress-bar-large" style="width: 100%;"><div class="progress-bar-large-fill" style="width: ' +
                         progress.percentage +
-                        "%</div>";
+                        "%; background: " +
+                        beltColor +
+                        ';"></div></div>';
                     html += "</div>";
                 }
 
@@ -5098,40 +5172,111 @@
             }
 
             function updateOverallProgress() {
+                // Belt colors and data for rainbow bar
+                const beltColors = {
+                    "9th": { color: "#dc2626", name: "Red Belt" },
+                    "8th": { color: "#fbbf24", name: "Yellow Belt" },
+                    "7th": { color: "#f97316", name: "Orange Belt" },
+                    "6th": { color: "#059669", name: "Green Belt" },
+                    "5th": { color: "#2563eb", name: "Blue Belt" },
+                    "4th": { color: "#7c3aed", name: "Purple Belt" },
+                    "3rd": { color: "#92400e", name: "Brown Belt" },
+                    "2nd": { color: "#78350f", name: "Brown/White" },
+                    "1st": { color: "#451a03", name: "Brown/Black" },
+                    Shodan: { color: "#1f2937", name: "1st Dan" },
+                    Nidan: { color: "#111827", name: "2nd Dan" },
+                    Sandan: { color: "#000000", name: "3rd Dan" },
+                };
+
+                const beltKeys = Object.keys(beltData);
+                let beltStats = [];
                 let totalLearned = 0;
                 let totalTechniques = 0;
 
-                // Calculate total across all belts
-                Object.keys(beltData).forEach((beltKey) => {
+                // Calculate progress for each belt
+                beltKeys.forEach((beltKey) => {
                     const progress = getBeltProgress(beltKey);
+                    beltStats.push({
+                        key: beltKey,
+                        learned: progress.learned,
+                        total: progress.total,
+                        color: beltColors[beltKey]?.color || "#6b7280",
+                        name: beltColors[beltKey]?.name || beltKey,
+                    });
                     totalLearned += progress.learned;
                     totalTechniques += progress.total;
                 });
 
-                const percentage =
-                    totalTechniques > 0 ? Math.round((totalLearned / totalTechniques) * 100) : 0;
+                // Build rainbow progress bar
+                const rainbowBar = document.getElementById("rainbow-progress-bar");
+                if (rainbowBar && totalTechniques > 0) {
+                    rainbowBar.innerHTML = "";
+
+                    beltStats.forEach((belt, index) => {
+                        if (belt.total > 0) {
+                            const widthPercent = (belt.total / totalTechniques) * 100;
+                            const segment = document.createElement("div");
+                            segment.style.cssText =
+                                "height: 100%; background: " +
+                                belt.color +
+                                "; width: " +
+                                widthPercent +
+                                "%;";
+
+                            // Add subtle divider between segments (except last)
+                            if (index < beltStats.length - 1) {
+                                segment.style.borderRight = "1px solid rgba(255,255,255,0.3)";
+                            }
+
+                            // Dim incomplete sections to show progress
+                            if (belt.learned === belt.total && belt.total > 0) {
+                                segment.style.opacity = "1";
+                            } else if (belt.learned > 0) {
+                                segment.style.opacity = "0.85";
+                            } else {
+                                segment.style.opacity = "0.5";
+                            }
+
+                            rainbowBar.appendChild(segment);
+                        }
+                    });
+                }
+
+                // Position marker based on learned techniques
+                const marker = document.getElementById("progress-marker");
+                const percentage = totalTechniques > 0 ? (totalLearned / totalTechniques) * 100 : 0;
+                if (marker) {
+                    marker.style.left = percentage + "%";
+                }
+
+                // Find current belt (first one not fully completed)
+                let currentBeltName = "Getting Started";
+                for (let i = 0; i < beltStats.length; i++) {
+                    const belt = beltStats[i];
+                    if (belt.learned < belt.total) {
+                        currentBeltName = "Working on: " + belt.name;
+                        break;
+                    } else if (i === beltStats.length - 1 && belt.learned === belt.total) {
+                        currentBeltName = "Master - All Belts Complete!";
+                    }
+                }
 
                 // Update UI
                 const progressText = document.getElementById("overall-progress-text");
-                const progressFill = document.getElementById("overall-progress-fill");
+                const beltLabel = document.getElementById("current-belt-label");
 
                 if (progressText) {
                     progressText.textContent =
                         totalLearned +
                         " / " +
                         totalTechniques +
-                        " techniques learned (" +
-                        percentage +
+                        " techniques (" +
+                        Math.round(percentage) +
                         "%)";
                 }
 
-                if (progressFill) {
-                    progressFill.style.width = percentage + "%";
-                    if (percentage === 100) {
-                        progressFill.style.background = "#059669";
-                    } else {
-                        progressFill.style.background = "#1e5ba8";
-                    }
+                if (beltLabel) {
+                    beltLabel.textContent = currentBeltName;
                 }
             }
 

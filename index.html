@@ -1569,7 +1569,7 @@
                         border-radius: 4px;
                     "
                 >
-                    v1.2.3
+                    v1.2.4
                 </p>
             </div>
         </header>
@@ -1615,6 +1615,20 @@
                             Click on your current belt to see the complete syllabus and techniques
                             you need to learn for your next grading.
                         </p>
+                    </div>
+
+                    <!-- Overall Progress Bar -->
+                    <div class="progress-summary" id="overall-progress">
+                        <div class="progress-text" id="overall-progress-text">
+                            0 / 0 techniques learned
+                        </div>
+                        <div class="progress-bar-large">
+                            <div
+                                class="progress-bar-large-fill"
+                                id="overall-progress-fill"
+                                style="width: 0%"
+                            ></div>
+                        </div>
                     </div>
 
                     <div class="belt-selector" id="belt-selector"></div>
@@ -5078,6 +5092,47 @@
                         }
                     }
                 });
+
+                // Update overall progress bar
+                updateOverallProgress();
+            }
+
+            function updateOverallProgress() {
+                let totalLearned = 0;
+                let totalTechniques = 0;
+
+                // Calculate total across all belts
+                Object.keys(beltData).forEach((beltKey) => {
+                    const progress = getBeltProgress(beltKey);
+                    totalLearned += progress.learned;
+                    totalTechniques += progress.total;
+                });
+
+                const percentage =
+                    totalTechniques > 0 ? Math.round((totalLearned / totalTechniques) * 100) : 0;
+
+                // Update UI
+                const progressText = document.getElementById("overall-progress-text");
+                const progressFill = document.getElementById("overall-progress-fill");
+
+                if (progressText) {
+                    progressText.textContent =
+                        totalLearned +
+                        " / " +
+                        totalTechniques +
+                        " techniques learned (" +
+                        percentage +
+                        "%)";
+                }
+
+                if (progressFill) {
+                    progressFill.style.width = percentage + "%";
+                    if (percentage === 100) {
+                        progressFill.style.background = "#059669";
+                    } else {
+                        progressFill.style.background = "#1e5ba8";
+                    }
+                }
             }
 
             // Load progress on page load

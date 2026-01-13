@@ -303,16 +303,34 @@
             .belt-brown-white {
                 background: #92400e;
                 color: white;
+                position: relative;
+                padding-bottom: 1.75rem;
             }
-            .belt-brown-white .belt-color::before {
-                content: "◇ ";
+            .belt-brown-white::after {
+                content: "";
+                position: absolute;
+                bottom: 10px;
+                left: 15%;
+                right: 15%;
+                height: 5px;
+                background: white;
+                border-radius: 2px;
             }
             .belt-brown-black {
                 background: #92400e;
                 color: white;
+                position: relative;
+                padding-bottom: 1.75rem;
             }
-            .belt-brown-black .belt-color::before {
-                content: "◆ ";
+            .belt-brown-black::after {
+                content: "";
+                position: absolute;
+                bottom: 10px;
+                left: 15%;
+                right: 15%;
+                height: 5px;
+                background: #000;
+                border-radius: 2px;
             }
             .belt-black {
                 background: #000;
@@ -321,26 +339,80 @@
             .belt-black-1dan {
                 background: #000;
                 color: white;
+                position: relative;
+                padding-bottom: 1.75rem;
             }
-            .belt-black-1dan .belt-color::after {
-                content: " ●";
-                color: #fbbf24;
+            .belt-black-1dan::after {
+                content: "";
+                position: absolute;
+                bottom: 10px;
+                left: 15%;
+                right: 15%;
+                height: 5px;
+                background: #fbbf24;
+                border-radius: 2px;
             }
             .belt-black-2dan {
                 background: #000;
                 color: white;
+                position: relative;
+                padding-bottom: 2.5rem;
             }
-            .belt-black-2dan .belt-color::after {
-                content: " ● ●";
-                color: #fbbf24;
+            .belt-black-2dan::before {
+                content: "";
+                position: absolute;
+                bottom: 10px;
+                left: 15%;
+                right: 15%;
+                height: 5px;
+                background: #fbbf24;
+                border-radius: 2px;
+            }
+            .belt-black-2dan::after {
+                content: "";
+                position: absolute;
+                bottom: 23px;
+                left: 15%;
+                right: 15%;
+                height: 5px;
+                background: #fbbf24;
+                border-radius: 2px;
             }
             .belt-black-3dan {
                 background: #000;
                 color: white;
+                position: relative;
+                padding-bottom: 3.25rem;
             }
-            .belt-black-3dan .belt-color::after {
-                content: " ● ● ●";
-                color: #fbbf24;
+            .belt-black-3dan::before {
+                content: "";
+                position: absolute;
+                bottom: 10px;
+                left: 15%;
+                right: 15%;
+                height: 5px;
+                background: #fbbf24;
+                border-radius: 2px;
+            }
+            .belt-black-3dan::after {
+                content: "";
+                position: absolute;
+                bottom: 23px;
+                left: 15%;
+                right: 15%;
+                height: 5px;
+                background: #fbbf24;
+                border-radius: 2px;
+            }
+            .belt-black-3dan .belt-color::before {
+                content: "";
+                position: absolute;
+                bottom: 36px;
+                left: 15%;
+                right: 15%;
+                height: 5px;
+                background: #fbbf24;
+                border-radius: 2px;
             }
 
             .technique-grid {
@@ -597,19 +669,11 @@
 
             /* Progress Tracking Styles */
             .belt-progress {
-                width: 100%;
-                height: 4px;
-                background: rgba(255, 255, 255, 0.3);
-                border-radius: 2px;
-                margin-top: 0.75rem;
-                overflow: hidden;
+                display: none;
             }
 
             .belt-progress-fill {
-                height: 100%;
-                background: rgba(255, 255, 255, 0.8);
-                border-radius: 2px;
-                transition: width 0.3s ease;
+                display: none;
             }
 
             .technique-card.learned {
@@ -1463,7 +1527,7 @@
                         border-radius: 4px;
                     "
                 >
-                    v1.2.1
+                    v1.2.2
                 </p>
             </div>
         </header>

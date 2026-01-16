@@ -1601,6 +1601,7 @@
                     <button class="nav-button" data-tab="terminology">Terminology</button>
                     <button class="nav-button" data-tab="study">Study Mode</button>
                     <button class="nav-button" data-tab="grading">Grading Checklist</button>
+                    <button class="nav-button" data-tab="search">Search</button>
                 </div>
             </div>
         </nav>
@@ -2993,6 +2994,41 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Search Tab -->
+                <div id="search-tab" class="tab-content">
+                    <div class="card">
+                        <h2>Search</h2>
+                        <p>Search across all techniques, terminology, and belt requirements.</p>
+
+                        <div style="margin: 1.5rem 0">
+                            <input
+                                type="text"
+                                id="search-input"
+                                placeholder="Search for a technique, term, or translation..."
+                                oninput="performSearch()"
+                                style="
+                                    width: 100%;
+                                    padding: 1rem 1.25rem;
+                                    font-size: 1.125rem;
+                                    border: 2px solid #e5e7eb;
+                                    border-radius: 0.5rem;
+                                    outline: none;
+                                    transition: border-color 0.2s;
+                                "
+                                onfocus="this.style.borderColor = '#1e5ba8'"
+                                onblur="this.style.borderColor = '#e5e7eb'"
+                            />
+                        </div>
+
+                        <div
+                            id="search-results-count"
+                            style="margin-bottom: 1rem; color: #6b7280; font-size: 1rem"
+                        ></div>
+
+                        <div id="search-results"></div>
+                    </div>
+                </div>
             </div>
         </main>
 
@@ -4353,6 +4389,11 @@
             document.addEventListener("DOMContentLoaded", function () {
                 initBeltSelector();
                 initTabs();
+                // Load saved quiz belt level
+                const savedQuizBelt = localStorage.getItem("quizBeltLevel");
+                if (savedQuizBelt !== null) {
+                    document.getElementById("belt-slider").value = savedQuizBelt;
+                }
                 updateBeltDisplay(); // Initialize belt slider display
             });
 
@@ -4760,6 +4801,7 @@
 
             function updateBeltDisplay() {
                 const sliderValue = parseInt(document.getElementById("belt-slider").value);
+                localStorage.setItem("quizBeltLevel", sliderValue);
                 const belt = beltLevels[sliderValue];
 
                 // Update badge
@@ -4790,6 +4832,32 @@
                 document.getElementById("quiz-progress-fill").style.width = progress + "%";
             }
 
+            // Spaced repetition - track wrong answers
+            function getQuizHistory() {
+                const data = localStorage.getItem("quizHistory");
+                return data ? JSON.parse(data) : {};
+            }
+
+            function saveQuizHistory(history) {
+                localStorage.setItem("quizHistory", JSON.stringify(history));
+            }
+
+            function recordQuizAnswer(term, correct) {
+                const history = getQuizHistory();
+                if (!history[term]) {
+                    history[term] = { wrong: 0, correct: 0, lastSeen: 0 };
+                }
+                if (correct) {
+                    history[term].correct++;
+                    // Reduce wrong count on correct answer (but not below 0)
+                    history[term].wrong = Math.max(0, history[term].wrong - 1);
+                } else {
+                    history[term].wrong++;
+                }
+                history[term].lastSeen = Date.now();
+                saveQuizHistory(history);
+            }
+
             function startQuiz() {
                 // Reset
                 score = 0;
@@ -4809,10 +4877,29 @@
                 // Filter questions by included belts
                 let availableTerms = quizTerms.filter((q) => beltIds.includes(q.belt));
 
-                // Shuffle and select 10 questions
-                currentQuiz = availableTerms
-                    .sort(() => Math.random() - 0.5)
-                    .slice(0, Math.min(10, availableTerms.length));
+                // Spaced repetition: prioritize terms that were answered wrong
+                const history = getQuizHistory();
+                availableTerms = availableTerms.map((term) => {
+                    const record = history[term.term] || { wrong: 0, correct: 0, lastSeen: 0 };
+                    // Calculate priority score: more wrong answers = higher priority
+                    // Also boost terms not seen recently
+                    const daysSinceLastSeen =
+                        (Date.now() - record.lastSeen) / (1000 * 60 * 60 * 24);
+                    const priority =
+                        record.wrong * 3 +
+                        (daysSinceLastSeen > 7 ? 2 : 0) +
+                        (record.correct === 0 ? 1 : 0);
+                    return { ...term, priority };
+                });
+
+                // Sort by priority (highest first), then shuffle within same priority
+                availableTerms.sort((a, b) => {
+                    if (b.priority !== a.priority) return b.priority - a.priority;
+                    return Math.random() - 0.5;
+                });
+
+                // Select 10 questions (prioritized terms first)
+                currentQuiz = availableTerms.slice(0, Math.min(10, availableTerms.length));
 
                 // Initialize category stats
                 currentQuiz.forEach((q) => {
@@ -4914,6 +5001,9 @@
 
                 const isCorrect = selected === correct;
                 const question = currentQuiz[currentQuestion];
+
+                // Record for spaced repetition
+                recordQuizAnswer(question.term, isCorrect);
 
                 if (isCorrect) {
                     score++;
@@ -5570,6 +5660,168 @@
                 }
                 saveGradingChecklist();
                 updateGradingChecklist();
+            }
+
+            // Search functionality
+            function performSearch() {
+                const query = document.getElementById("search-input").value.toLowerCase().trim();
+                const resultsDiv = document.getElementById("search-results");
+                const countDiv = document.getElementById("search-results-count");
+
+                if (query.length < 2) {
+                    resultsDiv.innerHTML =
+                        '<p style="color: #6b7280;">Enter at least 2 characters to search.</p>';
+                    countDiv.textContent = "";
+                    return;
+                }
+
+                let results = [];
+
+                // Search quizTerms (terminology)
+                quizTerms.forEach((item) => {
+                    if (
+                        item.term.toLowerCase().includes(query) ||
+                        item.answer.toLowerCase().includes(query) ||
+                        item.category.toLowerCase().includes(query)
+                    ) {
+                        results.push({
+                            type: "Terminology",
+                            japanese: item.term,
+                            english: item.answer,
+                            category: item.category,
+                            belt: item.belt,
+                        });
+                    }
+                });
+
+                // Search beltData (techniques from syllabus)
+                Object.keys(beltData).forEach((beltKey) => {
+                    const belt = beltData[beltKey];
+
+                    // Search kihon
+                    if (belt.kihon && belt.kihon.list) {
+                        belt.kihon.list.forEach((tech) => {
+                            if (
+                                tech.name.toLowerCase().includes(query) ||
+                                tech.translation.toLowerCase().includes(query)
+                            ) {
+                                results.push({
+                                    type: "Kihon",
+                                    japanese: tech.name,
+                                    english: tech.translation,
+                                    category: "Basic Technique",
+                                    belt: beltKey,
+                                });
+                            }
+                        });
+                    }
+
+                    // Search renraku
+                    if (belt.renraku && belt.renraku.list) {
+                        belt.renraku.list.forEach((tech) => {
+                            if (
+                                tech.name.toLowerCase().includes(query) ||
+                                tech.translation.toLowerCase().includes(query)
+                            ) {
+                                results.push({
+                                    type: "Renraku",
+                                    japanese: tech.name,
+                                    english: tech.translation,
+                                    category: "Combination",
+                                    belt: beltKey,
+                                });
+                            }
+                        });
+                    }
+
+                    // Search kata
+                    if (belt.kata && belt.kata.name.toLowerCase().includes(query)) {
+                        results.push({
+                            type: "Kata",
+                            japanese: belt.kata.name,
+                            english: "Form/Pattern",
+                            category: "Kata",
+                            belt: beltKey,
+                        });
+                    }
+                });
+
+                // Remove duplicates based on japanese name
+                const seen = new Set();
+                results = results.filter((item) => {
+                    const key = item.japanese.toLowerCase();
+                    if (seen.has(key)) return false;
+                    seen.add(key);
+                    return true;
+                });
+
+                // Sort by relevance (exact match first, then by belt level)
+                results.sort((a, b) => {
+                    const aExact =
+                        a.japanese.toLowerCase() === query || a.english.toLowerCase() === query;
+                    const bExact =
+                        b.japanese.toLowerCase() === query || b.english.toLowerCase() === query;
+                    if (aExact && !bExact) return -1;
+                    if (bExact && !aExact) return 1;
+                    return 0;
+                });
+
+                // Display results
+                countDiv.textContent =
+                    results.length + " result" + (results.length !== 1 ? "s" : "") + " found";
+
+                if (results.length === 0) {
+                    resultsDiv.innerHTML =
+                        '<p style="color: #6b7280;">No results found for "' + query + '"</p>';
+                    return;
+                }
+
+                const beltColors = {
+                    "9th": { bg: "#fef2f2", border: "#dc2626", name: "Red Belt" },
+                    "8th": { bg: "#fefce8", border: "#fbbf24", name: "Yellow Belt" },
+                    "7th": { bg: "#fff7ed", border: "#f97316", name: "Orange Belt" },
+                    "6th": { bg: "#f0fdf4", border: "#059669", name: "Green Belt" },
+                    "5th": { bg: "#eff6ff", border: "#2563eb", name: "Blue Belt" },
+                    "4th": { bg: "#faf5ff", border: "#7c3aed", name: "Purple Belt" },
+                    "3rd": { bg: "#fef3c7", border: "#92400e", name: "Brown Belt" },
+                    "2nd": { bg: "#fef3c7", border: "#78350f", name: "Brown/White" },
+                    "1st": { bg: "#fef3c7", border: "#451a03", name: "Brown/Black" },
+                    Shodan: { bg: "#f3f4f6", border: "#1f2937", name: "1st Dan" },
+                    Nidan: { bg: "#f3f4f6", border: "#111827", name: "2nd Dan" },
+                    Sandan: { bg: "#f3f4f6", border: "#000000", name: "3rd Dan" },
+                };
+
+                let html = '<div class="technique-grid">';
+                results.forEach((item) => {
+                    const beltInfo = beltColors[item.belt] || {
+                        bg: "#f9fafb",
+                        border: "#6b7280",
+                        name: item.belt,
+                    };
+                    html +=
+                        '<div class="technique-card" style="border-left: 4px solid ' +
+                        beltInfo.border +
+                        ';">';
+                    html += '<div class="japanese">' + item.japanese + "</div>";
+                    html += '<div class="english">' + item.english + "</div>";
+                    html +=
+                        '<div style="margin-top: 0.75rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">';
+                    html +=
+                        '<span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; background: ' +
+                        beltInfo.bg +
+                        '; border-radius: 0.25rem; color: #374151;">' +
+                        beltInfo.name +
+                        "</span>";
+                    html +=
+                        '<span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; background: #f3f4f6; border-radius: 0.25rem; color: #374151;">' +
+                        item.type +
+                        "</span>";
+                    html += "</div>";
+                    html += "</div>";
+                });
+                html += "</div>";
+
+                resultsDiv.innerHTML = html;
             }
 
             function updateGradingChecklist() {

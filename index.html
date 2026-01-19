@@ -120,17 +120,17 @@
 
             .nav-container {
                 display: flex;
-                overflow-x: auto;
-                gap: 0.5rem;
+                flex-wrap: wrap;
+                gap: 0.25rem;
             }
 
             .nav-button {
-                padding: 1.25rem 2rem;
+                padding: 1rem 1.25rem;
                 background: none;
                 border: none;
                 cursor: pointer;
                 font-weight: 600;
-                font-size: 1.125rem;
+                font-size: 1rem;
                 color: #6b7280;
                 border-bottom: 4px solid transparent;
                 white-space: nowrap;
@@ -984,7 +984,6 @@
                 display: block;
             }
 
-            /* Hide nav-label and nav-close on desktop */
             .nav-label {
                 display: none;
             }
@@ -993,7 +992,7 @@
                 display: none;
             }
 
-            /* MOBILE STYLES - Using 1400px to ensure navigation always fits */
+            /* MOBILE/TABLET STYLES - Switch to hamburger menu */
             @media screen and (max-width: 1400px) {
                 /* Header adjustments */
                 header {

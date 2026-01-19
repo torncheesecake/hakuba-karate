@@ -1616,6 +1616,29 @@
                 color: #1e5ba8;
                 font-weight: 600;
             }
+
+            /* Toast animations */
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes slideOut {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
         </style>
     </head>
     <body>
@@ -1654,7 +1677,7 @@
                                 border-radius: 4px;
                             "
                         >
-                            v1.2.7
+                            v1.2.8
                         </p>
                     </div>
                 </div>
@@ -1688,6 +1711,7 @@
                     <button class="nav-button" data-tab="terminology">Terminology</button>
                     <button class="nav-button" data-tab="study">Study Mode</button>
                     <button class="nav-button" data-tab="grading">Grading Checklist</button>
+                    <button class="nav-button" data-tab="achievements">Achievements</button>
                     <button class="nav-button" data-tab="search">Search</button>
                 </div>
             </div>
@@ -3396,6 +3420,63 @@
                     </div>
                 </div>
 
+                <!-- Achievements Tab -->
+                <div id="achievements-tab" class="tab-content">
+                    <div class="card">
+                        <h2>Achievements</h2>
+                        <p>
+                            Earn badges as you progress on your karate journey. Keep training to
+                            unlock them all!
+                        </p>
+
+                        <div
+                            id="achievements-summary"
+                            style="display: flex; gap: 2rem; margin: 2rem 0; flex-wrap: wrap"
+                        >
+                            <div
+                                style="
+                                    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+                                    padding: 1.5rem 2rem;
+                                    border-radius: 0.75rem;
+                                    color: white;
+                                    text-align: center;
+                                    min-width: 150px;
+                                "
+                            >
+                                <div style="font-size: 2.5rem; font-weight: 700" id="badges-earned">
+                                    0
+                                </div>
+                                <div style="font-size: 1rem; opacity: 0.9">Badges Earned</div>
+                            </div>
+                            <div
+                                style="
+                                    background: linear-gradient(135deg, #1e5ba8 0%, #1e40af 100%);
+                                    padding: 1.5rem 2rem;
+                                    border-radius: 0.75rem;
+                                    color: white;
+                                    text-align: center;
+                                    min-width: 150px;
+                                "
+                            >
+                                <div style="font-size: 2.5rem; font-weight: 700" id="badges-total">
+                                    12
+                                </div>
+                                <div style="font-size: 1rem; opacity: 0.9">Total Badges</div>
+                            </div>
+                        </div>
+
+                        <div
+                            id="achievements-grid"
+                            style="
+                                display: grid;
+                                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                                gap: 1.5rem;
+                                margin-top: 2rem;
+                            "
+                        ></div>
+                    </div>
+                </div>
+
                 <!-- Search Tab -->
                 <div id="search-tab" class="tab-content">
                     <div class="card">
@@ -4769,6 +4850,11 @@
                         this.classList.add("active");
                         document.getElementById(tabName + "-tab").classList.add("active");
 
+                        // Render achievements when tab is selected
+                        if (tabName === "achievements") {
+                            renderAchievements();
+                        }
+
                         // Close mobile menu when tab is clicked
                         closeMobileMenu();
                     });
@@ -4830,6 +4916,309 @@
                 { id: "Nidan", name: "Nidan", color: "2nd Dan", cssClass: "belt-black-2dan" },
                 { id: "Sandan", name: "Sandan", color: "3rd Dan", cssClass: "belt-black-3dan" },
             ];
+
+            // Achievement badges system
+            const badges = [
+                {
+                    id: "first_steps",
+                    name: "First Steps",
+                    icon: "🥋",
+                    description: "Mark your first technique as learned",
+                    check: (stats) => stats.techniquesLearned >= 1,
+                },
+                {
+                    id: "dedicated_student",
+                    name: "Dedicated Student",
+                    icon: "📚",
+                    description: "Complete 10 quizzes",
+                    check: (stats) => stats.quizzesCompleted >= 10,
+                },
+                {
+                    id: "sharpshooter",
+                    name: "Sharpshooter",
+                    icon: "🎯",
+                    description: "Get 100% on a quiz",
+                    check: (stats) => stats.perfectQuizzes >= 1,
+                },
+                {
+                    id: "on_fire",
+                    name: "On Fire",
+                    icon: "🔥",
+                    description: "Get 5 correct answers in a row",
+                    check: (stats) => stats.bestStreak >= 5,
+                },
+                {
+                    id: "belt_master",
+                    name: "Belt Master",
+                    icon: "🏆",
+                    description: "Learn all techniques for one belt",
+                    check: (stats) => stats.beltsCompleted >= 1,
+                },
+                {
+                    id: "scholar",
+                    name: "Scholar",
+                    icon: "📖",
+                    description: "Study all terminology categories in Focus Mode",
+                    check: (stats) => stats.categoriesStudied >= 8,
+                },
+                {
+                    id: "consistent",
+                    name: "Consistent",
+                    icon: "🗓️",
+                    description: "Practice 7 days in a row",
+                    check: (stats) => stats.practiceStreak >= 7,
+                },
+                {
+                    id: "century",
+                    name: "Century",
+                    icon: "💯",
+                    description: "Answer 100 quiz questions correctly",
+                    check: (stats) => stats.correctAnswers >= 100,
+                },
+                {
+                    id: "perfectionist",
+                    name: "Perfectionist",
+                    icon: "🥇",
+                    description: "Get 100% on 5 quizzes",
+                    check: (stats) => stats.perfectQuizzes >= 5,
+                },
+                {
+                    id: "rising_star",
+                    name: "Rising Star",
+                    icon: "⭐",
+                    description: "Earn 5 badges",
+                    check: (stats) => stats.badgesEarned >= 5,
+                },
+                {
+                    id: "quiz_warrior",
+                    name: "Quiz Warrior",
+                    icon: "⚔️",
+                    description: "Complete 50 quizzes",
+                    check: (stats) => stats.quizzesCompleted >= 50,
+                },
+                {
+                    id: "karate_master",
+                    name: "Karate Master",
+                    icon: "🐉",
+                    description: "Learn all techniques across all belts",
+                    check: (stats) => stats.allTechniquesLearned,
+                },
+            ];
+
+            // Get achievement stats from localStorage
+            function getAchievementStats() {
+                const saved = localStorage.getItem("hakubaAchievements");
+                const defaultStats = {
+                    techniquesLearned: 0,
+                    quizzesCompleted: 0,
+                    perfectQuizzes: 0,
+                    bestStreak: 0,
+                    currentStreak: 0,
+                    beltsCompleted: 0,
+                    categoriesStudied: 0,
+                    practiceStreak: 0,
+                    lastPracticeDate: null,
+                    correctAnswers: 0,
+                    badgesEarned: 0,
+                    allTechniquesLearned: false,
+                    unlockedBadges: [],
+                    studiedCategories: [],
+                };
+                if (saved) {
+                    return { ...defaultStats, ...JSON.parse(saved) };
+                }
+                return defaultStats;
+            }
+
+            // Save achievement stats
+            function saveAchievementStats(stats) {
+                localStorage.setItem("hakubaAchievements", JSON.stringify(stats));
+            }
+
+            // Check and unlock badges
+            function checkBadges() {
+                const stats = getAchievementStats();
+                let newBadges = [];
+
+                badges.forEach((badge) => {
+                    if (!stats.unlockedBadges.includes(badge.id) && badge.check(stats)) {
+                        stats.unlockedBadges.push(badge.id);
+                        newBadges.push(badge);
+                    }
+                });
+
+                stats.badgesEarned = stats.unlockedBadges.length;
+                saveAchievementStats(stats);
+
+                // Show toast for each new badge
+                newBadges.forEach((badge, index) => {
+                    setTimeout(() => showBadgeToast(badge), index * 1500);
+                });
+
+                return newBadges;
+            }
+
+            // Show badge unlock toast
+            function showBadgeToast(badge) {
+                const toast = document.createElement("div");
+                toast.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: linear-gradient(135deg, #1e5ba8 0%, #7c3aed 100%);
+                    color: white;
+                    padding: 1rem 1.5rem;
+                    border-radius: 0.75rem;
+                    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+                    z-index: 10000;
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    animation: slideIn 0.5s ease, slideOut 0.5s ease 3.5s forwards;
+                    max-width: 320px;
+                `;
+                toast.innerHTML = `
+                    <div style="font-size: 2.5rem;">${badge.icon}</div>
+                    <div>
+                        <div style="font-weight: 700; font-size: 1.1rem;">Badge Unlocked!</div>
+                        <div style="font-weight: 600;">${badge.name}</div>
+                        <div style="font-size: 0.875rem; opacity: 0.9;">${badge.description}</div>
+                    </div>
+                `;
+                document.body.appendChild(toast);
+                setTimeout(() => toast.remove(), 4000);
+            }
+
+            // Update stats when technique is learned
+            function updateTechniqueStats() {
+                const stats = getAchievementStats();
+                const learned = Object.keys(localStorage).filter((k) =>
+                    k.startsWith("learned_"),
+                ).length;
+                stats.techniquesLearned = learned;
+
+                // Check if any belt is complete
+                const beltTechniqueCounts = {};
+                Object.keys(beltData).forEach((belt) => {
+                    const techniques = [];
+                    if (beltData[belt].blocks) techniques.push(...beltData[belt].blocks);
+                    if (beltData[belt].kicks) techniques.push(...beltData[belt].kicks);
+                    if (beltData[belt].punches) techniques.push(...beltData[belt].punches);
+                    if (beltData[belt].combinations)
+                        techniques.push(...beltData[belt].combinations);
+                    beltTechniqueCounts[belt] = techniques.length;
+                });
+
+                let beltsCompleted = 0;
+                Object.keys(beltData).forEach((belt) => {
+                    const learnedForBelt = Object.keys(localStorage).filter((k) =>
+                        k.startsWith("learned_" + belt + "-"),
+                    ).length;
+                    if (
+                        learnedForBelt >= beltTechniqueCounts[belt] &&
+                        beltTechniqueCounts[belt] > 0
+                    ) {
+                        beltsCompleted++;
+                    }
+                });
+                stats.beltsCompleted = beltsCompleted;
+
+                // Check if all techniques learned
+                const totalTechniques = Object.values(beltTechniqueCounts).reduce(
+                    (a, b) => a + b,
+                    0,
+                );
+                stats.allTechniquesLearned = learned >= totalTechniques && totalTechniques > 0;
+
+                // Update practice streak
+                const today = new Date().toDateString();
+                if (stats.lastPracticeDate !== today) {
+                    const yesterday = new Date(Date.now() - 86400000).toDateString();
+                    if (stats.lastPracticeDate === yesterday) {
+                        stats.practiceStreak++;
+                    } else if (stats.lastPracticeDate !== today) {
+                        stats.practiceStreak = 1;
+                    }
+                    stats.lastPracticeDate = today;
+                }
+
+                saveAchievementStats(stats);
+                checkBadges();
+            }
+
+            // Update stats when quiz is completed
+            function updateQuizStats(score, total, currentStreakCount) {
+                const stats = getAchievementStats();
+                stats.quizzesCompleted++;
+                stats.correctAnswers += score;
+
+                if (score === total && total > 0) {
+                    stats.perfectQuizzes++;
+                }
+
+                if (currentStreakCount > stats.bestStreak) {
+                    stats.bestStreak = currentStreakCount;
+                }
+
+                // Update practice streak
+                const today = new Date().toDateString();
+                if (stats.lastPracticeDate !== today) {
+                    const yesterday = new Date(Date.now() - 86400000).toDateString();
+                    if (stats.lastPracticeDate === yesterday) {
+                        stats.practiceStreak++;
+                    } else {
+                        stats.practiceStreak = 1;
+                    }
+                    stats.lastPracticeDate = today;
+                }
+
+                saveAchievementStats(stats);
+                checkBadges();
+            }
+
+            // Update stats when category is studied
+            function updateCategoryStats(category) {
+                const stats = getAchievementStats();
+                if (!stats.studiedCategories.includes(category)) {
+                    stats.studiedCategories.push(category);
+                    stats.categoriesStudied = stats.studiedCategories.length;
+                    saveAchievementStats(stats);
+                    checkBadges();
+                }
+            }
+
+            // Render achievements page
+            function renderAchievements() {
+                const stats = getAchievementStats();
+                const grid = document.getElementById("achievements-grid");
+                const earnedEl = document.getElementById("badges-earned");
+                const totalEl = document.getElementById("badges-total");
+
+                earnedEl.textContent = stats.unlockedBadges.length;
+                totalEl.textContent = badges.length;
+
+                grid.innerHTML = badges
+                    .map((badge) => {
+                        const unlocked = stats.unlockedBadges.includes(badge.id);
+                        return `
+                        <div style="
+                            background: ${unlocked ? "white" : "#f3f4f6"};
+                            border: 2px solid ${unlocked ? "#1e5ba8" : "#e5e7eb"};
+                            border-radius: 0.75rem;
+                            padding: 1.5rem;
+                            text-align: center;
+                            opacity: ${unlocked ? "1" : "0.6"};
+                            transition: all 0.2s;
+                        ">
+                            <div style="font-size: 3rem; margin-bottom: 0.75rem; ${unlocked ? "" : "filter: grayscale(100%);"}">${badge.icon}</div>
+                            <div style="font-weight: 700; font-size: 1.25rem; color: ${unlocked ? "#1e5ba8" : "#9ca3af"}; margin-bottom: 0.5rem;">${badge.name}</div>
+                            <div style="color: ${unlocked ? "#4b5563" : "#9ca3af"}; font-size: 0.95rem;">${badge.description}</div>
+                            ${unlocked ? '<div style="margin-top: 0.75rem; color: #059669; font-weight: 600; font-size: 0.875rem;">✓ Unlocked</div>' : ""}
+                        </div>
+                    `;
+                    })
+                    .join("");
+            }
 
             const quizTerms = [
                 // 9th Kyu (Red Belt) - Absolute basics
@@ -5487,6 +5876,9 @@
                 document.getElementById("skipped-count").textContent = skipped;
                 document.getElementById("total-count").textContent = currentQuiz.length;
 
+                // Update achievement stats
+                updateQuizStats(correct, attempted, streakCount);
+
                 // Show category breakdown
                 let breakdownHTML =
                     '<h4 style="margin-bottom: 1rem; color: #111827; font-size: 1.125rem;">Performance by Category:</h4>';
@@ -5593,6 +5985,8 @@
                 // Re-render current belt to update UI
                 displayBelt(currentBelt);
                 updateBeltProgress();
+                // Update achievement stats
+                updateTechniqueStats();
             }
 
             function isLearned(techniqueId) {
@@ -5943,6 +6337,9 @@
                 document.getElementById("focus-category-select").style.display = "none";
                 document.getElementById("focus-content").style.display = "block";
                 document.getElementById("focus-title").textContent = category + " Terms";
+
+                // Update achievement stats for studied category
+                updateCategoryStats(category);
 
                 const terms = quizTerms.filter((q) => q.category === category);
                 const container = document.getElementById("focus-terms");

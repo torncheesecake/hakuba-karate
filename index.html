@@ -1488,15 +1488,81 @@
             /* Tablet adjustments */
             @media (min-width: 769px) and (max-width: 1024px) {
                 .belt-selector {
-                    grid-template-columns: repeat(2, 1fr);
+                    grid-template-columns: repeat(2, 1fr) !important;
                 }
 
                 .technique-grid {
-                    grid-template-columns: repeat(2, 1fr);
+                    grid-template-columns: repeat(2, 1fr) !important;
                 }
 
                 .counting-grid {
-                    grid-template-columns: repeat(5, 1fr);
+                    grid-template-columns: repeat(5, 1fr) !important;
+                }
+
+                .quiz-options {
+                    grid-template-columns: 1fr 1fr !important;
+                }
+
+                .quiz-stats {
+                    grid-template-columns: repeat(4, 1fr) !important;
+                }
+
+                /* Keep hamburger menu on tablets */
+                .hamburger {
+                    display: flex !important;
+                }
+
+                .nav-container {
+                    position: fixed !important;
+                    top: 0 !important;
+                    right: -300px !important;
+                    width: 280px !important;
+                    height: 100vh !important;
+                    height: 100dvh !important;
+                    background: white !important;
+                    flex-direction: column !important;
+                    overflow-y: auto !important;
+                    z-index: 150 !important;
+                    transition: right 0.3s ease !important;
+                    padding: 4rem 0 2rem 0 !important;
+                    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1) !important;
+                }
+
+                .nav-container.active {
+                    right: 0 !important;
+                }
+
+                .nav-button {
+                    display: block !important;
+                    padding: 1rem 1.5rem !important;
+                    text-align: left !important;
+                    border-bottom: 1px solid #e5e7eb !important;
+                    width: 100% !important;
+                }
+
+                .nav-label {
+                    display: block !important;
+                }
+
+                .nav-close {
+                    display: block !important;
+                }
+
+                nav .container {
+                    display: flex !important;
+                    justify-content: space-between !important;
+                    align-items: center !important;
+                }
+
+                /* Header layout for tablet */
+                .header-content {
+                    flex-direction: row !important;
+                    text-align: left !important;
+                }
+
+                .logo-container img {
+                    height: 70px !important;
+                    width: 70px !important;
                 }
             }
 

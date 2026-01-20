@@ -4955,10 +4955,47 @@
                     html += "</ul></div>";
                 }
 
+                // Add "I passed this grading" button
+                const stats = getAchievementStats();
+                const hasEarnedBelt = stats.earnedBelts && stats.earnedBelts.includes(key);
+
+                html +=
+                    '<div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #e5e7eb;">';
+                if (hasEarnedBelt) {
+                    html +=
+                        '<div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border-radius: 0.75rem; border: 2px solid #059669;">';
+                    html += '<span style="font-size: 2rem;">🎉</span>';
+                    html += "<div>";
+                    html +=
+                        '<div style="font-weight: 700; color: #059669; font-size: 1.1rem;">Grading Passed!</div>';
+                    html +=
+                        '<div style="color: #047857;">Congratulations on earning your ' +
+                        belt.color +
+                        "</div>";
+                    html += "</div>";
+                    html +=
+                        "<button onclick=\"unmarkBeltEarned('" +
+                        key +
+                        '\')" style="margin-left: auto; padding: 0.5rem 1rem; background: transparent; border: 1px solid #059669; color: #059669; border-radius: 0.5rem; cursor: pointer; font-size: 0.875rem;">Undo</button>';
+                    html += "</div>";
+                } else {
+                    html +=
+                        "<button onclick=\"markBeltEarned('" +
+                        key +
+                        '\')" class="btn-primary" style="width: 100%; padding: 1rem; font-size: 1.1rem; background: linear-gradient(135deg, ' +
+                        beltColor +
+                        " 0%, " +
+                        beltColor +
+                        'dd 100%);">';
+                    html += "🏅 I Passed My " + belt.color + " Grading!";
+                    html += "</button>";
+                }
+                html += "</div>";
+
                 html +=
                     '<a href="' +
                     belt.pdf +
-                    '" target="_blank" class="btn-primary">Download Full Syllabus PDF →</a>';
+                    '" target="_blank" class="btn-primary" style="margin-top: 1rem;">Download Full Syllabus PDF →</a>';
                 html += "</div>";
 
                 content.innerHTML = html;
@@ -5172,6 +5209,113 @@
                     description: "Learn all techniques across all belts",
                     check: (stats) => stats.allTechniquesLearned,
                 },
+                // Belt grading achievements
+                {
+                    id: "red_belt",
+                    name: "9th Kyū",
+                    icon: "🟥",
+                    description: "Pass your Red Belt grading",
+                    check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("9th"),
+                },
+                {
+                    id: "yellow_belt",
+                    name: "8th Kyū",
+                    icon: "🟨",
+                    description: "Pass your Yellow Belt grading",
+                    check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("8th"),
+                },
+                {
+                    id: "orange_belt",
+                    name: "7th Kyū",
+                    icon: "🟧",
+                    description: "Pass your Orange Belt grading",
+                    check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("7th"),
+                },
+                {
+                    id: "green_belt",
+                    name: "6th Kyū",
+                    icon: "🟩",
+                    description: "Pass your Green Belt grading",
+                    check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("6th"),
+                },
+                {
+                    id: "blue_belt",
+                    name: "5th Kyū",
+                    icon: "🟦",
+                    description: "Pass your Blue Belt grading",
+                    check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("5th"),
+                },
+                {
+                    id: "purple_belt",
+                    name: "4th Kyū",
+                    icon: "🟪",
+                    description: "Pass your Purple Belt grading",
+                    check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("4th"),
+                },
+                {
+                    id: "brown_belt",
+                    name: "3rd Kyū",
+                    icon: "🟫",
+                    description: "Pass your Brown Belt grading",
+                    check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("3rd"),
+                },
+                {
+                    id: "brown_white_belt",
+                    name: "2nd Kyū",
+                    icon: "🤎",
+                    description: "Pass your Brown & White Belt grading",
+                    check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("2nd"),
+                },
+                {
+                    id: "brown_black_belt",
+                    name: "1st Kyū",
+                    icon: "🖤",
+                    description: "Pass your Brown & Black Belt grading",
+                    check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("1st"),
+                },
+                {
+                    id: "shodan",
+                    name: "Shodan",
+                    icon: "⬛",
+                    description: "Achieve 1st Dan Black Belt",
+                    check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("Shodan"),
+                },
+                {
+                    id: "nidan",
+                    name: "Nidan",
+                    icon: "🏴",
+                    description: "Achieve 2nd Dan Black Belt",
+                    check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("Nidan"),
+                },
+                {
+                    id: "sandan",
+                    name: "Sandan",
+                    icon: "🎌",
+                    description: "Achieve 3rd Dan Black Belt",
+                    check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("Sandan"),
+                },
+                // Milestone achievements
+                {
+                    id: "ten_streak",
+                    name: "Unstoppable",
+                    icon: "⚡",
+                    description: "Get 10 correct answers in a row",
+                    check: (stats) => stats.bestStreak >= 10,
+                },
+                {
+                    id: "halfway_there",
+                    name: "Halfway There",
+                    icon: "🎯",
+                    description: "Complete 6 belt gradings",
+                    check: (stats) => stats.earnedBelts && stats.earnedBelts.length >= 6,
+                },
+                {
+                    id: "thousand_answers",
+                    name: "Knowledge Seeker",
+                    icon: "🧠",
+                    description: "Answer 1000 quiz questions correctly",
+                    check: (stats) => stats.correctAnswers >= 1000,
+                },
             ];
 
             // Get achievement stats from localStorage
@@ -5192,6 +5336,7 @@
                     allTechniquesLearned: false,
                     unlockedBadges: [],
                     studiedCategories: [],
+                    earnedBelts: [],
                 };
                 if (saved) {
                     return { ...defaultStats, ...JSON.parse(saved) };
@@ -5202,6 +5347,32 @@
             // Save achievement stats
             function saveAchievementStats(stats) {
                 localStorage.setItem("hakubaAchievements", JSON.stringify(stats));
+            }
+
+            // Mark a belt as earned (passed grading)
+            function markBeltEarned(beltKey) {
+                const stats = getAchievementStats();
+                if (!stats.earnedBelts) {
+                    stats.earnedBelts = [];
+                }
+                if (!stats.earnedBelts.includes(beltKey)) {
+                    stats.earnedBelts.push(beltKey);
+                    saveAchievementStats(stats);
+                    checkBadges();
+                    // Re-render to show updated state
+                    displayBelt(beltKey);
+                }
+            }
+
+            // Unmark a belt as earned
+            function unmarkBeltEarned(beltKey) {
+                const stats = getAchievementStats();
+                if (stats.earnedBelts) {
+                    stats.earnedBelts = stats.earnedBelts.filter((b) => b !== beltKey);
+                    saveAchievementStats(stats);
+                    // Re-render to show updated state
+                    displayBelt(beltKey);
+                }
             }
 
             // Check and unlock badges
@@ -5891,6 +6062,8 @@
                 currentQuestion = 0;
                 answered = false;
                 categoryStats = {};
+                streakCount = 0;
+                currentStreak = 0;
 
                 // Get selected belt level
                 const sliderValue = parseInt(document.getElementById("belt-slider").value);
@@ -6034,8 +6207,13 @@
                 if (isCorrect) {
                     score++;
                     categoryStats[question.category].correct++;
+                    currentStreak++;
+                    if (currentStreak > streakCount) {
+                        streakCount = currentStreak;
+                    }
                 } else {
                     categoryStats[question.category].incorrect++;
+                    currentStreak = 0;
                 }
 
                 // Update all buttons

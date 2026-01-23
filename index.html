@@ -101,6 +101,77 @@
                 padding: 2.5rem 0;
             }
 
+            /* Next Class Widget */
+            .next-class-widget {
+                background: linear-gradient(135deg, #059669, #10b981);
+                padding: 0.6rem 1rem;
+            }
+
+            .next-class-container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 1.5rem;
+                flex-wrap: wrap;
+            }
+
+            .next-class-dojo {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .next-class-label {
+                color: rgba(255, 255, 255, 0.9);
+                font-size: 1rem;
+            }
+
+            .next-class-select {
+                padding: 0.4rem 0.85rem;
+                border-radius: 1rem;
+                border: none;
+                font-size: 1rem;
+                font-weight: 500;
+                cursor: pointer;
+                background: rgba(255, 255, 255, 0.95);
+            }
+
+            .next-class-info {
+                color: white;
+                font-size: 1.1rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .next-class-title {
+                font-weight: 600;
+            }
+
+            .next-class-value {
+                opacity: 0.95;
+            }
+
+            /* Support Banner */
+            .support-banner {
+                background: linear-gradient(135deg, #ff5e5b, #ff8584);
+                padding: 0.5rem 1rem;
+                text-align: center;
+            }
+
+            .support-link {
+                color: white;
+                text-decoration: none;
+                font-size: 0.9rem;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .support-text-short {
+                display: none;
+            }
+
             .header-content {
                 display: flex;
                 align-items: center;
@@ -495,34 +566,84 @@
                 text-decoration: underline;
             }
 
-            .note-box {
-                background: white;
-                padding: 1.5rem;
-                border-radius: 0.5rem;
+            /* Belt header section with requirements */
+            .belt-header-section {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.75rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .requirements-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .req-label {
+                font-size: 0.8rem;
+                color: #6b7280;
+                font-weight: 500;
+            }
+
+            .req-chip {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+                padding: 0.4rem 0.75rem;
+                border-radius: 2rem;
+                font-size: 0.85rem;
+                font-weight: 500;
+                background: #f3f4f6;
+                color: #374151;
                 border: 1px solid #e5e7eb;
-                margin: 1.5rem 0 2rem 0;
-                font-size: 1.125rem;
-                line-height: 1.8;
+                text-decoration: none;
+                cursor: pointer;
+                transition:
+                    transform 0.15s,
+                    box-shadow 0.15s;
             }
 
-            .note-box strong {
-                color: #1e5ba8;
-                font-weight: 600;
+            .req-chip:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
 
-            .info-box {
-                background: white;
-                padding: 1.5rem;
-                border-radius: 0.5rem;
-                border: 1px solid #e5e7eb;
-                margin: 1.5rem 0 2rem 0;
-                font-size: 1.125rem;
-                line-height: 1.8;
+            .req-icon {
+                font-size: 1rem;
             }
 
-            .info-box strong {
-                color: #1e5ba8;
-                font-weight: 600;
+            .req-note {
+                background: linear-gradient(135deg, #fef3c7, #fef9c3);
+                border-color: #fcd34d;
+                color: #92400e;
+            }
+
+            .req-dojo {
+                background: linear-gradient(135deg, #dbeafe, #eff6ff);
+                border-color: #93c5fd;
+                color: #1e40af;
+            }
+
+            .req-belt {
+                background: linear-gradient(135deg, #dcfce7, #f0fdf4);
+                border-color: #86efac;
+                color: #166534;
+            }
+
+            @media (min-width: 768px) {
+                .belt-header-section {
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+
+                .requirements-container {
+                    justify-content: flex-end;
+                }
             }
 
             .dojo-kun {
@@ -729,6 +850,260 @@
                 background: #059669;
                 border-color: #059669;
                 color: white;
+            }
+
+            /* Progress Dashboard - Mobile First */
+            .progress-dashboard {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .dashboard-card {
+                background: white;
+                border: 1px solid #e5e7eb;
+                border-radius: 1rem;
+                padding: 1.25rem;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            }
+
+            .dashboard-header {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                margin-bottom: 1rem;
+            }
+
+            .dashboard-icon {
+                font-size: 1.75rem;
+                flex-shrink: 0;
+            }
+
+            .dashboard-title {
+                font-weight: 700;
+                font-size: 1.1rem;
+                color: #1f2937;
+            }
+
+            .dashboard-progress-bar {
+                position: relative;
+                margin-bottom: 0.75rem;
+            }
+
+            .rainbow-bar {
+                height: 14px;
+                border-radius: 7px;
+                overflow: hidden;
+                display: flex;
+            }
+
+            .progress-marker-new {
+                position: absolute;
+                top: -4px;
+                width: 6px;
+                height: 22px;
+                background: white;
+                border: 2px solid #374151;
+                border-radius: 3px;
+                transform: translateX(-50%);
+                left: 0%;
+                transition: left 0.3s ease;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            }
+
+            .dashboard-stats {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 1rem;
+                color: #4b5563;
+            }
+
+            .dashboard-belt {
+                font-weight: 600;
+                color: #1e5ba8;
+            }
+
+            /* Grading Dashboard Card */
+            .grading-dashboard {
+                background: linear-gradient(135deg, #1e5ba8 0%, #7c3aed 100%);
+                border: none;
+                color: white;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .grading-dashboard::before {
+                content: "";
+                position: absolute;
+                top: -50%;
+                right: -20%;
+                width: 200px;
+                height: 200px;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 50%;
+            }
+
+            .grading-dashboard .dashboard-header {
+                margin-bottom: 0;
+            }
+
+            .grading-dashboard .dashboard-title {
+                color: rgba(255, 255, 255, 0.9);
+                font-size: 0.9rem;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+
+            .grading-content {
+                display: flex;
+                align-items: center;
+                gap: 1.25rem;
+                position: relative;
+                z-index: 1;
+            }
+
+            .grading-ring {
+                position: relative;
+                width: 90px;
+                height: 90px;
+                flex-shrink: 0;
+            }
+
+            .grading-ring svg {
+                transform: rotate(-90deg);
+                width: 90px;
+                height: 90px;
+            }
+
+            .grading-ring .ring-bg {
+                fill: none;
+                stroke: rgba(255, 255, 255, 0.2);
+                stroke-width: 8;
+            }
+
+            .grading-ring .ring-progress {
+                fill: none;
+                stroke: #fbbf24;
+                stroke-width: 8;
+                stroke-linecap: round;
+                transition: stroke-dashoffset 0.5s ease;
+            }
+
+            .grading-ring-text {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+            }
+
+            .grading-ring-days {
+                font-size: 1.75rem;
+                font-weight: 800;
+                line-height: 1;
+                color: white;
+            }
+
+            .grading-ring-label {
+                font-size: 0.65rem;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                opacity: 0.9;
+            }
+
+            .grading-info {
+                flex: 1;
+            }
+
+            .grading-date-text {
+                font-size: 1.1rem;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+            }
+
+            .grading-motivation {
+                font-size: 0.95rem;
+                opacity: 0.9;
+                padding: 0.5rem 0.75rem;
+                background: rgba(255, 255, 255, 0.15);
+                border-radius: 0.5rem;
+                display: inline-block;
+            }
+
+            .grading-x-btn {
+                position: absolute;
+                top: 0.75rem;
+                right: 0.75rem;
+                background: rgba(255, 255, 255, 0.2);
+                border: none;
+                color: white;
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 1rem;
+                line-height: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 2;
+            }
+
+            .grading-x-btn:hover {
+                background: rgba(255, 255, 255, 0.3);
+            }
+
+            /* Set Grading Card */
+            .grading-set-card {
+                background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+                border: 2px dashed #cbd5e1;
+                text-align: center;
+                padding: 1.5rem;
+            }
+
+            .grading-set-card .dashboard-header {
+                justify-content: center;
+            }
+
+            .grading-prompt {
+                font-size: 1rem;
+                color: #64748b;
+                margin-bottom: 0.75rem;
+            }
+
+            .grading-input-new {
+                width: 100%;
+                max-width: 250px;
+                padding: 0.75rem 1rem;
+                border: 2px solid #cbd5e1;
+                border-radius: 0.75rem;
+                font-size: 1rem;
+                background: white;
+                cursor: pointer;
+                transition: border-color 0.2s;
+            }
+
+            .grading-input-new:hover {
+                border-color: #94a3b8;
+            }
+
+            .grading-input-new:focus {
+                outline: none;
+                border-color: #1e5ba8;
+            }
+
+            /* Desktop: Side by side */
+            @media (min-width: 768px) {
+                .progress-dashboard {
+                    flex-direction: row;
+                    align-items: stretch;
+                }
+
+                .dashboard-card {
+                    flex: 1;
+                }
             }
 
             .progress-summary {
@@ -1384,7 +1759,6 @@
                 }
 
                 .progress-text {
-                    text-align: center;
                     min-width: auto;
                 }
 
@@ -1494,6 +1868,61 @@
 
                 .quiz-stats {
                     grid-template-columns: 1fr;
+                }
+
+                /* Hide intro card description on mobile */
+                .intro-card {
+                    margin-bottom: 1.5rem !important;
+                }
+
+                .intro-card h2 {
+                    margin-bottom: 0 !important;
+                    font-size: 1.25rem !important;
+                }
+
+                .intro-description {
+                    display: none;
+                }
+
+                /* Next class widget mobile */
+                .next-class-widget {
+                    padding: 0.5rem 0.75rem;
+                }
+
+                .next-class-container {
+                    gap: 0.5rem;
+                }
+
+                .next-class-label {
+                    font-size: 0.75rem;
+                }
+
+                .next-class-select {
+                    padding: 0.25rem 0.5rem;
+                    font-size: 0.75rem;
+                }
+
+                .next-class-info {
+                    font-size: 0.8rem;
+                    gap: 0.35rem;
+                }
+
+                /* Support banner mobile */
+                .support-banner {
+                    padding: 0.4rem 0.75rem;
+                }
+
+                .support-link {
+                    font-size: 0.8rem;
+                    gap: 0.35rem;
+                }
+
+                .support-text {
+                    display: none;
+                }
+
+                .support-text-short {
+                    display: inline;
                 }
             }
 
@@ -2037,226 +2466,6 @@
                 color: #c4b5fd;
             }
 
-            /* Grading Countdown Styles */
-            .grading-countdown {
-                background: linear-gradient(135deg, #1e5ba8 0%, #7c3aed 100%);
-                border-radius: 1rem;
-                padding: 1.5rem;
-                margin-bottom: 1.5rem;
-                position: relative;
-                color: white;
-                overflow: hidden;
-            }
-
-            .grading-countdown::before {
-                content: "";
-                position: absolute;
-                top: -50%;
-                right: -20%;
-                width: 200px;
-                height: 200px;
-                background: rgba(255, 255, 255, 0.1);
-                border-radius: 50%;
-            }
-
-            .grading-countdown-content {
-                display: flex;
-                align-items: center;
-                gap: 1.5rem;
-                position: relative;
-                z-index: 1;
-            }
-
-            .grading-countdown-ring {
-                position: relative;
-                width: 100px;
-                height: 100px;
-                flex-shrink: 0;
-            }
-
-            .grading-countdown-ring svg {
-                transform: rotate(-90deg);
-                width: 100px;
-                height: 100px;
-            }
-
-            .grading-countdown-ring .ring-bg {
-                fill: none;
-                stroke: rgba(255, 255, 255, 0.2);
-                stroke-width: 8;
-            }
-
-            .grading-countdown-ring .ring-progress {
-                fill: none;
-                stroke: #fbbf24;
-                stroke-width: 8;
-                stroke-linecap: round;
-                transition: stroke-dashoffset 0.5s ease;
-            }
-
-            .grading-countdown-ring-text {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                text-align: center;
-            }
-
-            .grading-countdown-ring-days {
-                font-size: 1.75rem;
-                font-weight: 800;
-                line-height: 1;
-                color: white;
-            }
-
-            .grading-countdown-ring-label {
-                font-size: 0.7rem;
-                text-transform: uppercase;
-                letter-spacing: 0.05em;
-                opacity: 0.9;
-            }
-
-            .grading-countdown-info {
-                flex: 1;
-            }
-
-            .grading-countdown-title {
-                font-size: 0.85rem;
-                text-transform: uppercase;
-                letter-spacing: 0.1em;
-                opacity: 0.9;
-                margin-bottom: 0.25rem;
-            }
-
-            .grading-countdown-date {
-                font-size: 1.1rem;
-                font-weight: 600;
-                margin-bottom: 0.75rem;
-            }
-
-            .grading-countdown-breakdown {
-                display: flex;
-                gap: 1rem;
-                font-size: 0.85rem;
-                opacity: 0.9;
-            }
-
-            .grading-countdown-breakdown span {
-                display: flex;
-                align-items: center;
-                gap: 0.25rem;
-            }
-
-            .grading-countdown-message {
-                margin-top: 0.75rem;
-                padding: 0.5rem 0.75rem;
-                background: rgba(255, 255, 255, 0.15);
-                border-radius: 0.5rem;
-                font-size: 0.9rem;
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-            }
-
-            .grading-countdown-sessions {
-                margin-top: 0.5rem;
-                font-size: 0.85rem;
-                opacity: 0.85;
-            }
-
-            .grading-clear-btn {
-                position: absolute;
-                top: 0.75rem;
-                right: 0.75rem;
-                background: rgba(255, 255, 255, 0.2);
-                border: none;
-                font-size: 1.25rem;
-                color: white;
-                cursor: pointer;
-                padding: 0.25rem 0.5rem;
-                line-height: 1;
-                border-radius: 0.25rem;
-                transition: background 0.2s;
-                z-index: 2;
-            }
-
-            .grading-clear-btn:hover {
-                background: rgba(255, 255, 255, 0.3);
-            }
-
-            .grading-set {
-                margin-bottom: 1.5rem;
-            }
-
-            .grading-date-picker {
-                display: flex;
-                flex-direction: column;
-                gap: 1rem;
-                padding: 2rem;
-                background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-                border: 2px solid #e2e8f0;
-                border-radius: 1rem;
-                text-align: center;
-            }
-
-            .grading-date-picker-icon {
-                font-size: 3rem;
-                margin-bottom: 0.5rem;
-            }
-
-            .grading-date-picker-title {
-                font-size: 1.25rem;
-                font-weight: 700;
-                color: #1e5ba8;
-                margin-bottom: 0.25rem;
-            }
-
-            .grading-date-picker-subtitle {
-                font-size: 0.95rem;
-                color: #64748b;
-                margin-bottom: 1rem;
-            }
-
-            .grading-date-label {
-                display: none;
-            }
-
-            .grading-date-input {
-                padding: 1rem 1.5rem;
-                border: 2px solid #cbd5e1;
-                border-radius: 0.75rem;
-                font-size: 1.1rem;
-                text-align: center;
-                cursor: pointer;
-                background: white;
-                transition: all 0.2s;
-            }
-
-            .grading-date-input:focus {
-                outline: none;
-                border-color: #1e5ba8;
-                box-shadow: 0 0 0 3px rgba(30, 91, 168, 0.1);
-            }
-
-            .grading-date-input:hover {
-                border-color: #94a3b8;
-            }
-
-            @media (max-width: 600px) {
-                .grading-countdown-content {
-                    flex-direction: column;
-                    text-align: center;
-                }
-
-                .grading-countdown-breakdown {
-                    justify-content: center;
-                }
-
-                .grading-countdown-message {
-                    justify-content: center;
-                }
-            }
-
             /* Dark mode auth styles */
             body.dark-mode .auth-modal {
                 background: #1f2937;
@@ -2369,6 +2578,27 @@
             </div>
         </div>
 
+        <!-- Next Class Widget - At very top -->
+        <div id="next-class-widget" class="next-class-widget">
+            <div class="container next-class-container">
+                <div class="next-class-dojo">
+                    <span class="next-class-label">My dojo:</span>
+                    <select
+                        id="home-dojo-select"
+                        onchange="setHomeDojo(this.value)"
+                        class="next-class-select"
+                    >
+                        <option value="swindon">Swindon</option>
+                        <option value="mevagissey">Mevagissey</option>
+                    </select>
+                </div>
+                <div class="next-class-info">
+                    <span class="next-class-title">Next class:</span>
+                    <span id="next-class-display" class="next-class-value">Loading...</span>
+                </div>
+            </div>
+        </div>
+
         <header>
             <div class="container">
                 <div class="header-content">
@@ -2404,7 +2634,7 @@
                                 border-radius: 4px;
                             "
                         >
-                            v1.3.1
+                            v1.4.0
                         </p>
                     </div>
 
@@ -2472,57 +2702,6 @@
             </div>
         </header>
 
-        <!-- Next Class Widget -->
-        <div
-            id="next-class-widget"
-            style="background: linear-gradient(135deg, #059669, #10b981); padding: 0.75rem 1rem"
-        >
-            <div
-                class="container"
-                style="
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 1rem;
-                    flex-wrap: wrap;
-                "
-            >
-                <div style="display: flex; align-items: center; gap: 0.5rem">
-                    <span style="color: rgba(255, 255, 255, 0.9); font-size: 0.85rem"
-                        >My dojo:</span
-                    >
-                    <select
-                        id="home-dojo-select"
-                        onchange="setHomeDojo(this.value)"
-                        style="
-                            padding: 0.35rem 0.75rem;
-                            border-radius: 1rem;
-                            border: none;
-                            font-size: 0.85rem;
-                            font-weight: 500;
-                            cursor: pointer;
-                            background: rgba(255, 255, 255, 0.95);
-                        "
-                    >
-                        <option value="swindon">Swindon</option>
-                        <option value="mevagissey">Mevagissey</option>
-                    </select>
-                </div>
-                <div
-                    style="
-                        color: white;
-                        font-size: 0.95rem;
-                        display: flex;
-                        align-items: center;
-                        gap: 0.5rem;
-                    "
-                >
-                    <span style="font-weight: 600">Next class:</span>
-                    <span id="next-class-display" style="opacity: 0.95">Loading...</span>
-                </div>
-            </div>
-        </div>
-
         <div class="nav-overlay" id="nav-overlay" onclick="toggleMobileMenu()"></div>
         <nav>
             <div class="container">
@@ -2557,31 +2736,15 @@
             </div>
         </nav>
 
-        <div
-            style="
-                background: linear-gradient(135deg, #ff5e5b, #ff8584);
-                padding: 0.5rem 1rem;
-                text-align: center;
-            "
-        >
-            <a
-                href="https://ko-fi.com/torncheesecake"
-                target="_blank"
-                style="
-                    color: white;
-                    text-decoration: none;
-                    font-size: 0.9rem;
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                "
-            >
+        <div class="support-banner">
+            <a href="https://ko-fi.com/torncheesecake" target="_blank" class="support-link">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                     <path
                         d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.426 2.683-2.566 2.658-3.734 4.352.24 7.422-2.831 6.649-6.916zm-11.062 3.511c-1.246 1.453-4.011 3.976-4.011 3.976s-.121.119-.31.023c-.076-.057-.108-.09-.108-.09-.443-.441-3.368-3.049-4.034-3.954-.709-.965-1.041-2.7-.091-3.71.951-1.01 3.005-1.086 4.363.407 0 0 1.565-1.782 3.468-.963 1.904.82 1.832 3.011.723 4.311z"
                     />
                 </svg>
-                Enjoying the app? Support its development!
+                <span class="support-text">Enjoying the app? Support its development!</span>
+                <span class="support-text-short">Support the app!</span>
             </a>
         </div>
 
@@ -2589,134 +2752,92 @@
             <div class="container">
                 <!-- Belt Syllabus Tab -->
                 <div id="belts-tab" class="tab-content active">
-                    <div class="card">
+                    <div class="card intro-card">
                         <h2>Select Your Belt Level</h2>
-                        <p>
+                        <p class="intro-description">
                             Click on your current belt to see the complete syllabus and techniques
                             you need to learn for your next grading.
                         </p>
                     </div>
 
-                    <!-- Overall Progress Bar (Rainbow Belt Journey) -->
-                    <div
-                        class="progress-summary"
-                        id="overall-progress"
-                        style="flex-direction: column; gap: 0.75rem"
-                    >
-                        <div
-                            style="
-                                display: flex;
-                                justify-content: space-between;
-                                align-items: center;
-                                width: 100%;
-                                flex-wrap: wrap;
-                                gap: 0.5rem;
-                            "
-                        >
-                            <div class="progress-text" style="font-weight: 700">
-                                Your Karate Journey
+                    <!-- Progress Dashboard -->
+                    <div class="progress-dashboard">
+                        <!-- Journey Progress Card -->
+                        <div class="dashboard-card" id="overall-progress">
+                            <div class="dashboard-header">
+                                <span class="dashboard-icon">🥋</span>
+                                <span class="dashboard-title">Your Karate Journey</span>
                             </div>
-                            <div class="progress-text" id="overall-progress-text">
-                                0 / 0 techniques learned
+                            <div class="dashboard-progress-bar">
+                                <div id="rainbow-progress-bar" class="rainbow-bar"></div>
+                                <div id="progress-marker" class="progress-marker-new"></div>
+                            </div>
+                            <div class="dashboard-stats">
+                                <span id="overall-progress-text">0 / 0 techniques learned</span>
+                                <span id="current-belt-label" class="dashboard-belt"></span>
                             </div>
                         </div>
-                        <div style="position: relative; width: 100%">
-                            <div
-                                id="rainbow-progress-bar"
-                                style="
-                                    height: 12px;
-                                    border-radius: 6px;
-                                    overflow: hidden;
-                                    display: flex;
-                                "
-                            ></div>
-                            <div
-                                id="progress-marker"
-                                style="
-                                    position: absolute;
-                                    top: -4px;
-                                    width: 4px;
-                                    height: 20px;
-                                    background: white;
-                                    border: 2px solid #374151;
-                                    border-radius: 2px;
-                                    transform: translateX(-50%);
-                                    left: 0%;
-                                    transition: left 0.3s ease;
-                                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-                                "
-                            ></div>
-                        </div>
-                        <div
-                            id="current-belt-label"
-                            style="
-                                text-align: center;
-                                font-size: 0.95rem;
-                                color: #374151;
-                                font-weight: 600;
-                            "
-                        ></div>
-                    </div>
 
-                    <!-- Grading Countdown -->
-                    <div
-                        id="grading-countdown-container"
-                        class="grading-countdown"
-                        style="display: none"
-                    >
-                        <div class="grading-countdown-content">
-                            <div class="grading-countdown-ring">
-                                <svg viewBox="0 0 100 100">
-                                    <circle class="ring-bg" cx="50" cy="50" r="42"></circle>
-                                    <circle
-                                        class="ring-progress"
-                                        id="grading-ring-progress"
-                                        cx="50"
-                                        cy="50"
-                                        r="42"
-                                        stroke-dasharray="264"
-                                        stroke-dashoffset="0"
-                                    ></circle>
-                                </svg>
-                                <div class="grading-countdown-ring-text">
-                                    <div
-                                        class="grading-countdown-ring-days"
-                                        id="grading-days-count"
-                                    >
-                                        0
-                                    </div>
-                                    <div class="grading-countdown-ring-label">days</div>
-                                </div>
+                        <!-- Grading Countdown Card -->
+                        <div
+                            class="dashboard-card grading-dashboard"
+                            id="grading-countdown-container"
+                            style="display: none"
+                        >
+                            <button
+                                onclick="clearGradingDate()"
+                                class="grading-x-btn"
+                                title="Clear"
+                            >
+                                ×
+                            </button>
+                            <div class="dashboard-header">
+                                <span class="dashboard-icon">📅</span>
+                                <span class="dashboard-title">Next Grading</span>
                             </div>
-                            <div class="grading-countdown-info">
-                                <div class="grading-countdown-title">Next Grading</div>
-                                <div class="grading-countdown-date" id="grading-date-display"></div>
-                                <div class="grading-countdown-breakdown">
-                                    <span id="grading-weeks-display"></span>
-                                    <span id="grading-sessions-display"></span>
+                            <div class="grading-content">
+                                <div class="grading-ring">
+                                    <svg viewBox="0 0 100 100">
+                                        <circle class="ring-bg" cx="50" cy="50" r="42"></circle>
+                                        <circle
+                                            class="ring-progress"
+                                            id="grading-ring-progress"
+                                            cx="50"
+                                            cy="50"
+                                            r="42"
+                                            stroke-dasharray="264"
+                                            stroke-dashoffset="0"
+                                        ></circle>
+                                    </svg>
+                                    <div class="grading-ring-text">
+                                        <div class="grading-ring-days" id="grading-days-count">
+                                            0
+                                        </div>
+                                        <div class="grading-ring-label">days</div>
+                                    </div>
                                 </div>
-                                <div class="grading-countdown-message" id="grading-message"></div>
+                                <div class="grading-info">
+                                    <div class="grading-date-text" id="grading-date-display"></div>
+                                    <div class="grading-motivation" id="grading-message"></div>
+                                </div>
                             </div>
                         </div>
-                        <button
-                            onclick="clearGradingDate()"
-                            class="grading-clear-btn"
-                            title="Clear date"
+
+                        <!-- Set Grading Date Card -->
+                        <div
+                            class="dashboard-card grading-set-card"
+                            id="grading-set-container"
+                            style="display: none"
                         >
-                            ×
-                        </button>
-                    </div>
-                    <div id="grading-set-container" class="grading-set" style="display: none">
-                        <div class="grading-date-picker">
-                            <div class="grading-date-picker-icon">🥋</div>
-                            <div class="grading-date-picker-title">When's Your Next Grading?</div>
-                            <div class="grading-date-picker-subtitle">
-                                Set a date to track your countdown and stay motivated!
+                            <div class="dashboard-header">
+                                <span class="dashboard-icon">📅</span>
+                                <span class="dashboard-title">Next Grading</span>
                             </div>
+                            <div class="grading-prompt">When's your next grading?</div>
                             <input
                                 type="date"
                                 id="grading-date-input"
-                                class="grading-date-input"
+                                class="grading-input-new"
                                 onchange="setGradingDate(this.value)"
                             />
                         </div>
@@ -5024,7 +5145,7 @@
                     // Load progress (prefer cloud if exists, otherwise keep local)
                     if (cloudData.progress) {
                         if (cloudData.progress.currentBelt) {
-                            selectBelt(cloudData.progress.currentBelt);
+                            selectBelt(cloudData.progress.currentBelt, true);
                         }
                         if (cloudData.progress.notes) {
                             window.userNotes = {
@@ -6234,7 +6355,7 @@
                 displayBelt(savedBelt);
             }
 
-            function selectBelt(key) {
+            function selectBelt(key, skipScroll) {
                 currentBelt = key;
                 localStorage.setItem("selectedBelt", key);
                 document
@@ -6246,10 +6367,12 @@
                     beltButton.classList.add("active");
                 }
                 displayBelt(key);
-                // Scroll to the belt content
-                document
-                    .getElementById("belt-content")
-                    .scrollIntoView({ behavior: "smooth", block: "start" });
+                // Scroll to the belt content (unless skipScroll is true, e.g. on page load)
+                if (!skipScroll) {
+                    document
+                        .getElementById("belt-content")
+                        .scrollIntoView({ behavior: "smooth", block: "start" });
+                }
             }
 
             function getTechniqueCardHtml(key, tech, stanceInfo) {
@@ -6334,6 +6457,8 @@
                     html += "</div>";
                 }
 
+                // Belt header with requirements
+                html += '<div class="belt-header-section">';
                 html +=
                     '<div class="belt-indicator ' +
                     belt.cssClass +
@@ -6342,21 +6467,30 @@
                     " - " +
                     belt.color +
                     "</div>";
-                html += "<h2>Syllabus Requirements</h2>";
 
-                if (belt.note) {
-                    html += '<div class="note-box"><strong>Note:</strong> ' + belt.note + "</div>";
-                }
+                // Build compact requirements
+                if (belt.note || belt.dojoKun || belt.beltTying) {
+                    html += '<div class="requirements-container">';
+                    html += '<span class="req-label">Also required:</span>';
 
-                if (belt.dojoKun) {
-                    html +=
-                        '<div class="info-box"><strong>Required:</strong> You will be tested on the Dojo Kun (recited in Japanese and English) at this grading.</div>';
-                }
+                    if (belt.note) {
+                        html +=
+                            '<a href="#" onclick="switchTab(\'terminology\'); return false;" class="req-chip req-note"><span class="req-icon">📋</span><span>Japanese commands</span></a>';
+                    }
 
-                if (belt.beltTying) {
-                    html +=
-                        '<div class="info-box"><strong>Required:</strong> You will be tested on correct traditional Wado-ryu belt-tying technique (Hon-Musubi 本結び). See the Belt Tying tab for detailed instructions.</div>';
+                    if (belt.dojoKun) {
+                        html +=
+                            '<a href="#" onclick="switchTab(\'dojo-kun\'); return false;" class="req-chip req-dojo"><span class="req-icon">📜</span><span>Recite Dojo Kun</span></a>';
+                    }
+
+                    if (belt.beltTying) {
+                        html +=
+                            '<a href="#" onclick="switchTab(\'belt-tying\'); return false;" class="req-chip req-belt"><span class="req-icon">🥋</span><span>Belt tying</span></a>';
+                    }
+
+                    html += "</div>";
                 }
+                html += "</div>"; // close belt-header-section
 
                 if (belt.kihon) {
                     html += "<h3>Kihon-Waza (Fundamental Techniques)</h3>";
@@ -7700,80 +7834,51 @@
                             weekday: "long",
                             day: "numeric",
                             month: "long",
-                            year: "numeric",
                         });
-
-                    // Calculate weeks and remaining days
-                    const weeks = Math.floor(diffDays / 7);
-                    const remainingDays = diffDays % 7;
-                    let weeksText = "";
-                    if (weeks > 0) {
-                        weeksText = weeks + " week" + (weeks !== 1 ? "s" : "");
-                        if (remainingDays > 0) {
-                            weeksText +=
-                                ", " + remainingDays + " day" + (remainingDays !== 1 ? "s" : "");
-                        }
-                    }
-                    document.getElementById("grading-weeks-display").textContent = weeksText
-                        ? "📅 " + weeksText
-                        : "";
-
-                    // Estimate training sessions (assuming 2 per week)
-                    const sessions = Math.floor(diffDays / 7) * 2;
-                    document.getElementById("grading-sessions-display").textContent =
-                        sessions > 0 ? "🥋 ~" + sessions + " training sessions" : "";
 
                     // Update progress ring (based on 90 days max)
                     const maxDays = 90;
                     const progress = Math.min(diffDays / maxDays, 1);
-                    const circumference = 2 * Math.PI * 42; // 264
+                    const circumference = 2 * Math.PI * 42; // ~264
                     const offset = circumference * (1 - progress);
                     const ringProgress = document.getElementById("grading-ring-progress");
                     if (ringProgress) {
                         ringProgress.style.strokeDashoffset = offset;
                         // Change color based on urgency
                         if (diffDays <= 7) {
-                            ringProgress.style.stroke = "#ef4444"; // Red
+                            ringProgress.style.stroke = "#ef4444"; // Red - urgent!
                         } else if (diffDays <= 21) {
-                            ringProgress.style.stroke = "#f59e0b"; // Orange
+                            ringProgress.style.stroke = "#f59e0b"; // Orange - getting close
                         } else {
-                            ringProgress.style.stroke = "#fbbf24"; // Yellow/Gold
+                            ringProgress.style.stroke = "#fbbf24"; // Yellow/Gold - plenty of time
                         }
                     }
 
                     // Motivational message based on time remaining
                     const messageEl = document.getElementById("grading-message");
                     let message = "";
-                    let emoji = "";
                     if (diffDays === 0) {
-                        emoji = "🎉";
-                        message = "Grading day is HERE! You've got this!";
+                        message = "🎉 Grading day! You've got this!";
                     } else if (diffDays === 1) {
-                        emoji = "⚡";
-                        message = "Tomorrow's the day! Rest well tonight.";
+                        message = "⚡ Tomorrow! Rest well tonight.";
                     } else if (diffDays <= 3) {
-                        emoji = "🔥";
-                        message = "Almost there! Final preparations!";
+                        message = "🔥 Almost there! Final preparations!";
                     } else if (diffDays <= 7) {
-                        emoji = "💪";
-                        message = "One week to go - stay focused!";
+                        message = "💪 One week to go - stay focused!";
                     } else if (diffDays <= 14) {
-                        emoji = "🎯";
-                        message = "Two weeks out - keep up the practice!";
+                        message = "🎯 Two weeks - keep practicing!";
                     } else if (diffDays <= 30) {
-                        emoji = "📈";
-                        message = "Good progress time - train consistently!";
+                        message = "📈 Train consistently!";
                     } else {
-                        emoji = "🌟";
-                        message = "Plenty of time to prepare - train hard!";
+                        message = "🌟 Plenty of time - train hard!";
                     }
-                    messageEl.innerHTML = emoji + " " + message;
+                    messageEl.textContent = message;
 
                     countdownContainer.style.display = "block";
                     setContainer.style.display = "none";
                 } else {
                     countdownContainer.style.display = "none";
-                    setContainer.style.display = "block";
+                    setContainer.style.display = "flex";
                     // Clear the date input when no date is set
                     if (dateInput) dateInput.value = "";
                 }
@@ -8217,7 +8322,7 @@
                 if (saved) {
                     const data = JSON.parse(saved);
                     if (data.currentBelt) {
-                        selectBelt(data.currentBelt);
+                        selectBelt(data.currentBelt, true);
                     }
                     if (data.quizHistory) {
                         quizHistory = data.quizHistory;
@@ -9299,6 +9404,8 @@
             function parseNextEvent(icsData) {
                 const now = new Date();
                 const events = [];
+                const lookAheadDays = 14; // Look 2 weeks ahead for recurring events
+                const maxDate = new Date(now.getTime() + lookAheadDays * 24 * 60 * 60 * 1000);
 
                 // Split into events
                 const eventBlocks = icsData.split("BEGIN:VEVENT");
@@ -9312,6 +9419,8 @@
 
                     const dtStr = dtStartMatch[1];
                     let eventDate;
+                    let eventHour = 0;
+                    let eventMinute = 0;
 
                     if (dtStr.length === 8) {
                         // All-day event: YYYYMMDD
@@ -9322,17 +9431,16 @@
                         );
                     } else {
                         // DateTime: YYYYMMDDTHHmmss
+                        eventHour = parseInt(dtStr.substr(9, 2));
+                        eventMinute = parseInt(dtStr.substr(11, 2));
                         eventDate = new Date(
                             parseInt(dtStr.substr(0, 4)),
                             parseInt(dtStr.substr(4, 2)) - 1,
                             parseInt(dtStr.substr(6, 2)),
-                            parseInt(dtStr.substr(9, 2)),
-                            parseInt(dtStr.substr(11, 2)),
+                            eventHour,
+                            eventMinute,
                         );
                     }
-
-                    // Skip past events
-                    if (eventDate < now) continue;
 
                     // Extract summary
                     const summaryMatch = block.match(/SUMMARY:(.+?)(?:\r?\n|$)/);
@@ -9349,7 +9457,56 @@
                         continue;
                     }
 
-                    events.push({ date: eventDate, summary: summary });
+                    // Check for recurring events (RRULE)
+                    const rruleMatch = block.match(/RRULE:(.+?)(?:\r?\n|$)/);
+                    if (rruleMatch) {
+                        const rrule = rruleMatch[1];
+                        // Handle weekly recurring events
+                        if (rrule.includes("FREQ=WEEKLY")) {
+                            // Extract BYDAY if present (e.g., BYDAY=SA for Saturday)
+                            const bydayMatch = rrule.match(/BYDAY=([A-Z,]+)/);
+                            const untilMatch = rrule.match(/UNTIL=(\d{8})/);
+
+                            // Check if event has ended
+                            if (untilMatch) {
+                                const untilStr = untilMatch[1];
+                                const untilDate = new Date(
+                                    parseInt(untilStr.substr(0, 4)),
+                                    parseInt(untilStr.substr(4, 2)) - 1,
+                                    parseInt(untilStr.substr(6, 2)),
+                                );
+                                if (untilDate < now) continue;
+                            }
+
+                            // Generate occurrences for the next 2 weeks
+                            const dayMap = { SU: 0, MO: 1, TU: 2, WE: 3, TH: 4, FR: 5, SA: 6 };
+                            let targetDays = [];
+
+                            if (bydayMatch) {
+                                targetDays = bydayMatch[1].split(",").map((d) => dayMap[d]);
+                            } else {
+                                // Use the original event's day of week
+                                targetDays = [eventDate.getDay()];
+                            }
+
+                            // Find next occurrences
+                            for (let dayOffset = 0; dayOffset <= lookAheadDays; dayOffset++) {
+                                const checkDate = new Date(now);
+                                checkDate.setDate(checkDate.getDate() + dayOffset);
+                                checkDate.setHours(eventHour, eventMinute, 0, 0);
+
+                                if (targetDays.includes(checkDate.getDay()) && checkDate > now) {
+                                    events.push({ date: new Date(checkDate), summary: summary });
+                                    break; // Only need the next occurrence
+                                }
+                            }
+                        }
+                    } else {
+                        // Non-recurring event - add if in future
+                        if (eventDate > now) {
+                            events.push({ date: eventDate, summary: summary });
+                        }
+                    }
                 }
 
                 // Sort by date and get the earliest
@@ -9372,6 +9529,30 @@
                 const savedDojo = localStorage.getItem("homeDojo") || "swindon";
                 document.getElementById("home-dojo-select").value = savedDojo;
                 fetchNextClass(savedDojo);
+
+                // Auto-refresh next class when page becomes visible or at midnight
+                document.addEventListener("visibilitychange", function () {
+                    if (!document.hidden) {
+                        const dojo = localStorage.getItem("homeDojo") || "swindon";
+                        fetchNextClass(dojo);
+                    }
+                });
+
+                // Check at midnight for date change
+                function scheduleNextMidnightRefresh() {
+                    const now = new Date();
+                    const tomorrow = new Date(now);
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    tomorrow.setHours(0, 0, 5, 0); // 5 seconds past midnight
+                    const msUntilMidnight = tomorrow - now;
+
+                    setTimeout(function () {
+                        const dojo = localStorage.getItem("homeDojo") || "swindon";
+                        fetchNextClass(dojo);
+                        scheduleNextMidnightRefresh(); // Schedule next one
+                    }, msUntilMidnight);
+                }
+                scheduleNextMidnightRefresh();
             });
 
             // Search functionality

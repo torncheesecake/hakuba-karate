@@ -4492,124 +4492,153 @@
                 <div id="calendar-tab" class="tab-content">
                     <div class="card">
                         <h2>Dojo Calendar</h2>
-                        <p>Upcoming classes, events, and gradings for Hakuba Karate.</p>
+                        <p>Upcoming classes, events, and gradings.</p>
 
-                        <div style="margin: 1.5rem 0; display: flex; gap: 0.75rem; flex-wrap: wrap">
-                            <button
-                                onclick="filterCalendar('all')"
-                                id="cal-filter-all"
-                                class="cal-filter-btn active"
-                                style="
-                                    padding: 0.75rem 1.25rem;
-                                    border-radius: 0.5rem;
-                                    border: 2px solid #1e5ba8;
-                                    background: #1e5ba8;
-                                    color: white;
-                                    font-weight: 600;
-                                    cursor: pointer;
-                                    transition: all 0.2s;
-                                "
-                            >
-                                All Locations
-                            </button>
-                            <button
-                                onclick="filterCalendar('swindon')"
-                                id="cal-filter-swindon"
-                                class="cal-filter-btn"
-                                style="
-                                    padding: 0.75rem 1.25rem;
-                                    border-radius: 0.5rem;
-                                    border: 2px solid #039be5;
-                                    background: white;
-                                    color: #039be5;
-                                    font-weight: 600;
-                                    cursor: pointer;
-                                    transition: all 0.2s;
-                                "
-                            >
-                                <span
+                        <!-- Location Filter -->
+                        <div
+                            style="
+                                margin: 1.5rem 0;
+                                display: flex;
+                                align-items: center;
+                                gap: 1rem;
+                                flex-wrap: wrap;
+                            "
+                        >
+                            <span style="font-weight: 600; color: #374151">Show:</span>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap">
+                                <button
+                                    onclick="filterCalendar('all')"
+                                    id="cal-filter-all"
+                                    class="cal-filter-btn"
                                     style="
-                                        display: inline-block;
-                                        width: 12px;
-                                        height: 12px;
-                                        background: #039be5;
-                                        border-radius: 50%;
-                                        margin-right: 0.5rem;
+                                        padding: 0.5rem 1rem;
+                                        border-radius: 2rem;
+                                        border: none;
+                                        background: #1e5ba8;
+                                        color: white;
+                                        font-weight: 500;
+                                        font-size: 0.9rem;
+                                        cursor: pointer;
+                                        transition: all 0.2s;
                                     "
-                                ></span>
-                                Swindon
-                            </button>
-                            <button
-                                onclick="filterCalendar('mevagissey')"
-                                id="cal-filter-mevagissey"
-                                class="cal-filter-btn"
-                                style="
-                                    padding: 0.75rem 1.25rem;
-                                    border-radius: 0.5rem;
-                                    border: 2px solid #9e69af;
-                                    background: white;
-                                    color: #9e69af;
-                                    font-weight: 600;
-                                    cursor: pointer;
-                                    transition: all 0.2s;
-                                "
-                            >
-                                <span
+                                >
+                                    All
+                                </button>
+                                <button
+                                    onclick="filterCalendar('swindon')"
+                                    id="cal-filter-swindon"
+                                    class="cal-filter-btn"
                                     style="
-                                        display: inline-block;
-                                        width: 12px;
-                                        height: 12px;
-                                        background: #9e69af;
-                                        border-radius: 50%;
-                                        margin-right: 0.5rem;
+                                        padding: 0.5rem 1rem;
+                                        border-radius: 2rem;
+                                        border: none;
+                                        background: #e5e7eb;
+                                        color: #374151;
+                                        font-weight: 500;
+                                        font-size: 0.9rem;
+                                        cursor: pointer;
+                                        transition: all 0.2s;
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 0.4rem;
                                     "
-                                ></span>
-                                Mevagissey
-                            </button>
+                                >
+                                    <span
+                                        style="
+                                            width: 10px;
+                                            height: 10px;
+                                            background: #039be5;
+                                            border-radius: 50%;
+                                        "
+                                    ></span>
+                                    Swindon
+                                </button>
+                                <button
+                                    onclick="filterCalendar('mevagissey')"
+                                    id="cal-filter-mevagissey"
+                                    class="cal-filter-btn"
+                                    style="
+                                        padding: 0.5rem 1rem;
+                                        border-radius: 2rem;
+                                        border: none;
+                                        background: #e5e7eb;
+                                        color: #374151;
+                                        font-weight: 500;
+                                        font-size: 0.9rem;
+                                        cursor: pointer;
+                                        transition: all 0.2s;
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 0.4rem;
+                                    "
+                                >
+                                    <span
+                                        style="
+                                            width: 10px;
+                                            height: 10px;
+                                            background: #9e69af;
+                                            border-radius: 50%;
+                                        "
+                                    ></span>
+                                    Mevagissey
+                                </button>
+                            </div>
                         </div>
 
+                        <!-- Calendar Embed -->
                         <div
-                            id="calendar-container"
                             style="
+                                background: white;
                                 border-radius: 0.75rem;
                                 overflow: hidden;
-                                border: 1px solid #e5e7eb;
+                                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
                             "
                         >
                             <iframe
                                 id="dojo-calendar"
-                                src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe/London&showPrint=0&mode=AGENDA&hl=en_GB&src=aGFrdWJhLndhZG9yeXUua2FyYXRlQGdtYWlsLmNvbQ&src=ZDg4MjliN2RjOGMzZmRkNjIyYjFlMWYyZTBlODIyNjNjODI1YWI2ZDNhNmExYzYzODYwNmU2M2I5M2FmNjViYUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23039be5&color=%239e69af"
-                                style="border: 0; width: 100%; height: 600px"
+                                src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe/London&showPrint=0&showTitle=0&showNav=1&showTabs=0&mode=AGENDA&hl=en_GB&src=aGFrdWJhLndhZG9yeXUua2FyYXRlQGdtYWlsLmNvbQ&src=ZDg4MjliN2RjOGMzZmRkNjIyYjFlMWYyZTBlODIyNjNjODI1YWI2ZDNhNmExYzYzODYwNmU2M2I5M2FmNjViYUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23039be5&color=%239e69af"
+                                style="border: 0; width: 100%; height: 500px"
                                 frameborder="0"
-                                scrolling="no"
                             ></iframe>
                         </div>
 
-                        <p style="margin-top: 1rem; font-size: 0.9rem; color: #6b7280">
-                            <span
-                                style="
-                                    display: inline-block;
-                                    width: 12px;
-                                    height: 12px;
-                                    background: #039be5;
-                                    border-radius: 50%;
-                                    margin-right: 0.25rem;
-                                "
-                            ></span>
-                            Swindon classes
-                            <span
-                                style="
-                                    margin-left: 1rem;
-                                    display: inline-block;
-                                    width: 12px;
-                                    height: 12px;
-                                    background: #9e69af;
-                                    border-radius: 50%;
-                                    margin-right: 0.25rem;
-                                "
-                            ></span>
-                            Mevagissey classes
-                        </p>
+                        <!-- Legend -->
+                        <div
+                            style="
+                                margin-top: 1rem;
+                                padding: 0.75rem 1rem;
+                                background: #f9fafb;
+                                border-radius: 0.5rem;
+                                display: flex;
+                                gap: 1.5rem;
+                                flex-wrap: wrap;
+                                font-size: 0.85rem;
+                                color: #6b7280;
+                            "
+                        >
+                            <span style="display: flex; align-items: center; gap: 0.35rem">
+                                <span
+                                    style="
+                                        width: 10px;
+                                        height: 10px;
+                                        background: #039be5;
+                                        border-radius: 50%;
+                                    "
+                                ></span>
+                                Swindon
+                            </span>
+                            <span style="display: flex; align-items: center; gap: 0.35rem">
+                                <span
+                                    style="
+                                        width: 10px;
+                                        height: 10px;
+                                        background: #9e69af;
+                                        border-radius: 50%;
+                                    "
+                                ></span>
+                                Mevagissey
+                            </span>
+                        </div>
                     </div>
                 </div>
 
@@ -9126,7 +9155,7 @@
             function filterCalendar(location) {
                 const iframe = document.getElementById("dojo-calendar");
                 const baseUrl =
-                    "https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe/London&showPrint=0&mode=AGENDA&hl=en_GB";
+                    "https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe/London&showPrint=0&showTitle=0&showNav=1&showTabs=0&mode=AGENDA&hl=en_GB";
 
                 // Calendar source IDs
                 const swindonSrc = "aGFrdWJhLndhZG9yeXUua2FyYXRlQGdtYWlsLmNvbQ"; // Blue
@@ -9153,15 +9182,13 @@
 
                 // Update button states
                 document.querySelectorAll(".cal-filter-btn").forEach((btn) => {
-                    btn.classList.remove("active");
-                    btn.style.background = "white";
-                    btn.style.color = btn.style.borderColor;
+                    btn.style.background = "#e5e7eb";
+                    btn.style.color = "#374151";
                 });
 
                 const activeBtn = document.getElementById("cal-filter-" + location);
                 if (activeBtn) {
-                    activeBtn.classList.add("active");
-                    activeBtn.style.background = activeBtn.style.borderColor;
+                    activeBtn.style.background = "#1e5ba8";
                     activeBtn.style.color = "white";
                 }
 

@@ -9611,21 +9611,44 @@
 
                 const feedUrl = CALENDAR_FEEDS[dojo];
 
-                // Use a CORS proxy to fetch the calendar
-                fetch("https://api.allorigins.win/raw?url=" + encodeURIComponent(feedUrl))
-                    .then((response) => response.text())
-                    .then((icsData) => {
-                        const nextEvent = parseNextEvent(icsData);
-                        if (nextEvent) {
-                            display.textContent = nextEvent;
-                        } else {
-                            display.textContent = "No upcoming classes";
-                        }
-                    })
-                    .catch((err) => {
-                        console.error("Failed to fetch calendar:", err);
+                // Try multiple CORS proxies with fallback
+                const corsProxies = [
+                    "https://api.allorigins.win/raw?url=",
+                    "https://corsproxy.io/?",
+                    "https://api.codetabs.com/v1/proxy?quest=",
+                ];
+
+                function tryProxy(index) {
+                    if (index >= corsProxies.length) {
                         display.textContent = "Check calendar tab";
-                    });
+                        return;
+                    }
+
+                    const proxyUrl = corsProxies[index] + encodeURIComponent(feedUrl);
+
+                    fetch(proxyUrl, { timeout: 8000 })
+                        .then((response) => {
+                            if (!response.ok) throw new Error("Proxy failed");
+                            return response.text();
+                        })
+                        .then((icsData) => {
+                            if (!icsData || icsData.length < 100) {
+                                throw new Error("Invalid response");
+                            }
+                            const nextEvent = parseNextEvent(icsData);
+                            if (nextEvent) {
+                                display.textContent = nextEvent;
+                            } else {
+                                display.textContent = "No upcoming classes";
+                            }
+                        })
+                        .catch((err) => {
+                            console.warn("Proxy " + index + " failed:", err);
+                            tryProxy(index + 1);
+                        });
+                }
+
+                tryProxy(0);
             }
 
             function parseNextEvent(icsData) {

@@ -6804,6 +6804,37 @@
                 }
             }
 
+            // One-time migration to award XP for existing badges
+            function migrateExistingBadgeXP() {
+                const stats = getAchievementStats();
+
+                // Check if migration already done
+                if (stats.badgeXPMigrated) return;
+
+                // Calculate XP for all unlocked badges
+                let earnedXP = 0;
+                if (stats.unlockedBadges && stats.unlockedBadges.length > 0) {
+                    stats.unlockedBadges.forEach((badgeId) => {
+                        const badge = badges.find((b) => b.id === badgeId);
+                        if (badge && badge.xp) {
+                            earnedXP += badge.xp;
+                        }
+                    });
+
+                    // Add to existing XP (don't replace)
+                    stats.totalXP = (stats.totalXP || 0) + earnedXP;
+                    stats.level = calculateLevel(stats.totalXP);
+                }
+
+                // Mark migration as done
+                stats.badgeXPMigrated = true;
+                saveAchievementStats(stats);
+
+                if (earnedXP > 0) {
+                    console.log("Migrated " + earnedXP + " XP for existing badges");
+                }
+            }
+
             // Check and unlock badges
             function checkBadges() {
                 const stats = getAchievementStats();
@@ -8431,6 +8462,8 @@
                 setTimeout(updateBeltProgress, 100);
                 updateGradingCountdown();
                 updateDailyChallengeButton();
+                // Migrate XP for existing badges (one-time)
+                migrateExistingBadgeXP();
             });
 
             // ==========================================

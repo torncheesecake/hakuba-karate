@@ -2813,7 +2813,7 @@
                                 border-radius: 4px;
                             "
                         >
-                            v1.4.2
+                            v1.4.3
                         </p>
                     </div>
 
@@ -6522,6 +6522,11 @@
                 displayBelt(savedBelt);
             }
 
+            function toggleSection(header) {
+                const section = header.parentElement;
+                section.classList.toggle("collapsed");
+            }
+
             function selectBelt(key, skipScroll) {
                 currentBelt = key;
                 localStorage.setItem("selectedBelt", key);
@@ -6842,7 +6847,12 @@
                 }
 
                 if (belt.kata) {
+                    html += '<div class="collapsible-section">';
+                    html += '<div class="collapsible-header" onclick="toggleSection(this)">';
                     html += "<h3>Kata</h3>";
+                    html += '<span class="collapsible-toggle">▼</span>';
+                    html += "</div>";
+                    html += '<div class="collapsible-content">';
                     html +=
                         '<div class="info-box"><strong>Required Kata:</strong> ' +
                         belt.kata.name +
@@ -6896,10 +6906,16 @@
                     if (hasVideos) {
                         html += videoHtml;
                     }
+                    html += "</div></div>"; // close kata collapsible
                 }
 
                 if (belt.additional) {
+                    html += '<div class="collapsible-section">';
+                    html += '<div class="collapsible-header" onclick="toggleSection(this)">';
                     html += "<h3>Additional Requirements</h3>";
+                    html += '<span class="collapsible-toggle">▼</span>';
+                    html += "</div>";
+                    html += '<div class="collapsible-content">';
                     html += '<div class="sparring-section"><ul>';
                     if (belt.additional.jiyuGumite) {
                         html +=
@@ -6914,6 +6930,7 @@
                             "</li>";
                     }
                     html += "</ul></div>";
+                    html += "</div></div>";
                 }
 
                 // Add "I passed this grading" button

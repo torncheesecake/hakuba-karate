@@ -2813,7 +2813,7 @@
                                 border-radius: 4px;
                             "
                         >
-                            v1.4.4
+                            v1.4.5
                         </p>
                     </div>
 
@@ -6549,6 +6549,64 @@
                 section.classList.toggle("collapsed");
             }
 
+            // Kata step-by-step navigation
+            function showKataStep(kataName, stepIndex) {
+                const steps = window.kataStepsData[kataName];
+                if (!steps) return;
+
+                const step = steps[stepIndex];
+                const containerId = "kata-step-content-" + kataName.replace(/\s/g, "-");
+                const container = document.getElementById(containerId);
+                if (!container) return;
+
+                let html = "";
+                html += '<div style="margin-bottom: 1rem;">';
+                if (step.direction) {
+                    html += '<span style="display: inline-block; background: #dbeafe; color: #1e40af; padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.75rem;">' + step.direction + '</span>';
+                }
+                html += '<h3 style="font-size: 1.5rem; color: #1e5ba8; margin: 0.5rem 0;">' + step.japanese + "</h3>";
+                html += '<p style="font-size: 1.1rem; color: #374151; margin: 0;">' + step.english + "</p>";
+                html += "</div>";
+
+                html += '<div style="background: #f3f4f6; padding: 0.75rem 1rem; border-radius: 0.5rem; margin-bottom: 1rem;">';
+                html += '<span style="font-weight: 600; color: #6b7280;">Stance:</span> <span style="color: #374151;">' + step.stance + "</span>";
+                html += "</div>";
+
+                html += '<p style="color: #4b5563; line-height: 1.7;">' + step.description + "</p>";
+
+                container.innerHTML = html;
+
+                // Update progress
+                const progressId = "kata-progress-" + kataName.replace(/\s/g, "-");
+                const progressEl = document.getElementById(progressId);
+                if (progressEl) {
+                    progressEl.textContent = "Step " + step.num + " of " + (steps.length - 1);
+                }
+
+                window.currentKataStep[kataName] = stepIndex;
+            }
+
+            function nextKataStep(kataName) {
+                const steps = window.kataStepsData[kataName];
+                if (!steps) return;
+
+                let current = window.currentKataStep[kataName] || 0;
+                if (current < steps.length - 1) {
+                    showKataStep(kataName, current + 1);
+                }
+            }
+
+            function prevKataStep(kataName) {
+                let current = window.currentKataStep[kataName] || 0;
+                if (current > 0) {
+                    showKataStep(kataName, current - 1);
+                }
+            }
+
+            function goToKataStep(kataName, stepIndex) {
+                showKataStep(kataName, stepIndex);
+            }
+
             function selectBelt(key, skipScroll) {
                 currentBelt = key;
                 localStorage.setItem("selectedBelt", key);
@@ -6895,6 +6953,212 @@
                         Wanshu: "https://www.youtube.com/embed/0Ck8rk5xDwI?feature=oembed",
                     };
 
+                    // Kata step-by-step instructions
+                    const kataSteps = {
+                        "Pinan Nidan": [
+                            {
+                                num: 0,
+                                japanese: "Yōi",
+                                english: "Ready",
+                                direction: "",
+                                stance: "Shizen Hontai",
+                                description: "Natural stance, ready position",
+                            },
+                            {
+                                num: 1,
+                                japanese: "Tettsui Otoshi-uke",
+                                english: "Hammer downward block",
+                                direction: "Step left",
+                                stance: "Mahanmi no Nekoashi",
+                                description:
+                                    "Step out with left foot into back stance (side viewing). Perform left hammer downward block. Coordinate body dropping with downward technique.",
+                            },
+                            {
+                                num: 2,
+                                japanese: "Junzuki",
+                                english: "Lunge punch",
+                                direction: "Step forward",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "One step forward with right, perform right lunge punch. Use the 120° body twist to accelerate the punch.",
+                            },
+                            {
+                                num: 3,
+                                japanese: "Gedan-barai",
+                                english: "Lower sweeping block",
+                                direction: "Turn right 180°",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Turn to the right 180° and perform right lower sweeping block. Coordinate turning with sideward technique.",
+                            },
+                            {
+                                num: 4,
+                                japanese: "Tettsui Otoshi-uke",
+                                english: "Hammer downward block",
+                                direction: "Draw back",
+                                stance: "Migi Shizentai",
+                                description:
+                                    "Draw right foot half step back, perform right hammer downward block on right natural stance. Body goes up while technique goes down.",
+                            },
+                            {
+                                num: 5,
+                                japanese: "Junzuki",
+                                english: "Lunge punch",
+                                direction: "Step forward",
+                                stance: "Junzuki-dachi",
+                                description: "Perform left lunge punch stepping forward.",
+                            },
+                            {
+                                num: 6,
+                                japanese: "Gedan-barai",
+                                english: "Lower sweeping block",
+                                direction: "Turn left 90°",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Turn 90° to the left on right foot, perform left lower sweeping block on left lunge punch stance.",
+                            },
+                            {
+                                num: 7,
+                                japanese: "Jōdan-uke",
+                                english: "Head block",
+                                direction: "Step forward",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Take one step forward, perform right head block (upward block) on right lunge punch stance.",
+                            },
+                            {
+                                num: 8,
+                                japanese: "Jōdan-uke",
+                                english: "Head block",
+                                direction: "Step forward",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "One step forward with left, perform left head block on left lunge punch stance.",
+                            },
+                            {
+                                num: 9,
+                                japanese: "Jōdan-uke",
+                                english: "Head block",
+                                direction: "Step forward",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "One step forward with right, perform right head block on right lunge punch stance.",
+                            },
+                            {
+                                num: 10,
+                                japanese: "Gedan-barai",
+                                english: "Lower sweeping block",
+                                direction: "Turn left 225°",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Turn to the left 225° and perform left lower sweeping block on left lunge punch stance.",
+                            },
+                            {
+                                num: 11,
+                                japanese: "Junzuki",
+                                english: "Lunge punch",
+                                direction: "Step forward",
+                                stance: "Junzuki-dachi",
+                                description: "Perform right lunge punch stepping forward.",
+                            },
+                            {
+                                num: 12,
+                                japanese: "Gedan-barai",
+                                english: "Lower sweeping block",
+                                direction: "Turn right 90°",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Turn to the right 90° and perform right lower sweeping block on right lunge punch stance.",
+                            },
+                            {
+                                num: 13,
+                                japanese: "Junzuki",
+                                english: "Lunge punch",
+                                direction: "Step forward",
+                                stance: "Junzuki-dachi",
+                                description: "Perform left lunge punch stepping forward.",
+                            },
+                            {
+                                num: 14,
+                                japanese: "Gedan-barai",
+                                english: "Lower sweeping block",
+                                direction: "Turn left 45°",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Turn to the left 45° and perform left lower sweeping block. Smaller angle requires complete relaxation before technique.",
+                            },
+                            {
+                                num: 15,
+                                japanese: "Junzuki",
+                                english: "Lunge punch",
+                                direction: "Step forward",
+                                stance: "Junzuki-dachi",
+                                description: "Perform right lunge punch stepping forward.",
+                            },
+                            {
+                                num: 16,
+                                japanese: "Junzuki",
+                                english: "Lunge punch",
+                                direction: "Step forward",
+                                stance: "Junzuki-dachi",
+                                description: "Perform left lunge punch stepping forward.",
+                            },
+                            {
+                                num: 17,
+                                japanese: "Junzuki",
+                                english: "Lunge punch",
+                                direction: "Step forward",
+                                stance: "Junzuki-dachi",
+                                description: "Perform right lunge punch stepping forward.",
+                            },
+                            {
+                                num: 18,
+                                japanese: "Nukite",
+                                english: "Spear-hand thrust",
+                                direction: "Turn left 225°",
+                                stance: "Shiko-ashi",
+                                description:
+                                    "Turn left 225°, pass through front viewing cat stance (Nekoashi), step forward with left into Shiko-ashi stance. Perform left spear-hand thrust while twisting right hand in front of solar plexus for protection and momentum.",
+                            },
+                            {
+                                num: 19,
+                                japanese: "Nukite",
+                                english: "Spear-hand thrust",
+                                direction: "Step forward",
+                                stance: "Shiko-ashi",
+                                description:
+                                    "Step forward with right, passing through Nekoashi, perform right spear-hand thrust with body twist into Shiko-ashi.",
+                            },
+                            {
+                                num: 20,
+                                japanese: "Nukite",
+                                english: "Spear-hand thrust",
+                                direction: "Turn right 90°",
+                                stance: "Shiko-ashi",
+                                description:
+                                    "Turn to the right 90° on left foot, passing through right Nekoashi, perform right spear-hand thrust.",
+                            },
+                            {
+                                num: 21,
+                                japanese: "Nukite",
+                                english: "Spear-hand thrust",
+                                direction: "Step forward",
+                                stance: "Shiko-ashi",
+                                description:
+                                    "Step forward with left and perform left spear-hand thrust as in move 18.",
+                            },
+                            {
+                                num: 22,
+                                japanese: "Yame",
+                                english: "Finish",
+                                direction: "Draw back",
+                                stance: "Shizen Hontai",
+                                description:
+                                    "Draw back left foot and return to natural stance (Shizen Hontai).",
+                            },
+                        ],
+                    };
+
                     // Find matching videos for this belt's kata
                     const kataNames = belt.kata.name.split(",").map((k) => k.trim());
                     let hasVideos = false;
@@ -6928,6 +7192,48 @@
                     if (hasVideos) {
                         html += videoHtml;
                     }
+
+                    // Add step-by-step instructions if available
+                    kataNames.forEach((kataName) => {
+                        Object.keys(kataSteps).forEach((key) => {
+                            if (kataName.includes(key)) {
+                                const steps = kataSteps[key];
+                                html += '<div class="kata-steps" style="margin-top: 1.5rem;">';
+                                html += '<h4 style="margin-bottom: 1rem;">Step-by-Step Instructions: ' + key + '</h4>';
+                                html += '<div style="background: #f9fafb; border-radius: 0.75rem; padding: 1rem;">';
+
+                                // Navigation buttons
+                                html += '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">';
+                                html += '<button onclick="prevKataStep(\'' + key + '\')" class="btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;" id="kata-prev-' + key.replace(/\s/g, '-') + '">← Previous</button>';
+                                html += '<span id="kata-progress-' + key.replace(/\s/g, '-') + '" style="font-weight: 600; color: #374151;">Step 0 of ' + (steps.length - 1) + '</span>';
+                                html += '<button onclick="nextKataStep(\'' + key + '\')" class="btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;" id="kata-next-' + key.replace(/\s/g, '-') + '">Next →</button>';
+                                html += '</div>';
+
+                                // Step content
+                                html += '<div id="kata-step-content-' + key.replace(/\s/g, '-') + '" style="background: white; border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1.25rem;">';
+                                html += '</div>';
+
+                                // Step list (collapsed by default)
+                                html += '<details style="margin-top: 1rem;">';
+                                html += '<summary style="cursor: pointer; font-weight: 600; color: #1e5ba8; padding: 0.5rem 0;">View All Steps</summary>';
+                                html += '<div style="margin-top: 0.75rem; max-height: 400px; overflow-y: auto;">';
+                                steps.forEach((step, index) => {
+                                    html += '<div onclick="goToKataStep(\'' + key + '\', ' + index + ')" style="padding: 0.75rem; border-bottom: 1px solid #e5e7eb; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background=\'#f3f4f6\'" onmouseout="this.style.background=\'transparent\'">';
+                                    html += '<span style="font-weight: 700; color: #1e5ba8; margin-right: 0.5rem;">' + (step.num === 0 ? 'Yōi' : step.num) + '.</span>';
+                                    html += '<span style="font-weight: 600;">' + step.japanese + '</span>';
+                                    html += '<span style="color: #6b7280;"> – ' + step.english + '</span>';
+                                    html += '</div>';
+                                });
+                                html += '</div></details>';
+
+                                html += '</div></div>';
+
+                                // Store steps data for navigation
+                                html += '<script>window.kataStepsData = window.kataStepsData || {}; window.kataStepsData["' + key + '"] = ' + JSON.stringify(steps) + '; window.currentKataStep = window.currentKataStep || {}; window.currentKataStep["' + key + '"] = 0; setTimeout(function() { showKataStep("' + key + '", 0); }, 100);</script>';
+                            }
+                        });
+                    });
+
                     html += "</div></div>"; // close kata collapsible
                 }
 

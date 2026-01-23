@@ -4118,11 +4118,27 @@
             // Auth state listener - runs on page load
             auth.onAuthStateChanged(async (user) => {
                 currentUser = user;
+                window.currentUser = user; // Also set on window for reliability
                 updateAuthUI();
 
                 if (user) {
-                    // User is signed in - load data from Firestore
-                    await loadDataFromFirestore();
+                    console.log("User signed in:", user.email);
+                    // Wait for page to fully load before syncing
+                    const doSync = async () => {
+                        try {
+                            await loadDataFromFirestore();
+                            // Also sync local data to cloud on login
+                            await syncLocalDataToCloud();
+                        } catch (err) {
+                            console.error("Sync error:", err);
+                        }
+                    };
+
+                    if (document.readyState === "complete") {
+                        setTimeout(doSync, 500); // Small delay to ensure everything is ready
+                    } else {
+                        window.addEventListener("load", () => setTimeout(doSync, 500));
+                    }
                 } else {
                     // Check if first visit
                     const hasVisited = localStorage.getItem("hakubaHasVisited");
@@ -4449,10 +4465,12 @@
 
                 isSyncing = true;
                 showSyncIndicator(true);
+                console.log("Starting sync to cloud...");
 
                 try {
                     const progressData = {
-                        currentBelt: document.querySelector(".belt-button.active")?.dataset?.belt,
+                        currentBelt:
+                            document.querySelector(".belt-button.active")?.dataset?.belt || "9th",
                         notes: window.userNotes || {},
                         bookmarks: window.userBookmarks || {},
                         darkMode: document.body.classList.contains("dark-mode"),
@@ -4463,6 +4481,12 @@
                     );
                     const quizHistoryData = JSON.parse(localStorage.getItem("quizHistory") || "{}");
 
+                    console.log("Syncing data:", {
+                        progressData,
+                        achievementData,
+                        quizHistoryData,
+                    });
+
                     await db.collection("users").doc(currentUser.uid).set(
                         {
                             progress: progressData,
@@ -4472,6 +4496,7 @@
                         },
                         { merge: true },
                     );
+                    console.log("Sync complete!");
                 } catch (error) {
                     console.error("Error syncing to Firestore:", error);
                 } finally {

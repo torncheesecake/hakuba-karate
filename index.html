@@ -2039,185 +2039,222 @@
 
             /* Grading Countdown Styles */
             .grading-countdown {
-                background: linear-gradient(135deg, #fef3c7, #fde68a);
+                background: linear-gradient(135deg, #1e5ba8 0%, #7c3aed 100%);
                 border-radius: 1rem;
-                padding: 1rem 1.5rem;
+                padding: 1.5rem;
                 margin-bottom: 1.5rem;
                 position: relative;
+                color: white;
+                overflow: hidden;
+            }
+
+            .grading-countdown::before {
+                content: "";
+                position: absolute;
+                top: -50%;
+                right: -20%;
+                width: 200px;
+                height: 200px;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 50%;
             }
 
             .grading-countdown-content {
                 display: flex;
                 align-items: center;
-                gap: 1rem;
+                gap: 1.5rem;
+                position: relative;
+                z-index: 1;
             }
 
-            .grading-countdown-icon {
-                font-size: 2rem;
+            .grading-countdown-ring {
+                position: relative;
+                width: 100px;
+                height: 100px;
+                flex-shrink: 0;
             }
 
-            .grading-countdown-text {
+            .grading-countdown-ring svg {
+                transform: rotate(-90deg);
+                width: 100px;
+                height: 100px;
+            }
+
+            .grading-countdown-ring .ring-bg {
+                fill: none;
+                stroke: rgba(255, 255, 255, 0.2);
+                stroke-width: 8;
+            }
+
+            .grading-countdown-ring .ring-progress {
+                fill: none;
+                stroke: #fbbf24;
+                stroke-width: 8;
+                stroke-linecap: round;
+                transition: stroke-dashoffset 0.5s ease;
+            }
+
+            .grading-countdown-ring-text {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+            }
+
+            .grading-countdown-ring-days {
+                font-size: 1.75rem;
+                font-weight: 800;
+                line-height: 1;
+                color: white;
+            }
+
+            .grading-countdown-ring-label {
+                font-size: 0.7rem;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                opacity: 0.9;
+            }
+
+            .grading-countdown-info {
                 flex: 1;
             }
 
-            .grading-countdown-label {
-                font-size: 0.875rem;
-                color: #92400e;
-                font-weight: 600;
+            .grading-countdown-title {
+                font-size: 0.85rem;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                opacity: 0.9;
+                margin-bottom: 0.25rem;
             }
 
             .grading-countdown-date {
-                font-size: 1rem;
-                color: #78350f;
-                font-weight: 500;
+                font-size: 1.1rem;
+                font-weight: 600;
+                margin-bottom: 0.75rem;
             }
 
-            .grading-countdown-days {
-                text-align: center;
-                background: white;
-                padding: 0.75rem 1.25rem;
-                border-radius: 0.75rem;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            .grading-countdown-breakdown {
+                display: flex;
+                gap: 1rem;
+                font-size: 0.85rem;
+                opacity: 0.9;
             }
 
-            .grading-countdown-days span:first-child {
-                display: block;
-                font-size: 1.75rem;
-                font-weight: 700;
-                color: #d97706;
-                line-height: 1;
+            .grading-countdown-breakdown span {
+                display: flex;
+                align-items: center;
+                gap: 0.25rem;
             }
 
-            .grading-days-label {
-                font-size: 0.75rem;
-                color: #92400e;
-                text-transform: uppercase;
-                letter-spacing: 0.05em;
+            .grading-countdown-message {
+                margin-top: 0.75rem;
+                padding: 0.5rem 0.75rem;
+                background: rgba(255, 255, 255, 0.15);
+                border-radius: 0.5rem;
+                font-size: 0.9rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .grading-countdown-sessions {
+                margin-top: 0.5rem;
+                font-size: 0.85rem;
+                opacity: 0.85;
             }
 
             .grading-clear-btn {
                 position: absolute;
-                top: 0.5rem;
-                right: 0.5rem;
-                background: none;
+                top: 0.75rem;
+                right: 0.75rem;
+                background: rgba(255, 255, 255, 0.2);
                 border: none;
                 font-size: 1.25rem;
-                color: #92400e;
+                color: white;
                 cursor: pointer;
-                opacity: 0.6;
-                padding: 0.25rem;
+                padding: 0.25rem 0.5rem;
                 line-height: 1;
+                border-radius: 0.25rem;
+                transition: background 0.2s;
+                z-index: 2;
             }
 
             .grading-clear-btn:hover {
-                opacity: 1;
+                background: rgba(255, 255, 255, 0.3);
             }
 
             .grading-set {
                 margin-bottom: 1.5rem;
             }
 
-            .grading-set-btn {
-                width: 100%;
-                padding: 1rem;
-                background: #f3f4f6;
-                border: 2px dashed #d1d5db;
-                border-radius: 0.75rem;
-                font-size: 1rem;
-                color: #6b7280;
-                cursor: pointer;
-                transition: all 0.2s;
-            }
-
-            .grading-set-btn:hover {
-                background: #e5e7eb;
-                border-color: #9ca3af;
-                color: #374151;
-            }
-
-            body.dark-mode .grading-countdown {
-                background: linear-gradient(135deg, #78350f, #92400e);
-            }
-
-            body.dark-mode .grading-countdown-label {
-                color: #fde68a;
-            }
-
-            body.dark-mode .grading-countdown-date {
-                color: #fef3c7;
-            }
-
-            body.dark-mode .grading-countdown-days {
-                background: #1f2937;
-            }
-
-            body.dark-mode .grading-countdown-days span:first-child {
-                color: #fbbf24;
-            }
-
-            body.dark-mode .grading-days-label {
-                color: #fde68a;
-            }
-
-            body.dark-mode .grading-clear-btn {
-                color: #fde68a;
-            }
-
-            body.dark-mode .grading-set-btn {
-                background: #374151;
-                border-color: #4b5563;
-                color: #9ca3af;
-            }
-
-            body.dark-mode .grading-set-btn:hover {
-                background: #4b5563;
-                color: #d1d5db;
-            }
-
             .grading-date-picker {
                 display: flex;
                 flex-direction: column;
-                gap: 0.75rem;
-                padding: 1.25rem;
-                background: #f3f4f6;
-                border: 2px dashed #d1d5db;
-                border-radius: 0.75rem;
+                gap: 1rem;
+                padding: 2rem;
+                background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+                border: 2px solid #e2e8f0;
+                border-radius: 1rem;
+                text-align: center;
+            }
+
+            .grading-date-picker-icon {
+                font-size: 3rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .grading-date-picker-title {
+                font-size: 1.25rem;
+                font-weight: 700;
+                color: #1e5ba8;
+                margin-bottom: 0.25rem;
+            }
+
+            .grading-date-picker-subtitle {
+                font-size: 0.95rem;
+                color: #64748b;
+                margin-bottom: 1rem;
             }
 
             .grading-date-label {
-                font-size: 1rem;
-                color: #374151;
-                font-weight: 600;
-                text-align: center;
+                display: none;
             }
 
             .grading-date-input {
-                padding: 0.75rem 1rem;
-                border: 2px solid #d1d5db;
-                border-radius: 0.5rem;
-                font-size: 1rem;
+                padding: 1rem 1.5rem;
+                border: 2px solid #cbd5e1;
+                border-radius: 0.75rem;
+                font-size: 1.1rem;
                 text-align: center;
                 cursor: pointer;
+                background: white;
+                transition: all 0.2s;
             }
 
             .grading-date-input:focus {
                 outline: none;
                 border-color: #1e5ba8;
+                box-shadow: 0 0 0 3px rgba(30, 91, 168, 0.1);
             }
 
-            body.dark-mode .grading-date-picker {
-                background: #374151;
-                border-color: #4b5563;
+            .grading-date-input:hover {
+                border-color: #94a3b8;
             }
 
-            body.dark-mode .grading-date-label {
-                color: #d1d5db;
-            }
+            @media (max-width: 600px) {
+                .grading-countdown-content {
+                    flex-direction: column;
+                    text-align: center;
+                }
 
-            body.dark-mode .grading-date-input {
-                background: #1f2937;
-                border-color: #4b5563;
-                color: white;
+                .grading-countdown-breakdown {
+                    justify-content: center;
+                }
+
+                .grading-countdown-message {
+                    justify-content: center;
+                }
             }
 
             /* Dark mode auth styles */
@@ -2576,14 +2613,37 @@
                         style="display: none"
                     >
                         <div class="grading-countdown-content">
-                            <div class="grading-countdown-icon">🎯</div>
-                            <div class="grading-countdown-text">
-                                <div class="grading-countdown-label">Next Grading</div>
-                                <div class="grading-countdown-date" id="grading-date-display"></div>
+                            <div class="grading-countdown-ring">
+                                <svg viewBox="0 0 100 100">
+                                    <circle class="ring-bg" cx="50" cy="50" r="42"></circle>
+                                    <circle
+                                        class="ring-progress"
+                                        id="grading-ring-progress"
+                                        cx="50"
+                                        cy="50"
+                                        r="42"
+                                        stroke-dasharray="264"
+                                        stroke-dashoffset="0"
+                                    ></circle>
+                                </svg>
+                                <div class="grading-countdown-ring-text">
+                                    <div
+                                        class="grading-countdown-ring-days"
+                                        id="grading-days-count"
+                                    >
+                                        0
+                                    </div>
+                                    <div class="grading-countdown-ring-label">days</div>
+                                </div>
                             </div>
-                            <div class="grading-countdown-days">
-                                <span id="grading-days-count">0</span>
-                                <span class="grading-days-label">days</span>
+                            <div class="grading-countdown-info">
+                                <div class="grading-countdown-title">Next Grading</div>
+                                <div class="grading-countdown-date" id="grading-date-display"></div>
+                                <div class="grading-countdown-breakdown">
+                                    <span id="grading-weeks-display"></span>
+                                    <span id="grading-sessions-display"></span>
+                                </div>
+                                <div class="grading-countdown-message" id="grading-message"></div>
                             </div>
                         </div>
                         <button
@@ -2596,9 +2656,11 @@
                     </div>
                     <div id="grading-set-container" class="grading-set" style="display: none">
                         <div class="grading-date-picker">
-                            <label for="grading-date-input" class="grading-date-label"
-                                >📅 Set Next Grading Date</label
-                            >
+                            <div class="grading-date-picker-icon">🥋</div>
+                            <div class="grading-date-picker-title">When's Your Next Grading?</div>
+                            <div class="grading-date-picker-subtitle">
+                                Set a date to track your countdown and stay motivated!
+                            </div>
                             <input
                                 type="date"
                                 id="grading-date-input"
@@ -7423,7 +7485,10 @@
                         return;
                     }
 
+                    // Update days count
                     document.getElementById("grading-days-count").textContent = diffDays;
+
+                    // Update date display
                     document.getElementById("grading-date-display").textContent =
                         gradingDate.toLocaleDateString("en-GB", {
                             weekday: "long",
@@ -7431,6 +7496,72 @@
                             month: "long",
                             year: "numeric",
                         });
+
+                    // Calculate weeks and remaining days
+                    const weeks = Math.floor(diffDays / 7);
+                    const remainingDays = diffDays % 7;
+                    let weeksText = "";
+                    if (weeks > 0) {
+                        weeksText = weeks + " week" + (weeks !== 1 ? "s" : "");
+                        if (remainingDays > 0) {
+                            weeksText +=
+                                ", " + remainingDays + " day" + (remainingDays !== 1 ? "s" : "");
+                        }
+                    }
+                    document.getElementById("grading-weeks-display").textContent = weeksText
+                        ? "📅 " + weeksText
+                        : "";
+
+                    // Estimate training sessions (assuming 2 per week)
+                    const sessions = Math.floor(diffDays / 7) * 2;
+                    document.getElementById("grading-sessions-display").textContent =
+                        sessions > 0 ? "🥋 ~" + sessions + " training sessions" : "";
+
+                    // Update progress ring (based on 90 days max)
+                    const maxDays = 90;
+                    const progress = Math.min(diffDays / maxDays, 1);
+                    const circumference = 2 * Math.PI * 42; // 264
+                    const offset = circumference * (1 - progress);
+                    const ringProgress = document.getElementById("grading-ring-progress");
+                    if (ringProgress) {
+                        ringProgress.style.strokeDashoffset = offset;
+                        // Change color based on urgency
+                        if (diffDays <= 7) {
+                            ringProgress.style.stroke = "#ef4444"; // Red
+                        } else if (diffDays <= 21) {
+                            ringProgress.style.stroke = "#f59e0b"; // Orange
+                        } else {
+                            ringProgress.style.stroke = "#fbbf24"; // Yellow/Gold
+                        }
+                    }
+
+                    // Motivational message based on time remaining
+                    const messageEl = document.getElementById("grading-message");
+                    let message = "";
+                    let emoji = "";
+                    if (diffDays === 0) {
+                        emoji = "🎉";
+                        message = "Grading day is HERE! You've got this!";
+                    } else if (diffDays === 1) {
+                        emoji = "⚡";
+                        message = "Tomorrow's the day! Rest well tonight.";
+                    } else if (diffDays <= 3) {
+                        emoji = "🔥";
+                        message = "Almost there! Final preparations!";
+                    } else if (diffDays <= 7) {
+                        emoji = "💪";
+                        message = "One week to go - stay focused!";
+                    } else if (diffDays <= 14) {
+                        emoji = "🎯";
+                        message = "Two weeks out - keep up the practice!";
+                    } else if (diffDays <= 30) {
+                        emoji = "📈";
+                        message = "Good progress time - train consistently!";
+                    } else {
+                        emoji = "🌟";
+                        message = "Plenty of time to prepare - train hard!";
+                    }
+                    messageEl.innerHTML = emoji + " " + message;
 
                     countdownContainer.style.display = "block";
                     setContainer.style.display = "none";

@@ -946,7 +946,7 @@
             }
 
             .grading-dashboard .dashboard-header {
-                margin-bottom: 0;
+                margin-bottom: 0.75rem;
             }
 
             .grading-dashboard .dashboard-title {
@@ -1030,6 +1030,23 @@
                 background: rgba(255, 255, 255, 0.15);
                 border-radius: 0.5rem;
                 display: inline-block;
+            }
+
+            /* Mobile: Stack grading content vertically */
+            @media (max-width: 500px) {
+                .grading-content {
+                    flex-direction: column;
+                    text-align: center;
+                }
+
+                .grading-info {
+                    width: 100%;
+                }
+
+                .grading-motivation {
+                    width: 100%;
+                    box-sizing: border-box;
+                }
             }
 
             .grading-x-btn {

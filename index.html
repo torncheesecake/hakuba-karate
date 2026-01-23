@@ -3443,6 +3443,26 @@
                                             "
                                         ></span>
                                     </button>
+                                    <button
+                                        onclick="startWeakSpotsQuiz()"
+                                        class="btn-primary"
+                                        id="weak-spots-btn"
+                                        style="
+                                            background: linear-gradient(135deg, #f59e0b, #d97706);
+                                            display: none;
+                                        "
+                                    >
+                                        Practice Weak Spots
+                                        <span
+                                            id="weak-spots-count"
+                                            style="
+                                                display: block;
+                                                font-size: 0.75rem;
+                                                opacity: 0.9;
+                                                margin-top: 0.25rem;
+                                            "
+                                        ></span>
+                                    </button>
                                 </div>
                             </div>
 
@@ -7090,6 +7110,11 @@
                     document.getElementById("belt-slider").value = savedQuizBelt;
                 }
                 updateBeltDisplay(); // Initialize belt slider display
+
+                // Update weak spots button
+                if (typeof updateWeakSpotsButton === "function") {
+                    updateWeakSpotsButton();
+                }
             });
 
             // Quiz functionality
@@ -8643,6 +8668,77 @@
                 }
                 history[term].lastSeen = Date.now();
                 saveQuizHistory(history);
+                updateWeakSpotsButton();
+            }
+
+            function getWeakSpots() {
+                const history = getQuizHistory();
+                const weakSpots = [];
+
+                for (const [term, record] of Object.entries(history)) {
+                    // Term is a weak spot if wrong count is 2 or more
+                    if (record.wrong >= 2) {
+                        // Find the quiz term data
+                        const termData = quizTerms.find((q) => q.term === term);
+                        if (termData) {
+                            weakSpots.push({ ...termData, wrongCount: record.wrong });
+                        }
+                    }
+                }
+
+                // Sort by wrong count (most wrong first)
+                weakSpots.sort((a, b) => b.wrongCount - a.wrongCount);
+                return weakSpots;
+            }
+
+            function updateWeakSpotsButton() {
+                const weakSpots = getWeakSpots();
+                const btn = document.getElementById("weak-spots-btn");
+                const countSpan = document.getElementById("weak-spots-count");
+
+                if (weakSpots.length >= 3) {
+                    btn.style.display = "inline-flex";
+                    countSpan.textContent = weakSpots.length + " terms to practice";
+                } else {
+                    btn.style.display = "none";
+                }
+            }
+
+            function startWeakSpotsQuiz() {
+                const weakSpots = getWeakSpots();
+
+                if (weakSpots.length < 3) {
+                    alert("You need at least 3 weak spots to start this quiz. Keep practicing!");
+                    return;
+                }
+
+                // Reset
+                score = 0;
+                skipped = 0;
+                currentQuestion = 0;
+                answered = false;
+                categoryStats = {};
+                streakCount = 0;
+                currentStreak = 0;
+
+                // Use weak spots as the quiz, max 10 questions
+                currentQuiz = weakSpots.slice(0, Math.min(10, weakSpots.length));
+
+                // Initialize category stats
+                currentQuiz.forEach((q) => {
+                    if (!categoryStats[q.category]) {
+                        categoryStats[q.category] = { correct: 0, total: 0 };
+                    }
+                    categoryStats[q.category].total++;
+                });
+
+                document.getElementById("quiz-start").style.display = "none";
+                document.getElementById("quiz-active").style.display = "block";
+                document.getElementById("quiz-result").style.display = "none";
+                document.getElementById("quiz-total").textContent = currentQuiz.length;
+                document.getElementById("quiz-title").textContent = "Practice Weak Spots";
+
+                showQuestion();
             }
 
             function startQuiz() {

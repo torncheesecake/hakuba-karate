@@ -6562,14 +6562,27 @@
                 let html = "";
                 html += '<div style="margin-bottom: 1rem;">';
                 if (step.direction) {
-                    html += '<span style="display: inline-block; background: #dbeafe; color: #1e40af; padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.75rem;">' + step.direction + '</span>';
+                    html +=
+                        '<span style="display: inline-block; background: #dbeafe; color: #1e40af; padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.75rem;">' +
+                        step.direction +
+                        "</span>";
                 }
-                html += '<h3 style="font-size: 1.5rem; color: #1e5ba8; margin: 0.5rem 0;">' + step.japanese + "</h3>";
-                html += '<p style="font-size: 1.1rem; color: #374151; margin: 0;">' + step.english + "</p>";
+                html +=
+                    '<h3 style="font-size: 1.5rem; color: #1e5ba8; margin: 0.5rem 0;">' +
+                    step.japanese +
+                    "</h3>";
+                html +=
+                    '<p style="font-size: 1.1rem; color: #374151; margin: 0;">' +
+                    step.english +
+                    "</p>";
                 html += "</div>";
 
-                html += '<div style="background: #f3f4f6; padding: 0.75rem 1rem; border-radius: 0.5rem; margin-bottom: 1rem;">';
-                html += '<span style="font-weight: 600; color: #6b7280;">Stance:</span> <span style="color: #374151;">' + step.stance + "</span>";
+                html +=
+                    '<div style="background: #f3f4f6; padding: 0.75rem 1rem; border-radius: 0.5rem; margin-bottom: 1rem;">';
+                html +=
+                    '<span style="font-weight: 600; color: #6b7280;">Stance:</span> <span style="color: #374151;">' +
+                    step.stance +
+                    "</span>";
                 html += "</div>";
 
                 html += '<p style="color: #4b5563; line-height: 1.7;">' + step.description + "</p>";
@@ -7199,37 +7212,83 @@
                             if (kataName.includes(key)) {
                                 const steps = kataSteps[key];
                                 html += '<div class="kata-steps" style="margin-top: 1.5rem;">';
-                                html += '<h4 style="margin-bottom: 1rem;">Step-by-Step Instructions: ' + key + '</h4>';
-                                html += '<div style="background: #f9fafb; border-radius: 0.75rem; padding: 1rem;">';
+                                html +=
+                                    '<h4 style="margin-bottom: 1rem;">Step-by-Step Instructions: ' +
+                                    key +
+                                    "</h4>";
+                                html +=
+                                    '<div style="background: #f9fafb; border-radius: 0.75rem; padding: 1rem;">';
 
                                 // Navigation buttons
-                                html += '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">';
-                                html += '<button onclick="prevKataStep(\'' + key + '\')" class="btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;" id="kata-prev-' + key.replace(/\s/g, '-') + '">← Previous</button>';
-                                html += '<span id="kata-progress-' + key.replace(/\s/g, '-') + '" style="font-weight: 600; color: #374151;">Step 0 of ' + (steps.length - 1) + '</span>';
-                                html += '<button onclick="nextKataStep(\'' + key + '\')" class="btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;" id="kata-next-' + key.replace(/\s/g, '-') + '">Next →</button>';
-                                html += '</div>';
+                                html +=
+                                    '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">';
+                                html +=
+                                    "<button onclick=\"prevKataStep('" +
+                                    key +
+                                    '\')" class="btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;" id="kata-prev-' +
+                                    key.replace(/\s/g, "-") +
+                                    '">← Previous</button>';
+                                html +=
+                                    '<span id="kata-progress-' +
+                                    key.replace(/\s/g, "-") +
+                                    '" style="font-weight: 600; color: #374151;">Step 0 of ' +
+                                    (steps.length - 1) +
+                                    "</span>";
+                                html +=
+                                    "<button onclick=\"nextKataStep('" +
+                                    key +
+                                    '\')" class="btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;" id="kata-next-' +
+                                    key.replace(/\s/g, "-") +
+                                    '">Next →</button>';
+                                html += "</div>";
 
                                 // Step content
-                                html += '<div id="kata-step-content-' + key.replace(/\s/g, '-') + '" style="background: white; border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1.25rem;">';
-                                html += '</div>';
+                                html +=
+                                    '<div id="kata-step-content-' +
+                                    key.replace(/\s/g, "-") +
+                                    '" style="background: white; border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1.25rem;">';
+                                html += "</div>";
 
                                 // Step list (collapsed by default)
                                 html += '<details style="margin-top: 1rem;">';
-                                html += '<summary style="cursor: pointer; font-weight: 600; color: #1e5ba8; padding: 0.5rem 0;">View All Steps</summary>';
-                                html += '<div style="margin-top: 0.75rem; max-height: 400px; overflow-y: auto;">';
+                                html +=
+                                    '<summary style="cursor: pointer; font-weight: 600; color: #1e5ba8; padding: 0.5rem 0;">View All Steps</summary>';
+                                html +=
+                                    '<div style="margin-top: 0.75rem; max-height: 400px; overflow-y: auto;">';
                                 steps.forEach((step, index) => {
-                                    html += '<div onclick="goToKataStep(\'' + key + '\', ' + index + ')" style="padding: 0.75rem; border-bottom: 1px solid #e5e7eb; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background=\'#f3f4f6\'" onmouseout="this.style.background=\'transparent\'">';
-                                    html += '<span style="font-weight: 700; color: #1e5ba8; margin-right: 0.5rem;">' + (step.num === 0 ? 'Yōi' : step.num) + '.</span>';
-                                    html += '<span style="font-weight: 600;">' + step.japanese + '</span>';
-                                    html += '<span style="color: #6b7280;"> – ' + step.english + '</span>';
-                                    html += '</div>';
+                                    html +=
+                                        "<div onclick=\"goToKataStep('" +
+                                        key +
+                                        "', " +
+                                        index +
+                                        ')" style="padding: 0.75rem; border-bottom: 1px solid #e5e7eb; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background=\'#f3f4f6\'" onmouseout="this.style.background=\'transparent\'">';
+                                    html +=
+                                        '<span style="font-weight: 700; color: #1e5ba8; margin-right: 0.5rem;">' +
+                                        (step.num === 0 ? "Yōi" : step.num) +
+                                        ".</span>";
+                                    html +=
+                                        '<span style="font-weight: 600;">' +
+                                        step.japanese +
+                                        "</span>";
+                                    html +=
+                                        '<span style="color: #6b7280;"> – ' +
+                                        step.english +
+                                        "</span>";
+                                    html += "</div>";
                                 });
-                                html += '</div></details>';
+                                html += "</div></details>";
 
-                                html += '</div></div>';
+                                html += "</div></div>";
 
-                                // Store steps data for navigation
-                                html += '<script>window.kataStepsData = window.kataStepsData || {}; window.kataStepsData["' + key + '"] = ' + JSON.stringify(steps) + '; window.currentKataStep = window.currentKataStep || {}; window.currentKataStep["' + key + '"] = 0; setTimeout(function() { showKataStep("' + key + '", 0); }, 100);</script>';
+                                // Store steps data for navigation (initialize directly, not via inline script)
+                                window.kataStepsData = window.kataStepsData || {};
+                                window.kataStepsData[key] = steps;
+                                window.currentKataStep = window.currentKataStep || {};
+                                window.currentKataStep[key] = 0;
+                                // Use setTimeout to initialize after DOM is updated
+                                setTimeout(function () {
+                                    showKataStep(key, 0);
+                                }, 100);
                             }
                         });
                     });

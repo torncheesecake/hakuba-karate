@@ -1959,6 +1959,221 @@
                 animation: spin 1s linear infinite;
             }
 
+            @keyframes xpSlideIn {
+                from {
+                    transform: translateX(100px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes levelUpPop {
+                from {
+                    transform: scale(0.5);
+                    opacity: 0;
+                }
+                to {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+            }
+
+            /* XP Bar Styles */
+            .xp-container {
+                background: linear-gradient(135deg, #ede9fe, #e0e7ff);
+                border-radius: 1rem;
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .xp-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 0.75rem;
+            }
+
+            .xp-level {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: #8b5cf6;
+            }
+
+            .xp-text {
+                font-size: 0.9rem;
+                color: #6b7280;
+            }
+
+            .xp-bar {
+                height: 12px;
+                background: rgba(255, 255, 255, 0.5);
+                border-radius: 6px;
+                overflow: hidden;
+            }
+
+            .xp-bar-fill {
+                height: 100%;
+                background: linear-gradient(90deg, #8b5cf6, #6366f1);
+                border-radius: 6px;
+                transition: width 0.5s ease;
+            }
+
+            body.dark-mode .xp-container {
+                background: linear-gradient(135deg, #4c1d95, #312e81);
+            }
+
+            body.dark-mode .xp-bar {
+                background: rgba(0, 0, 0, 0.3);
+            }
+
+            body.dark-mode .xp-text {
+                color: #c4b5fd;
+            }
+
+            body.dark-mode .xp-level {
+                color: #c4b5fd;
+            }
+
+            /* Grading Countdown Styles */
+            .grading-countdown {
+                background: linear-gradient(135deg, #fef3c7, #fde68a);
+                border-radius: 1rem;
+                padding: 1rem 1.5rem;
+                margin-bottom: 1.5rem;
+                position: relative;
+            }
+
+            .grading-countdown-content {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .grading-countdown-icon {
+                font-size: 2rem;
+            }
+
+            .grading-countdown-text {
+                flex: 1;
+            }
+
+            .grading-countdown-label {
+                font-size: 0.875rem;
+                color: #92400e;
+                font-weight: 600;
+            }
+
+            .grading-countdown-date {
+                font-size: 1rem;
+                color: #78350f;
+                font-weight: 500;
+            }
+
+            .grading-countdown-days {
+                text-align: center;
+                background: white;
+                padding: 0.75rem 1.25rem;
+                border-radius: 0.75rem;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .grading-countdown-days span:first-child {
+                display: block;
+                font-size: 1.75rem;
+                font-weight: 700;
+                color: #d97706;
+                line-height: 1;
+            }
+
+            .grading-days-label {
+                font-size: 0.75rem;
+                color: #92400e;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+
+            .grading-clear-btn {
+                position: absolute;
+                top: 0.5rem;
+                right: 0.5rem;
+                background: none;
+                border: none;
+                font-size: 1.25rem;
+                color: #92400e;
+                cursor: pointer;
+                opacity: 0.6;
+                padding: 0.25rem;
+                line-height: 1;
+            }
+
+            .grading-clear-btn:hover {
+                opacity: 1;
+            }
+
+            .grading-set {
+                margin-bottom: 1.5rem;
+            }
+
+            .grading-set-btn {
+                width: 100%;
+                padding: 1rem;
+                background: #f3f4f6;
+                border: 2px dashed #d1d5db;
+                border-radius: 0.75rem;
+                font-size: 1rem;
+                color: #6b7280;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+
+            .grading-set-btn:hover {
+                background: #e5e7eb;
+                border-color: #9ca3af;
+                color: #374151;
+            }
+
+            body.dark-mode .grading-countdown {
+                background: linear-gradient(135deg, #78350f, #92400e);
+            }
+
+            body.dark-mode .grading-countdown-label {
+                color: #fde68a;
+            }
+
+            body.dark-mode .grading-countdown-date {
+                color: #fef3c7;
+            }
+
+            body.dark-mode .grading-countdown-days {
+                background: #1f2937;
+            }
+
+            body.dark-mode .grading-countdown-days span:first-child {
+                color: #fbbf24;
+            }
+
+            body.dark-mode .grading-days-label {
+                color: #fde68a;
+            }
+
+            body.dark-mode .grading-clear-btn {
+                color: #fde68a;
+            }
+
+            body.dark-mode .grading-set-btn {
+                background: #374151;
+                border-color: #4b5563;
+                color: #9ca3af;
+            }
+
+            body.dark-mode .grading-set-btn:hover {
+                background: #4b5563;
+                color: #d1d5db;
+            }
+
             /* Dark mode auth styles */
             body.dark-mode .auth-modal {
                 background: #1f2937;
@@ -2278,6 +2493,37 @@
                                 font-weight: 600;
                             "
                         ></div>
+                    </div>
+
+                    <!-- Grading Countdown -->
+                    <div
+                        id="grading-countdown-container"
+                        class="grading-countdown"
+                        style="display: none"
+                    >
+                        <div class="grading-countdown-content">
+                            <div class="grading-countdown-icon">🎯</div>
+                            <div class="grading-countdown-text">
+                                <div class="grading-countdown-label">Next Grading</div>
+                                <div class="grading-countdown-date" id="grading-date-display"></div>
+                            </div>
+                            <div class="grading-countdown-days">
+                                <span id="grading-days-count">0</span>
+                                <span class="grading-days-label">days</span>
+                            </div>
+                        </div>
+                        <button
+                            onclick="clearGradingDate()"
+                            class="grading-clear-btn"
+                            title="Clear date"
+                        >
+                            ×
+                        </button>
+                    </div>
+                    <div id="grading-set-container" class="grading-set" style="display: none">
+                        <button onclick="showGradingDatePicker()" class="grading-set-btn">
+                            📅 Set Next Grading Date
+                        </button>
                     </div>
 
                     <div class="belt-selector" id="belt-selector"></div>
@@ -2683,9 +2929,37 @@
                                     </div>
                                 </div>
 
-                                <button onclick="startQuiz()" class="btn-primary">
-                                    Start Quiz
-                                </button>
+                                <div
+                                    style="
+                                        display: flex;
+                                        gap: 1rem;
+                                        justify-content: center;
+                                        flex-wrap: wrap;
+                                    "
+                                >
+                                    <button onclick="startQuiz()" class="btn-primary">
+                                        Start Quiz
+                                    </button>
+                                    <button
+                                        onclick="startDailyChallenge()"
+                                        class="btn-primary"
+                                        id="daily-challenge-btn"
+                                        style="
+                                            background: linear-gradient(135deg, #8b5cf6, #6366f1);
+                                        "
+                                    >
+                                        Daily Challenge
+                                        <span
+                                            id="daily-challenge-status"
+                                            style="
+                                                display: block;
+                                                font-size: 0.75rem;
+                                                opacity: 0.9;
+                                                margin-top: 0.25rem;
+                                            "
+                                        ></span>
+                                    </button>
+                                </div>
                             </div>
 
                             <div id="quiz-active" style="display: none">
@@ -4010,6 +4284,17 @@
                             unlock them all!
                         </p>
 
+                        <!-- XP Progress -->
+                        <div class="xp-container">
+                            <div class="xp-header">
+                                <span class="xp-level" id="user-level">Lvl 1</span>
+                                <span class="xp-text" id="xp-text">0 / 100 XP</span>
+                            </div>
+                            <div class="xp-bar">
+                                <div class="xp-bar-fill" id="xp-bar-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+
                         <div
                             id="achievements-summary"
                             style="display: flex; gap: 2rem; margin: 2rem 0; flex-wrap: wrap"
@@ -4505,14 +4790,40 @@
                 }
             }
 
-            // Debounced sync function to avoid too many writes
+            // Sync function - syncs every 30 seconds if there are pending changes
             let syncTimeout = null;
+            let hasPendingChanges = false;
+
             function debouncedSync() {
-                if (syncTimeout) clearTimeout(syncTimeout);
-                syncTimeout = setTimeout(() => {
-                    syncLocalDataToCloud();
-                }, 2000);
+                hasPendingChanges = true;
+                // Only start timer if not already running
+                if (!syncTimeout) {
+                    syncTimeout = setTimeout(() => {
+                        if (hasPendingChanges) {
+                            syncLocalDataToCloud();
+                            hasPendingChanges = false;
+                        }
+                        syncTimeout = null;
+                    }, 30000); // Sync every 30 seconds
+                }
             }
+
+            // Sync on page unload to catch final changes
+            window.addEventListener("beforeunload", () => {
+                if (hasPendingChanges && currentUser) {
+                    // Use sendBeacon for reliable sync on page close
+                    hasPendingChanges = false;
+                    syncLocalDataToCloud();
+                }
+            });
+
+            // Also sync when page becomes hidden (mobile tab switch)
+            document.addEventListener("visibilitychange", () => {
+                if (document.visibilityState === "hidden" && hasPendingChanges && currentUser) {
+                    syncLocalDataToCloud();
+                    hasPendingChanges = false;
+                }
+            });
 
             // ==========================================
             // ORIGINAL APP CODE
@@ -5972,6 +6283,11 @@
                             renderAchievements();
                         }
 
+                        // Update daily challenge button when quiz tab is selected
+                        if (tabName === "quiz") {
+                            updateDailyChallengeButton();
+                        }
+
                         // Close mobile menu when tab is clicked
                         closeMobileMenu();
                     });
@@ -6241,6 +6557,77 @@
                     description: "Answer 1000 quiz questions correctly",
                     check: (stats) => stats.correctAnswers >= 1000,
                 },
+                // New achievements
+                {
+                    id: "quiz_champion",
+                    name: "Quiz Champion",
+                    icon: "🏅",
+                    description: "Complete 25 quizzes",
+                    check: (stats) => stats.quizzesCompleted >= 25,
+                },
+                {
+                    id: "speed_demon",
+                    name: "Speed Demon",
+                    icon: "💨",
+                    description: "Complete a quiz in under 60 seconds",
+                    check: (stats) => stats.fastestQuizTime && stats.fastestQuizTime < 60,
+                },
+                {
+                    id: "night_owl",
+                    name: "Night Owl",
+                    icon: "🦉",
+                    description: "Practice after 10pm",
+                    check: (stats) => stats.nightOwlPractice === true,
+                },
+                {
+                    id: "early_bird",
+                    name: "Early Bird",
+                    icon: "🐦",
+                    description: "Practice before 7am",
+                    check: (stats) => stats.earlyBirdPractice === true,
+                },
+                {
+                    id: "weekend_warrior",
+                    name: "Weekend Warrior",
+                    icon: "⚔️",
+                    description: "Practice on both Saturday and Sunday",
+                    check: (stats) => stats.weekendWarrior === true,
+                },
+                {
+                    id: "triple_threat",
+                    name: "Triple Threat",
+                    icon: "🎰",
+                    description: "Get 3 perfect quizzes in a row",
+                    check: (stats) => stats.bestConsecutivePerfect >= 3,
+                },
+                {
+                    id: "green_belt_journey",
+                    name: "Green Belt Journey",
+                    icon: "🌿",
+                    description: "Reach Green Belt level (6th Kyu)",
+                    check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("6th"),
+                },
+                {
+                    id: "brown_belt_journey",
+                    name: "Brown Belt Journey",
+                    icon: "🥋",
+                    description: "Reach Brown Belt level (3rd Kyu)",
+                    check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("3rd"),
+                },
+                {
+                    id: "daily_dedication",
+                    name: "Daily Dedication",
+                    icon: "📅",
+                    description: "Complete 7 daily challenges",
+                    check: (stats) => stats.dailyChallengesCompleted >= 7,
+                },
+                {
+                    id: "xp_collector",
+                    name: "XP Collector",
+                    icon: "✨",
+                    description: "Earn 1000 XP",
+                    check: (stats) => stats.totalXP >= 1000,
+                },
             ];
 
             // Get achievement stats from localStorage
@@ -6262,6 +6649,24 @@
                     unlockedBadges: [],
                     studiedCategories: [],
                     earnedBelts: [],
+                    // New stats for additional achievements
+                    fastestQuizTime: null,
+                    nightOwlPractice: false,
+                    earlyBirdPractice: false,
+                    weekendWarrior: false,
+                    lastWeekendSaturday: null,
+                    lastWeekendSunday: null,
+                    consecutivePerfectQuizzes: 0,
+                    bestConsecutivePerfect: 0,
+                    // XP System
+                    totalXP: 0,
+                    level: 1,
+                    // Daily Challenge
+                    lastDailyChallengeDate: null,
+                    dailyChallengeStreak: 0,
+                    dailyChallengesCompleted: 0,
+                    // Grading
+                    nextGradingDate: null,
                 };
                 if (saved) {
                     return { ...defaultStats, ...JSON.parse(saved) };
@@ -6444,17 +6849,61 @@
             }
 
             // Update stats when quiz is completed
-            function updateQuizStats(score, total, currentStreakCount) {
+            function updateQuizStats(score, total, currentStreakCount, quizTimeSeconds) {
                 const stats = getAchievementStats();
                 stats.quizzesCompleted++;
                 stats.correctAnswers += score;
 
                 if (score === total && total > 0) {
                     stats.perfectQuizzes++;
+                    // Track consecutive perfect quizzes
+                    stats.consecutivePerfectQuizzes = (stats.consecutivePerfectQuizzes || 0) + 1;
+                    if (stats.consecutivePerfectQuizzes > (stats.bestConsecutivePerfect || 0)) {
+                        stats.bestConsecutivePerfect = stats.consecutivePerfectQuizzes;
+                    }
+                } else {
+                    stats.consecutivePerfectQuizzes = 0;
                 }
 
                 if (currentStreakCount > stats.bestStreak) {
                     stats.bestStreak = currentStreakCount;
+                }
+
+                // Track fastest quiz time
+                if (
+                    quizTimeSeconds &&
+                    (!stats.fastestQuizTime || quizTimeSeconds < stats.fastestQuizTime)
+                ) {
+                    stats.fastestQuizTime = quizTimeSeconds;
+                }
+
+                // Check time of day for Night Owl / Early Bird
+                const hour = new Date().getHours();
+                if (hour >= 22 || hour < 5) {
+                    stats.nightOwlPractice = true;
+                }
+                if (hour >= 5 && hour < 7) {
+                    stats.earlyBirdPractice = true;
+                }
+
+                // Check for Weekend Warrior
+                const now = new Date();
+                const dayOfWeek = now.getDay();
+                const weekId = getWeekId(now);
+
+                if (dayOfWeek === 6) {
+                    // Saturday
+                    stats.lastWeekendSaturday = weekId;
+                } else if (dayOfWeek === 0) {
+                    // Sunday
+                    stats.lastWeekendSunday = weekId;
+                }
+
+                if (
+                    stats.lastWeekendSaturday === stats.lastWeekendSunday &&
+                    stats.lastWeekendSaturday
+                ) {
+                    stats.weekendWarrior = true;
                 }
 
                 // Update practice streak
@@ -6471,6 +6920,137 @@
 
                 saveAchievementStats(stats);
                 checkBadges();
+
+                // Award XP for quiz completion
+                let xpEarned = XP_AWARDS.quizComplete;
+                xpEarned += score * XP_AWARDS.correctAnswer;
+                if (score === total && total > 0) {
+                    xpEarned += XP_AWARDS.perfectQuiz;
+                }
+                awardXP(xpEarned, "Quiz completed");
+            }
+
+            // Helper to get a unique week identifier
+            function getWeekId(date) {
+                const startOfYear = new Date(date.getFullYear(), 0, 1);
+                const weekNum = Math.ceil(
+                    ((date - startOfYear) / 86400000 + startOfYear.getDay() + 1) / 7,
+                );
+                return date.getFullYear() + "-W" + weekNum;
+            }
+
+            // ==========================================
+            // XP SYSTEM
+            // ==========================================
+            const XP_AWARDS = {
+                quizComplete: 10,
+                perfectQuiz: 25,
+                correctAnswer: 2,
+                techniqueLearned: 5,
+                dailyLogin: 10,
+                streakBonus: 5,
+                dailyChallenge: 50,
+                dailyChallengePerfect: 25,
+            };
+
+            const LEVEL_THRESHOLDS = [
+                0, 100, 250, 500, 800, 1200, 1700, 2300, 3000, 4000, 5000, 6500, 8000, 10000, 12500,
+                15000, 18000, 22000, 27000, 35000,
+            ];
+
+            function calculateLevel(xp) {
+                for (let i = LEVEL_THRESHOLDS.length - 1; i >= 0; i--) {
+                    if (xp >= LEVEL_THRESHOLDS[i]) {
+                        return i + 1;
+                    }
+                }
+                return 1;
+            }
+
+            function getXPForNextLevel(currentXP) {
+                const level = calculateLevel(currentXP);
+                if (level >= LEVEL_THRESHOLDS.length) return null;
+                return LEVEL_THRESHOLDS[level];
+            }
+
+            function awardXP(amount, reason) {
+                const stats = getAchievementStats();
+                const oldLevel = calculateLevel(stats.totalXP || 0);
+                stats.totalXP = (stats.totalXP || 0) + amount;
+                const newLevel = calculateLevel(stats.totalXP);
+                stats.level = newLevel;
+                saveAchievementStats(stats);
+
+                showXPPopup(amount, reason);
+
+                if (newLevel > oldLevel) {
+                    showLevelUpPopup(newLevel);
+                }
+
+                checkBadges();
+                updateXPDisplay();
+                return stats.totalXP;
+            }
+
+            function showXPPopup(amount, reason) {
+                const popup = document.createElement("div");
+                popup.innerHTML = "+" + amount + " XP";
+                popup.style.cssText =
+                    "position: fixed; top: 80px; right: 20px; background: linear-gradient(135deg, #8b5cf6, #6366f1); " +
+                    "color: white; padding: 0.75rem 1.25rem; border-radius: 2rem; font-weight: 700; font-size: 1rem; " +
+                    "box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4); z-index: 9999; " +
+                    "animation: xpSlideIn 0.3s ease forwards;";
+                document.body.appendChild(popup);
+                setTimeout(() => {
+                    popup.style.opacity = "0";
+                    popup.style.transition = "opacity 0.3s";
+                    setTimeout(() => popup.remove(), 300);
+                }, 1500);
+            }
+
+            function showLevelUpPopup(level) {
+                const overlay = document.createElement("div");
+                overlay.style.cssText =
+                    "position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); " +
+                    "display: flex; align-items: center; justify-content: center; z-index: 10000;";
+                const popup = document.createElement("div");
+                popup.innerHTML =
+                    '<div style="font-size: 3rem; margin-bottom: 0.5rem;">🎉</div>' +
+                    '<div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.25rem;">Level Up!</div>' +
+                    '<div style="font-size: 1.125rem; opacity: 0.9;">You reached Level ' +
+                    level +
+                    "</div>";
+                popup.style.cssText =
+                    "background: linear-gradient(135deg, #8b5cf6, #6366f1); color: white; padding: 2rem 3rem; " +
+                    "border-radius: 1rem; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3); " +
+                    "transform: scale(0.8); animation: levelUpPop 0.3s ease forwards;";
+                overlay.appendChild(popup);
+                document.body.appendChild(overlay);
+                overlay.onclick = () => overlay.remove();
+                setTimeout(() => overlay.remove(), 3000);
+            }
+
+            function updateXPDisplay() {
+                const stats = getAchievementStats();
+                const xp = stats.totalXP || 0;
+                const level = calculateLevel(xp);
+                const nextLevelXP = getXPForNextLevel(xp);
+                const prevLevelXP = LEVEL_THRESHOLDS[level - 1] || 0;
+
+                const levelEl = document.getElementById("user-level");
+                const xpBarEl = document.getElementById("xp-bar-fill");
+                const xpTextEl = document.getElementById("xp-text");
+
+                if (levelEl) levelEl.textContent = "Lvl " + level;
+                if (xpBarEl && nextLevelXP) {
+                    const progress = ((xp - prevLevelXP) / (nextLevelXP - prevLevelXP)) * 100;
+                    xpBarEl.style.width = progress + "%";
+                }
+                if (xpTextEl) {
+                    xpTextEl.textContent = nextLevelXP
+                        ? xp + " / " + nextLevelXP + " XP"
+                        : xp + " XP (Max Level)";
+                }
             }
 
             // Update stats when category is studied
@@ -6484,6 +7064,195 @@
                 }
             }
 
+            // ==========================================
+            // DAILY CHALLENGE
+            // ==========================================
+            let isDailyChallenge = false;
+
+            function getDailySeed() {
+                const today = new Date();
+                return today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+            }
+
+            function seededRandom(seed) {
+                const x = Math.sin(seed++) * 10000;
+                return x - Math.floor(x);
+            }
+
+            function shuffleWithSeed(array, seed) {
+                const shuffled = [...array];
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(seededRandom(seed + i) * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
+            }
+
+            function getTodayString() {
+                return new Date().toISOString().split("T")[0];
+            }
+
+            function hasDoneDailyChallenge() {
+                const stats = getAchievementStats();
+                return stats.lastDailyChallengeDate === getTodayString();
+            }
+
+            function updateDailyChallengeButton() {
+                const statusEl = document.getElementById("daily-challenge-status");
+                const btn = document.getElementById("daily-challenge-btn");
+                if (!statusEl || !btn) return;
+
+                if (hasDoneDailyChallenge()) {
+                    statusEl.textContent = "✓ Completed today!";
+                    btn.style.opacity = "0.7";
+                } else {
+                    statusEl.textContent = "+50 XP bonus!";
+                    btn.style.opacity = "1";
+                }
+            }
+
+            function startDailyChallenge() {
+                if (hasDoneDailyChallenge()) {
+                    alert(
+                        "You have already completed today's Daily Challenge! Come back tomorrow for a new one.",
+                    );
+                    return;
+                }
+
+                isDailyChallenge = true;
+
+                // Reset quiz state
+                score = 0;
+                skipped = 0;
+                currentQuestion = 0;
+                answered = false;
+                categoryStats = {};
+                streakCount = 0;
+                currentStreak = 0;
+
+                // Use seeded random to get same questions for everyone on same day
+                const seed = getDailySeed();
+                const shuffledTerms = shuffleWithSeed(quizTerms, seed);
+                currentQuiz = shuffledTerms.slice(0, 10);
+
+                // Initialize category stats
+                currentQuiz.forEach((q) => {
+                    if (!categoryStats[q.category]) {
+                        categoryStats[q.category] = {
+                            correct: 0,
+                            incorrect: 0,
+                            skipped: 0,
+                            total: 0,
+                        };
+                    }
+                    categoryStats[q.category].total++;
+                });
+
+                // Show quiz
+                document.getElementById("quiz-start").style.display = "none";
+                document.getElementById("quiz-complete").style.display = "none";
+                document.getElementById("quiz-active").style.display = "block";
+
+                quizStartTime = Date.now();
+
+                // Display difficulty indicator
+                document.getElementById("quiz-difficulty-display").textContent =
+                    "Daily Challenge - All Belts";
+
+                displayQuestion();
+            }
+
+            function completeDailyChallenge(score, total) {
+                const stats = getAchievementStats();
+                stats.lastDailyChallengeDate = getTodayString();
+                stats.dailyChallengesCompleted = (stats.dailyChallengesCompleted || 0) + 1;
+
+                // Update daily challenge streak
+                const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
+                if (stats.previousDailyChallengeDate === yesterday) {
+                    stats.dailyChallengeStreak = (stats.dailyChallengeStreak || 0) + 1;
+                } else {
+                    stats.dailyChallengeStreak = 1;
+                }
+                stats.previousDailyChallengeDate = stats.lastDailyChallengeDate;
+
+                saveAchievementStats(stats);
+
+                // Award XP
+                let xpEarned = XP_AWARDS.dailyChallenge;
+                if (score === total && total > 0) {
+                    xpEarned += XP_AWARDS.dailyChallengePerfect;
+                }
+                awardXP(xpEarned, "Daily Challenge");
+
+                updateDailyChallengeButton();
+                isDailyChallenge = false;
+            }
+
+            // ==========================================
+            // GRADING COUNTDOWN
+            // ==========================================
+            function updateGradingCountdown() {
+                const stats = getAchievementStats();
+                const countdownContainer = document.getElementById("grading-countdown-container");
+                const setContainer = document.getElementById("grading-set-container");
+
+                if (!countdownContainer || !setContainer) return;
+
+                if (stats.nextGradingDate) {
+                    const gradingDate = new Date(stats.nextGradingDate);
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    gradingDate.setHours(0, 0, 0, 0);
+
+                    const diffTime = gradingDate - today;
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                    if (diffDays < 0) {
+                        // Grading date has passed
+                        clearGradingDate();
+                        return;
+                    }
+
+                    document.getElementById("grading-days-count").textContent = diffDays;
+                    document.getElementById("grading-date-display").textContent =
+                        gradingDate.toLocaleDateString("en-GB", {
+                            weekday: "long",
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                        });
+
+                    countdownContainer.style.display = "block";
+                    setContainer.style.display = "none";
+                } else {
+                    countdownContainer.style.display = "none";
+                    setContainer.style.display = "block";
+                }
+            }
+
+            function showGradingDatePicker() {
+                const dateStr = prompt("Enter your next grading date (YYYY-MM-DD):");
+                if (dateStr) {
+                    const date = new Date(dateStr);
+                    if (!isNaN(date.getTime())) {
+                        const stats = getAchievementStats();
+                        stats.nextGradingDate = dateStr;
+                        saveAchievementStats(stats);
+                        updateGradingCountdown();
+                    } else {
+                        alert("Invalid date format. Please use YYYY-MM-DD (e.g., 2026-03-15)");
+                    }
+                }
+            }
+
+            function clearGradingDate() {
+                const stats = getAchievementStats();
+                stats.nextGradingDate = null;
+                saveAchievementStats(stats);
+                updateGradingCountdown();
+            }
+
             // Render achievements page
             function renderAchievements() {
                 const stats = getAchievementStats();
@@ -6493,6 +7262,9 @@
 
                 earnedEl.textContent = stats.unlockedBadges.length;
                 totalEl.textContent = badges.length;
+
+                // Update XP display
+                updateXPDisplay();
 
                 grid.innerHTML = badges
                     .map((badge) => {
@@ -7052,6 +7824,9 @@
                 document.getElementById("quiz-complete").style.display = "none";
                 document.getElementById("quiz-active").style.display = "block";
 
+                // Start timer for speed achievement
+                quizStartTime = Date.now();
+
                 // Display difficulty
                 const beltNames = includedBelts.map((b) => b.color).join(", ");
                 document.getElementById("quiz-difficulty-display").textContent =
@@ -7207,8 +7982,16 @@
                 document.getElementById("skipped-count").textContent = skipped;
                 document.getElementById("total-count").textContent = currentQuiz.length;
 
-                // Update achievement stats
-                updateQuizStats(correct, attempted, streakCount);
+                // Calculate quiz duration in seconds
+                const quizTimeSeconds = Math.round((Date.now() - quizStartTime) / 1000);
+
+                // Update achievement stats (only for regular quizzes)
+                if (!isDailyChallenge) {
+                    updateQuizStats(correct, attempted, streakCount, quizTimeSeconds);
+                } else {
+                    // Complete daily challenge
+                    completeDailyChallenge(correct, attempted);
+                }
 
                 // Show category breakdown
                 let breakdownHTML =
@@ -7518,6 +8301,8 @@
             document.addEventListener("DOMContentLoaded", function () {
                 loadProgress();
                 setTimeout(updateBeltProgress, 100);
+                updateGradingCountdown();
+                updateDailyChallengeButton();
             });
 
             // ==========================================
@@ -7808,6 +8593,51 @@
                 updateGradingChecklist();
             }
 
+            // Navigate to search result
+            function navigateToSearchResult(belt, type, japanese) {
+                // Switch to belts tab
+                document
+                    .querySelectorAll(".nav-button")
+                    .forEach((b) => b.classList.remove("active"));
+                document
+                    .querySelectorAll(".tab-content")
+                    .forEach((t) => t.classList.remove("active"));
+
+                document.querySelector('[data-tab="belts"]').classList.add("active");
+                document.getElementById("belts-tab").classList.add("active");
+
+                // Select the belt
+                selectBelt(belt);
+
+                // Scroll to top first, then try to highlight the element after a short delay
+                window.scrollTo(0, 0);
+
+                setTimeout(() => {
+                    // Try to find and highlight the element
+                    const beltContent = document.getElementById("belt-content");
+                    if (beltContent) {
+                        // Search for the Japanese term in the content
+                        const allElements = beltContent.querySelectorAll(
+                            ".japanese, .technique-card, h4, li",
+                        );
+                        for (const el of allElements) {
+                            if (el.textContent.includes(japanese)) {
+                                // Scroll to element
+                                el.scrollIntoView({ behavior: "smooth", block: "center" });
+
+                                // Highlight effect
+                                el.style.transition = "background-color 0.3s";
+                                el.style.backgroundColor = "#fef08a";
+                                setTimeout(() => {
+                                    el.style.backgroundColor = "";
+                                }, 2000);
+                                break;
+                            }
+                        }
+                    }
+                }, 300);
+            }
+
             // Search functionality
             function performSearch() {
                 const query = document.getElementById("search-input").value.toLowerCase().trim();
@@ -7945,9 +8775,15 @@
                         name: item.belt,
                     };
                     html +=
-                        '<div class="technique-card" style="border-left: 4px solid ' +
+                        '<div class="technique-card search-result-clickable" style="border-left: 4px solid ' +
                         beltInfo.border +
-                        ';">';
+                        '; cursor: pointer;" onclick="navigateToSearchResult(\'' +
+                        item.belt +
+                        "', '" +
+                        item.type +
+                        "', '" +
+                        item.japanese.replace(/'/g, "\\'") +
+                        "')\">";
                     html += '<div class="japanese">' + item.japanese + "</div>";
                     html += '<div class="english">' + item.english + "</div>";
                     html +=
@@ -7962,6 +8798,8 @@
                         '<span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; background: #f3f4f6; border-radius: 0.25rem; color: #374151;">' +
                         item.type +
                         "</span>";
+                    html +=
+                        '<span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; background: #e0e7ff; border-radius: 0.25rem; color: #1e5ba8; margin-left: auto;">Click to view →</span>';
                     html += "</div>";
                     html += "</div>";
                 });

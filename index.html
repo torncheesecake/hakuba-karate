@@ -47,6 +47,15 @@
             });
         </script>
         <style>
+            :root {
+                --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+                --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+                --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+                --border-color: #e5e7eb;
+                --border-radius: 0.75rem;
+                --card-bg: white;
+            }
+
             * {
                 margin: 0;
                 padding: 0;
@@ -292,6 +301,64 @@
                 font-weight: 600;
             }
 
+            /* Collapsible sections */
+            .collapsible-section {
+                margin-bottom: 1.5rem;
+                border: 1px solid var(--border-color);
+                border-radius: var(--border-radius);
+                overflow: hidden;
+                background: var(--card-bg);
+            }
+
+            .collapsible-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 1rem 1.25rem;
+                background: #f9fafb;
+                cursor: pointer;
+                user-select: none;
+                transition: background 0.2s;
+            }
+
+            .collapsible-header:hover {
+                background: #f1f5f9;
+            }
+
+            .collapsible-header h3 {
+                margin: 0;
+                font-size: 1.5rem;
+                color: #1e5ba8;
+            }
+
+            .collapsible-toggle {
+                font-size: 1.25rem;
+                color: #6b7280;
+                transition: transform 0.3s ease;
+            }
+
+            .collapsible-section.collapsed .collapsible-toggle {
+                transform: rotate(-90deg);
+            }
+
+            .collapsible-content {
+                padding: 1.25rem;
+                transition:
+                    max-height 0.3s ease,
+                    padding 0.3s ease,
+                    opacity 0.3s ease;
+                max-height: 5000px;
+                opacity: 1;
+            }
+
+            .collapsible-section.collapsed .collapsible-content {
+                max-height: 0;
+                padding-top: 0;
+                padding-bottom: 0;
+                opacity: 0;
+                overflow: hidden;
+            }
+
             .card p {
                 margin-bottom: 1.25rem;
                 color: #4b5563;
@@ -331,7 +398,7 @@
 
             .belt-button {
                 padding: 1.25rem 1.5rem;
-                border-radius: 0.75rem;
+                border-radius: var(--border-radius);
                 border: none;
                 cursor: pointer;
                 font-weight: 600;
@@ -343,14 +410,14 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                box-shadow: var(--shadow-md);
                 position: relative;
                 overflow: hidden;
             }
 
             .belt-button:hover {
                 transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                box-shadow: var(--shadow-lg);
             }
 
             .belt-button.active {
@@ -520,15 +587,18 @@
             }
 
             .technique-card {
-                background: white;
+                background: var(--card-bg);
                 padding: 1.5rem 1.75rem;
-                border-radius: 0.5rem;
-                border-bottom: 1px solid #e5e7eb;
+                border-radius: var(--border-radius);
+                border: 1px solid var(--border-color);
+                box-shadow: var(--shadow-sm);
                 transition: all 0.2s;
+                margin-bottom: 0.75rem;
             }
 
             .technique-card:hover {
                 background: #f9fafb;
+                box-shadow: var(--shadow-md);
             }
 
             .technique-card h5 {
@@ -863,11 +933,11 @@
             }
 
             .dashboard-card {
-                background: white;
-                border: 1px solid #e5e7eb;
-                border-radius: 1rem;
+                background: var(--card-bg);
+                border: 1px solid var(--border-color);
+                border-radius: var(--border-radius);
                 padding: 1.25rem;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+                box-shadow: var(--shadow-sm);
             }
 
             .dashboard-header {
@@ -1161,7 +1231,7 @@
                 height: 100%;
                 background: #1e5ba8;
                 border-radius: 4px;
-                transition: width 0.3s ease;
+                transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             }
 
             .progress-text {
@@ -1227,10 +1297,11 @@
             }
 
             .quiz-option {
-                background: white;
+                background: var(--card-bg);
                 padding: 1.5rem 1.25rem;
-                border-radius: 0.5rem;
-                border: 1px solid #e5e7eb;
+                border-radius: var(--border-radius);
+                border: 1px solid var(--border-color);
+                box-shadow: var(--shadow-sm);
                 cursor: pointer;
                 transition: all 0.2s;
                 font-size: 1.25rem;
@@ -1241,18 +1312,22 @@
             .quiz-option:hover {
                 border-color: #1e5ba8;
                 background: #f9fafb;
+                box-shadow: var(--shadow-md);
+                transform: translateY(-2px);
             }
 
             .quiz-option.correct {
                 background: #dcfce7;
                 border-color: #16a34a;
                 color: #166534;
+                animation: pulse-correct 0.4s ease-out;
             }
 
             .quiz-option.incorrect {
                 background: #fee2e2;
                 border-color: #dc2626;
                 color: #991b1b;
+                animation: shake 0.4s ease-out;
             }
 
             .quiz-option.disabled {
@@ -1260,10 +1335,42 @@
                 opacity: 0.6;
             }
 
+            @keyframes pulse-correct {
+                0% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.05);
+                    box-shadow: 0 0 20px rgba(22, 163, 74, 0.4);
+                }
+                100% {
+                    transform: scale(1);
+                }
+            }
+
+            @keyframes shake {
+                0%,
+                100% {
+                    transform: translateX(0);
+                }
+                20% {
+                    transform: translateX(-8px);
+                }
+                40% {
+                    transform: translateX(8px);
+                }
+                60% {
+                    transform: translateX(-6px);
+                }
+                80% {
+                    transform: translateX(6px);
+                }
+            }
+
             .quiz-feedback {
                 margin-top: 1.5rem;
                 padding: 1.25rem;
-                border-radius: 0.625rem;
+                border-radius: var(--border-radius);
                 font-size: 1.125rem;
                 font-weight: 600;
             }
@@ -2480,6 +2587,33 @@
                 background: linear-gradient(90deg, #8b5cf6, #6366f1);
                 border-radius: 6px;
                 transition: width 0.5s ease;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .xp-bar-fill::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.3),
+                    transparent
+                );
+                animation: shimmer 2s infinite;
+            }
+
+            @keyframes shimmer {
+                0% {
+                    left: -100%;
+                }
+                100% {
+                    left: 100%;
+                }
             }
 
             body.dark-mode .xp-container {
@@ -2610,7 +2744,20 @@
             </div>
         </div>
 
-        <!-- Next Class Widget - At very top -->
+        <!-- Support Banner - At very top -->
+        <div class="support-banner">
+            <a href="https://ko-fi.com/torncheesecake" target="_blank" class="support-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.426 2.683-2.566 2.658-3.734 4.352.24 7.422-2.831 6.649-6.916zm-11.062 3.511c-1.246 1.453-4.011 3.976-4.011 3.976s-.121.119-.31.023c-.076-.057-.108-.09-.108-.09-.443-.441-3.368-3.049-4.034-3.954-.709-.965-1.041-2.7-.091-3.71.951-1.01 3.005-1.086 4.363.407 0 0 1.565-1.782 3.468-.963 1.904.82 1.832 3.011.723 4.311z"
+                    />
+                </svg>
+                <span class="support-text">Enjoying the app? Support its development!</span>
+                <span class="support-text-short">Support the app!</span>
+            </a>
+        </div>
+
+        <!-- Next Class Widget -->
         <div id="next-class-widget" class="next-class-widget">
             <div class="container next-class-container">
                 <div class="next-class-dojo">
@@ -2767,18 +2914,6 @@
                 </div>
             </div>
         </nav>
-
-        <div class="support-banner">
-            <a href="https://ko-fi.com/torncheesecake" target="_blank" class="support-link">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                        d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.426 2.683-2.566 2.658-3.734 4.352.24 7.422-2.831 6.649-6.916zm-11.062 3.511c-1.246 1.453-4.011 3.976-4.011 3.976s-.121.119-.31.023c-.076-.057-.108-.09-.108-.09-.443-.441-3.368-3.049-4.034-3.954-.709-.965-1.041-2.7-.091-3.71.951-1.01 3.005-1.086 4.363.407 0 0 1.565-1.782 3.468-.963 1.904.82 1.832 3.011.723 4.311z"
-                    />
-                </svg>
-                <span class="support-text">Enjoying the app? Support its development!</span>
-                <span class="support-text-short">Support the app!</span>
-            </a>
-        </div>
 
         <main>
             <div class="container">
@@ -6525,7 +6660,12 @@
                 html += "</div>"; // close belt-header-section
 
                 if (belt.kihon) {
+                    html += '<div class="collapsible-section">';
+                    html += '<div class="collapsible-header" onclick="toggleSection(this)">';
                     html += "<h3>Kihon-Waza (Fundamental Techniques)</h3>";
+                    html += '<span class="collapsible-toggle">▼</span>';
+                    html += "</div>";
+                    html += '<div class="collapsible-content">';
 
                     if (belt.kihon.blocks) {
                         html += "<h4>Blocks</h4>";
@@ -6576,10 +6716,17 @@
                         });
                         html += "</div>";
                     }
+
+                    html += "</div></div>"; // close collapsible-content and collapsible-section
                 }
 
                 if (belt.renraku) {
+                    html += '<div class="collapsible-section">';
+                    html += '<div class="collapsible-header" onclick="toggleSection(this)">';
                     html += "<h3>" + belt.renraku.title + "</h3>";
+                    html += '<span class="collapsible-toggle">▼</span>';
+                    html += "</div>";
+                    html += '<div class="collapsible-content">';
                     html += '<div class="technique-grid">';
                     belt.renraku.list.forEach((tech) => {
                         const stanceInfo = belt.renraku.stance
@@ -6588,10 +6735,16 @@
                         html += getTechniqueCardHtml(key, tech, stanceInfo);
                     });
                     html += "</div>";
+                    html += "</div></div>";
                 }
 
                 if (belt.uke) {
+                    html += '<div class="collapsible-section">';
+                    html += '<div class="collapsible-header" onclick="toggleSection(this)">';
                     html += "<h3>" + belt.uke.title + "</h3>";
+                    html += '<span class="collapsible-toggle">▼</span>';
+                    html += "</div>";
+                    html += '<div class="collapsible-content">';
                     if (belt.uke.note) {
                         html +=
                             '<p style="font-style:italic;color:#6b7280;">' + belt.uke.note + "</p>";
@@ -6604,10 +6757,16 @@
                         html += getTechniqueCardHtml(key, tech, stanceInfo);
                     });
                     html += "</div>";
+                    html += "</div></div>";
                 }
 
                 if (belt.sanbon) {
+                    html += '<div class="collapsible-section">';
+                    html += '<div class="collapsible-header" onclick="toggleSection(this)">';
                     html += "<h3>" + belt.sanbon.title + "</h3>";
+                    html += '<span class="collapsible-toggle">▼</span>';
+                    html += "</div>";
+                    html += '<div class="collapsible-content">';
                     html += '<div class="sparring-section"><ul>';
                     belt.sanbon.items.forEach((item) => {
                         html +=
@@ -6619,10 +6778,16 @@
                         html += "</li>";
                     });
                     html += "</ul></div>";
+                    html += "</div></div>";
                 }
 
                 if (belt.ohyo) {
+                    html += '<div class="collapsible-section">';
+                    html += '<div class="collapsible-header" onclick="toggleSection(this)">';
                     html += "<h3>" + belt.ohyo.title + "</h3>";
+                    html += '<span class="collapsible-toggle">▼</span>';
+                    html += "</div>";
+                    html += '<div class="collapsible-content">';
                     html += '<div class="sparring-section"><ul>';
                     belt.ohyo.items.forEach((item) => {
                         html +=
@@ -6633,10 +6798,16 @@
                             "</li>";
                     });
                     html += "</ul></div>";
+                    html += "</div></div>";
                 }
 
                 if (belt.kihonGumite) {
+                    html += '<div class="collapsible-section">';
+                    html += '<div class="collapsible-header" onclick="toggleSection(this)">';
                     html += "<h3>" + belt.kihonGumite.title + "</h3>";
+                    html += '<span class="collapsible-toggle">▼</span>';
+                    html += "</div>";
+                    html += '<div class="collapsible-content">';
                     html += '<div class="sparring-section"><ul>';
                     belt.kihonGumite.items.forEach((item) => {
                         html +=
@@ -6647,10 +6818,16 @@
                             "</li>";
                     });
                     html += "</ul></div>";
+                    html += "</div></div>";
                 }
 
                 if (belt.machiOhyo) {
+                    html += '<div class="collapsible-section">';
+                    html += '<div class="collapsible-header" onclick="toggleSection(this)">';
                     html += "<h3>" + belt.machiOhyo.title + "</h3>";
+                    html += '<span class="collapsible-toggle">▼</span>';
+                    html += "</div>";
+                    html += '<div class="collapsible-content">';
                     html += '<div class="sparring-section"><ul>';
                     belt.machiOhyo.items.forEach((item) => {
                         html +=
@@ -6661,6 +6838,7 @@
                             "</li>";
                     });
                     html += "</ul></div>";
+                    html += "</div></div>";
                 }
 
                 if (belt.kata) {

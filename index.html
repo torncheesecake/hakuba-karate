@@ -2174,6 +2174,52 @@
                 color: #d1d5db;
             }
 
+            .grading-date-picker {
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+                padding: 1.25rem;
+                background: #f3f4f6;
+                border: 2px dashed #d1d5db;
+                border-radius: 0.75rem;
+            }
+
+            .grading-date-label {
+                font-size: 1rem;
+                color: #374151;
+                font-weight: 600;
+                text-align: center;
+            }
+
+            .grading-date-input {
+                padding: 0.75rem 1rem;
+                border: 2px solid #d1d5db;
+                border-radius: 0.5rem;
+                font-size: 1rem;
+                text-align: center;
+                cursor: pointer;
+            }
+
+            .grading-date-input:focus {
+                outline: none;
+                border-color: #1e5ba8;
+            }
+
+            body.dark-mode .grading-date-picker {
+                background: #374151;
+                border-color: #4b5563;
+            }
+
+            body.dark-mode .grading-date-label {
+                color: #d1d5db;
+            }
+
+            body.dark-mode .grading-date-input {
+                background: #1f2937;
+                border-color: #4b5563;
+                color: white;
+            }
+
             /* Dark mode auth styles */
             body.dark-mode .auth-modal {
                 background: #1f2937;
@@ -2321,7 +2367,7 @@
                                 border-radius: 4px;
                             "
                         >
-                            v1.3.0
+                            v1.3.1
                         </p>
                     </div>
 
@@ -2521,9 +2567,17 @@
                         </button>
                     </div>
                     <div id="grading-set-container" class="grading-set" style="display: none">
-                        <button onclick="showGradingDatePicker()" class="grading-set-btn">
-                            📅 Set Next Grading Date
-                        </button>
+                        <div class="grading-date-picker">
+                            <label for="grading-date-input" class="grading-date-label"
+                                >📅 Set Next Grading Date</label
+                            >
+                            <input
+                                type="date"
+                                id="grading-date-input"
+                                class="grading-date-input"
+                                onchange="setGradingDate(this.value)"
+                            />
+                        </div>
                     </div>
 
                     <div class="belt-selector" id="belt-selector"></div>
@@ -5842,6 +5896,7 @@
                     const belt = beltData[key];
                     const button = document.createElement("button");
                     button.className = "belt-button " + belt.cssClass;
+                    button.dataset.belt = key;
                     button.innerHTML =
                         '<div class="belt-name">' +
                         belt.name +
@@ -5863,7 +5918,11 @@
                 document
                     .querySelectorAll(".belt-button")
                     .forEach((btn) => btn.classList.remove("active"));
-                event.target.closest(".belt-button").classList.add("active");
+                // Find and activate the belt button by data-belt attribute
+                const beltButton = document.querySelector('.belt-button[data-belt="' + key + '"]');
+                if (beltButton) {
+                    beltButton.classList.add("active");
+                }
                 displayBelt(key);
                 // Scroll to the belt content
                 document
@@ -6371,6 +6430,7 @@
                     name: "First Steps",
                     icon: "🥋",
                     description: "Mark your first technique as learned",
+                    xp: 25,
                     check: (stats) => stats.techniquesLearned >= 1,
                 },
                 {
@@ -6378,6 +6438,7 @@
                     name: "Dedicated Student",
                     icon: "📚",
                     description: "Complete 10 quizzes",
+                    xp: 50,
                     check: (stats) => stats.quizzesCompleted >= 10,
                 },
                 {
@@ -6385,6 +6446,7 @@
                     name: "Sharpshooter",
                     icon: "🎯",
                     description: "Get 100% on a quiz",
+                    xp: 50,
                     check: (stats) => stats.perfectQuizzes >= 1,
                 },
                 {
@@ -6392,6 +6454,7 @@
                     name: "On Fire",
                     icon: "🔥",
                     description: "Get 5 correct answers in a row",
+                    xp: 30,
                     check: (stats) => stats.bestStreak >= 5,
                 },
                 {
@@ -6399,6 +6462,7 @@
                     name: "Belt Master",
                     icon: "🏆",
                     description: "Learn all techniques for one belt",
+                    xp: 100,
                     check: (stats) => stats.beltsCompleted >= 1,
                 },
                 {
@@ -6406,6 +6470,7 @@
                     name: "Scholar",
                     icon: "📖",
                     description: "Study all terminology categories in Focus Mode",
+                    xp: 75,
                     check: (stats) => stats.categoriesStudied >= 8,
                 },
                 {
@@ -6413,6 +6478,7 @@
                     name: "Consistent",
                     icon: "🗓️",
                     description: "Practice 7 days in a row",
+                    xp: 100,
                     check: (stats) => stats.practiceStreak >= 7,
                 },
                 {
@@ -6420,6 +6486,7 @@
                     name: "Century",
                     icon: "💯",
                     description: "Answer 100 quiz questions correctly",
+                    xp: 75,
                     check: (stats) => stats.correctAnswers >= 100,
                 },
                 {
@@ -6427,6 +6494,7 @@
                     name: "Perfectionist",
                     icon: "🥇",
                     description: "Get 100% on 5 quizzes",
+                    xp: 100,
                     check: (stats) => stats.perfectQuizzes >= 5,
                 },
                 {
@@ -6434,6 +6502,7 @@
                     name: "Rising Star",
                     icon: "⭐",
                     description: "Earn 5 badges",
+                    xp: 50,
                     check: (stats) => stats.badgesEarned >= 5,
                 },
                 {
@@ -6441,6 +6510,7 @@
                     name: "Quiz Warrior",
                     icon: "⚔️",
                     description: "Complete 50 quizzes",
+                    xp: 150,
                     check: (stats) => stats.quizzesCompleted >= 50,
                 },
                 {
@@ -6448,70 +6518,80 @@
                     name: "Karate Master",
                     icon: "🐉",
                     description: "Learn all techniques across all belts",
+                    xp: 500,
                     check: (stats) => stats.allTechniquesLearned,
                 },
                 // Belt grading achievements
                 {
                     id: "red_belt",
-                    name: "9th Kyū",
+                    name: "9th Kyu",
                     icon: "🟥",
                     description: "Pass your Red Belt grading",
+                    xp: 100,
                     check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("9th"),
                 },
                 {
                     id: "yellow_belt",
-                    name: "8th Kyū",
+                    name: "8th Kyu",
                     icon: "🟨",
                     description: "Pass your Yellow Belt grading",
+                    xp: 100,
                     check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("8th"),
                 },
                 {
                     id: "orange_belt",
-                    name: "7th Kyū",
+                    name: "7th Kyu",
                     icon: "🟧",
                     description: "Pass your Orange Belt grading",
+                    xp: 100,
                     check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("7th"),
                 },
                 {
                     id: "green_belt",
-                    name: "6th Kyū",
+                    name: "6th Kyu",
                     icon: "🟩",
                     description: "Pass your Green Belt grading",
+                    xp: 125,
                     check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("6th"),
                 },
                 {
                     id: "blue_belt",
-                    name: "5th Kyū",
+                    name: "5th Kyu",
                     icon: "🟦",
                     description: "Pass your Blue Belt grading",
+                    xp: 125,
                     check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("5th"),
                 },
                 {
                     id: "purple_belt",
-                    name: "4th Kyū",
+                    name: "4th Kyu",
                     icon: "🟪",
                     description: "Pass your Purple Belt grading",
+                    xp: 150,
                     check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("4th"),
                 },
                 {
                     id: "brown_belt",
-                    name: "3rd Kyū",
+                    name: "3rd Kyu",
                     icon: "🟫",
                     description: "Pass your Brown Belt grading",
+                    xp: 175,
                     check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("3rd"),
                 },
                 {
                     id: "brown_white_belt",
-                    name: "2nd Kyū",
+                    name: "2nd Kyu",
                     icon: "🤎",
                     description: "Pass your Brown & White Belt grading",
+                    xp: 200,
                     check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("2nd"),
                 },
                 {
                     id: "brown_black_belt",
-                    name: "1st Kyū",
+                    name: "1st Kyu",
                     icon: "🖤",
                     description: "Pass your Brown & Black Belt grading",
+                    xp: 250,
                     check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("1st"),
                 },
                 {
@@ -6519,6 +6599,7 @@
                     name: "Shodan",
                     icon: "⬛",
                     description: "Achieve 1st Dan Black Belt",
+                    xp: 500,
                     check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("Shodan"),
                 },
                 {
@@ -6526,6 +6607,7 @@
                     name: "Nidan",
                     icon: "🏴",
                     description: "Achieve 2nd Dan Black Belt",
+                    xp: 750,
                     check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("Nidan"),
                 },
                 {
@@ -6533,6 +6615,7 @@
                     name: "Sandan",
                     icon: "🎌",
                     description: "Achieve 3rd Dan Black Belt",
+                    xp: 1000,
                     check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("Sandan"),
                 },
                 // Milestone achievements
@@ -6541,6 +6624,7 @@
                     name: "Unstoppable",
                     icon: "⚡",
                     description: "Get 10 correct answers in a row",
+                    xp: 75,
                     check: (stats) => stats.bestStreak >= 10,
                 },
                 {
@@ -6548,6 +6632,7 @@
                     name: "Halfway There",
                     icon: "🎯",
                     description: "Complete 6 belt gradings",
+                    xp: 200,
                     check: (stats) => stats.earnedBelts && stats.earnedBelts.length >= 6,
                 },
                 {
@@ -6555,6 +6640,7 @@
                     name: "Knowledge Seeker",
                     icon: "🧠",
                     description: "Answer 1000 quiz questions correctly",
+                    xp: 300,
                     check: (stats) => stats.correctAnswers >= 1000,
                 },
                 // New achievements
@@ -6563,6 +6649,7 @@
                     name: "Quiz Champion",
                     icon: "🏅",
                     description: "Complete 25 quizzes",
+                    xp: 75,
                     check: (stats) => stats.quizzesCompleted >= 25,
                 },
                 {
@@ -6570,6 +6657,7 @@
                     name: "Speed Demon",
                     icon: "💨",
                     description: "Complete a quiz in under 60 seconds",
+                    xp: 100,
                     check: (stats) => stats.fastestQuizTime && stats.fastestQuizTime < 60,
                 },
                 {
@@ -6577,6 +6665,7 @@
                     name: "Night Owl",
                     icon: "🦉",
                     description: "Practice after 10pm",
+                    xp: 25,
                     check: (stats) => stats.nightOwlPractice === true,
                 },
                 {
@@ -6584,6 +6673,7 @@
                     name: "Early Bird",
                     icon: "🐦",
                     description: "Practice before 7am",
+                    xp: 25,
                     check: (stats) => stats.earlyBirdPractice === true,
                 },
                 {
@@ -6591,6 +6681,7 @@
                     name: "Weekend Warrior",
                     icon: "⚔️",
                     description: "Practice on both Saturday and Sunday",
+                    xp: 50,
                     check: (stats) => stats.weekendWarrior === true,
                 },
                 {
@@ -6598,6 +6689,7 @@
                     name: "Triple Threat",
                     icon: "🎰",
                     description: "Get 3 perfect quizzes in a row",
+                    xp: 150,
                     check: (stats) => stats.bestConsecutivePerfect >= 3,
                 },
                 {
@@ -6605,6 +6697,7 @@
                     name: "Green Belt Journey",
                     icon: "🌿",
                     description: "Reach Green Belt level (6th Kyu)",
+                    xp: 125,
                     check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("6th"),
                 },
                 {
@@ -6612,6 +6705,7 @@
                     name: "Brown Belt Journey",
                     icon: "🥋",
                     description: "Reach Brown Belt level (3rd Kyu)",
+                    xp: 175,
                     check: (stats) => stats.earnedBelts && stats.earnedBelts.includes("3rd"),
                 },
                 {
@@ -6619,6 +6713,7 @@
                     name: "Daily Dedication",
                     icon: "📅",
                     description: "Complete 7 daily challenges",
+                    xp: 100,
                     check: (stats) => stats.dailyChallengesCompleted >= 7,
                 },
                 {
@@ -6626,6 +6721,7 @@
                     name: "XP Collector",
                     icon: "✨",
                     description: "Earn 1000 XP",
+                    xp: 100,
                     check: (stats) => stats.totalXP >= 1000,
                 },
             ];
@@ -6717,16 +6813,26 @@
                     if (!stats.unlockedBadges.includes(badge.id) && badge.check(stats)) {
                         stats.unlockedBadges.push(badge.id);
                         newBadges.push(badge);
+                        // Award XP for unlocking badge
+                        if (badge.xp) {
+                            stats.totalXP = (stats.totalXP || 0) + badge.xp;
+                        }
                     }
                 });
 
                 stats.badgesEarned = stats.unlockedBadges.length;
+                stats.level = calculateLevel(stats.totalXP || 0);
                 saveAchievementStats(stats);
 
-                // Show toast for each new badge
+                // Show toast for each new badge (includes XP info)
                 newBadges.forEach((badge, index) => {
                     setTimeout(() => showBadgeToast(badge), index * 1500);
                 });
+
+                // Update XP display after badges
+                if (newBadges.length > 0) {
+                    updateXPDisplay();
+                }
 
                 return newBadges;
             }
@@ -6750,12 +6856,16 @@
                     animation: slideIn 0.5s ease, slideOut 0.5s ease 3.5s forwards;
                     max-width: 320px;
                 `;
+                const xpText = badge.xp
+                    ? `<div style="font-size: 0.875rem; color: #fef08a; font-weight: 600;">+${badge.xp} XP</div>`
+                    : "";
                 toast.innerHTML = `
                     <div style="font-size: 2.5rem;">${badge.icon}</div>
                     <div>
                         <div style="font-weight: 700; font-size: 1.1rem;">Badge Unlocked!</div>
                         <div style="font-weight: 600;">${badge.name}</div>
                         <div style="font-size: 0.875rem; opacity: 0.9;">${badge.description}</div>
+                        ${xpText}
                     </div>
                 `;
                 document.body.appendChild(toast);
@@ -7102,11 +7212,15 @@
                 const btn = document.getElementById("daily-challenge-btn");
                 if (!statusEl || !btn) return;
 
+                // Get user's current belt level from slider
+                const sliderValue = parseInt(document.getElementById("belt-slider").value) || 0;
+                const currentBeltInfo = beltLevels[sliderValue];
+
                 if (hasDoneDailyChallenge()) {
                     statusEl.textContent = "✓ Completed today!";
                     btn.style.opacity = "0.7";
                 } else {
-                    statusEl.textContent = "+50 XP bonus!";
+                    statusEl.innerHTML = "Up to " + currentBeltInfo.color + " | +50 XP bonus!";
                     btn.style.opacity = "1";
                 }
             }
@@ -7130,9 +7244,17 @@
                 streakCount = 0;
                 currentStreak = 0;
 
-                // Use seeded random to get same questions for everyone on same day
+                // Get user's current belt level from slider
+                const sliderValue = parseInt(document.getElementById("belt-slider").value) || 0;
+                const includedBelts = beltLevels.slice(0, sliderValue + 1);
+                const beltIds = includedBelts.map((b) => b.id);
+
+                // Filter terms by user's belt level
+                const filteredTerms = quizTerms.filter((q) => beltIds.includes(q.belt));
+
+                // Use seeded random to get consistent questions for the day (but filtered by belt)
                 const seed = getDailySeed();
-                const shuffledTerms = shuffleWithSeed(quizTerms, seed);
+                const shuffledTerms = shuffleWithSeed(filteredTerms, seed);
                 currentQuiz = shuffledTerms.slice(0, 10);
 
                 // Initialize category stats
@@ -7155,9 +7277,10 @@
 
                 quizStartTime = Date.now();
 
-                // Display difficulty indicator
+                // Display difficulty indicator with belt info
+                const currentBeltInfo = beltLevels[sliderValue];
                 document.getElementById("quiz-difficulty-display").textContent =
-                    "Daily Challenge - All Belts";
+                    "Daily Challenge - Up to " + currentBeltInfo.color;
 
                 displayQuestion();
             }
@@ -7196,6 +7319,7 @@
                 const stats = getAchievementStats();
                 const countdownContainer = document.getElementById("grading-countdown-container");
                 const setContainer = document.getElementById("grading-set-container");
+                const dateInput = document.getElementById("grading-date-input");
 
                 if (!countdownContainer || !setContainer) return;
 
@@ -7228,11 +7352,12 @@
                 } else {
                     countdownContainer.style.display = "none";
                     setContainer.style.display = "block";
+                    // Clear the date input when no date is set
+                    if (dateInput) dateInput.value = "";
                 }
             }
 
-            function showGradingDatePicker() {
-                const dateStr = prompt("Enter your next grading date (YYYY-MM-DD):");
+            function setGradingDate(dateStr) {
                 if (dateStr) {
                     const date = new Date(dateStr);
                     if (!isNaN(date.getTime())) {
@@ -7240,8 +7365,7 @@
                         stats.nextGradingDate = dateStr;
                         saveAchievementStats(stats);
                         updateGradingCountdown();
-                    } else {
-                        alert("Invalid date format. Please use YYYY-MM-DD (e.g., 2026-03-15)");
+                        debouncedSync();
                     }
                 }
             }
@@ -7269,6 +7393,9 @@
                 grid.innerHTML = badges
                     .map((badge) => {
                         const unlocked = stats.unlockedBadges.includes(badge.id);
+                        const xpDisplay = badge.xp
+                            ? `<div style="margin-top: 0.5rem; color: ${unlocked ? "#7c3aed" : "#9ca3af"}; font-weight: 600; font-size: 0.875rem;">${unlocked ? "+" : ""}${badge.xp} XP</div>`
+                            : "";
                         return `
                         <div style="
                             background: ${unlocked ? "white" : "#f3f4f6"};
@@ -7282,7 +7409,8 @@
                             <div style="font-size: 3rem; margin-bottom: 0.75rem; ${unlocked ? "" : "filter: grayscale(100%);"}">${badge.icon}</div>
                             <div style="font-weight: 700; font-size: 1.25rem; color: ${unlocked ? "#1e5ba8" : "#9ca3af"}; margin-bottom: 0.5rem;">${badge.name}</div>
                             <div style="color: ${unlocked ? "#4b5563" : "#9ca3af"}; font-size: 0.95rem;">${badge.description}</div>
-                            ${unlocked ? '<div style="margin-top: 0.75rem; color: #059669; font-weight: 600; font-size: 0.875rem;">✓ Unlocked</div>' : ""}
+                            ${xpDisplay}
+                            ${unlocked ? '<div style="margin-top: 0.5rem; color: #059669; font-weight: 600; font-size: 0.875rem;">✓ Unlocked</div>' : ""}
                         </div>
                     `;
                     })
@@ -8595,6 +8723,15 @@
 
             // Navigate to search result
             function navigateToSearchResult(belt, type, japanese) {
+                // Close mobile menu if open
+                const hamburger = document.querySelector(".hamburger");
+                const navContainer = document.querySelector(".nav-container");
+                const navOverlay = document.querySelector(".nav-overlay");
+                if (hamburger) hamburger.classList.remove("active");
+                if (navContainer) navContainer.classList.remove("active");
+                if (navOverlay) navOverlay.classList.remove("active");
+                document.body.style.overflow = "";
+
                 // Switch to belts tab
                 document
                     .querySelectorAll(".nav-button")
@@ -8626,16 +8763,19 @@
                                 el.scrollIntoView({ behavior: "smooth", block: "center" });
 
                                 // Highlight effect
-                                el.style.transition = "background-color 0.3s";
-                                el.style.backgroundColor = "#fef08a";
+                                const card = el.closest(".technique-card") || el;
+                                card.style.transition = "background-color 0.3s, box-shadow 0.3s";
+                                card.style.backgroundColor = "#fef08a";
+                                card.style.boxShadow = "0 0 0 3px #fbbf24";
                                 setTimeout(() => {
-                                    el.style.backgroundColor = "";
-                                }, 2000);
+                                    card.style.backgroundColor = "";
+                                    card.style.boxShadow = "";
+                                }, 2500);
                                 break;
                             }
                         }
                     }
-                }, 300);
+                }, 400);
             }
 
             // Search functionality

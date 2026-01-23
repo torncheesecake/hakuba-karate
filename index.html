@@ -2472,6 +2472,57 @@
             </div>
         </header>
 
+        <!-- Next Class Widget -->
+        <div
+            id="next-class-widget"
+            style="background: linear-gradient(135deg, #059669, #10b981); padding: 0.75rem 1rem"
+        >
+            <div
+                class="container"
+                style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 1rem;
+                    flex-wrap: wrap;
+                "
+            >
+                <div style="display: flex; align-items: center; gap: 0.5rem">
+                    <span style="color: rgba(255, 255, 255, 0.9); font-size: 0.85rem"
+                        >My dojo:</span
+                    >
+                    <select
+                        id="home-dojo-select"
+                        onchange="setHomeDojo(this.value)"
+                        style="
+                            padding: 0.35rem 0.75rem;
+                            border-radius: 1rem;
+                            border: none;
+                            font-size: 0.85rem;
+                            font-weight: 500;
+                            cursor: pointer;
+                            background: rgba(255, 255, 255, 0.95);
+                        "
+                    >
+                        <option value="swindon">Swindon</option>
+                        <option value="mevagissey">Mevagissey</option>
+                    </select>
+                </div>
+                <div
+                    style="
+                        color: white;
+                        font-size: 0.95rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                    "
+                >
+                    <span style="font-weight: 600">Next class:</span>
+                    <span id="next-class-display" style="opacity: 0.95">Loading...</span>
+                </div>
+            </div>
+        </div>
+
         <div class="nav-overlay" id="nav-overlay" onclick="toggleMobileMenu()"></div>
         <nav>
             <div class="container">
@@ -9202,6 +9253,125 @@
                 if (savedFilter) {
                     filterCalendar(savedFilter);
                 }
+            });
+
+            // ==========================================
+            // NEXT CLASS WIDGET
+            // ==========================================
+            const CALENDAR_FEEDS = {
+                swindon:
+                    "https://calendar.google.com/calendar/ical/hakuba.wadoryu.karate%40gmail.com/public/basic.ics",
+                mevagissey:
+                    "https://calendar.google.com/calendar/ical/d8829b7dc8c3fdd622b1e1f2e0e82263c825ab6d3a6a1c638606e63b93af65ba%40group.calendar.google.com/public/basic.ics",
+            };
+
+            function setHomeDojo(dojo) {
+                localStorage.setItem("homeDojo", dojo);
+                document.getElementById("home-dojo-select").value = dojo;
+                // Also update calendar filter to match
+                filterCalendar(dojo);
+                fetchNextClass(dojo);
+            }
+
+            function fetchNextClass(dojo) {
+                const display = document.getElementById("next-class-display");
+                display.textContent = "Loading...";
+
+                const feedUrl = CALENDAR_FEEDS[dojo];
+
+                // Use a CORS proxy to fetch the calendar
+                fetch("https://api.allorigins.win/raw?url=" + encodeURIComponent(feedUrl))
+                    .then((response) => response.text())
+                    .then((icsData) => {
+                        const nextEvent = parseNextEvent(icsData);
+                        if (nextEvent) {
+                            display.textContent = nextEvent;
+                        } else {
+                            display.textContent = "No upcoming classes";
+                        }
+                    })
+                    .catch((err) => {
+                        console.error("Failed to fetch calendar:", err);
+                        display.textContent = "Check calendar tab";
+                    });
+            }
+
+            function parseNextEvent(icsData) {
+                const now = new Date();
+                const events = [];
+
+                // Split into events
+                const eventBlocks = icsData.split("BEGIN:VEVENT");
+
+                for (let i = 1; i < eventBlocks.length; i++) {
+                    const block = eventBlocks[i];
+
+                    // Extract DTSTART
+                    const dtStartMatch = block.match(/DTSTART[^:]*:(\d{8}T?\d{0,6})/);
+                    if (!dtStartMatch) continue;
+
+                    const dtStr = dtStartMatch[1];
+                    let eventDate;
+
+                    if (dtStr.length === 8) {
+                        // All-day event: YYYYMMDD
+                        eventDate = new Date(
+                            parseInt(dtStr.substr(0, 4)),
+                            parseInt(dtStr.substr(4, 2)) - 1,
+                            parseInt(dtStr.substr(6, 2)),
+                        );
+                    } else {
+                        // DateTime: YYYYMMDDTHHmmss
+                        eventDate = new Date(
+                            parseInt(dtStr.substr(0, 4)),
+                            parseInt(dtStr.substr(4, 2)) - 1,
+                            parseInt(dtStr.substr(6, 2)),
+                            parseInt(dtStr.substr(9, 2)),
+                            parseInt(dtStr.substr(11, 2)),
+                        );
+                    }
+
+                    // Skip past events
+                    if (eventDate < now) continue;
+
+                    // Extract summary
+                    const summaryMatch = block.match(/SUMMARY:(.+?)(?:\r?\n|$)/);
+                    const summary = summaryMatch ? summaryMatch[1].trim() : "Class";
+
+                    // Skip closure/cancelled events
+                    const lowerSummary = summary.toLowerCase();
+                    if (
+                        lowerSummary.includes("closed") ||
+                        lowerSummary.includes("cancel") ||
+                        lowerSummary.includes("no training") ||
+                        lowerSummary.includes("no class")
+                    ) {
+                        continue;
+                    }
+
+                    events.push({ date: eventDate, summary: summary });
+                }
+
+                // Sort by date and get the earliest
+                events.sort((a, b) => a.date - b.date);
+
+                if (events.length === 0) return null;
+
+                const next = events[0];
+                const dayName = next.date.toLocaleDateString("en-GB", { weekday: "long" });
+                const dateStr = next.date.toLocaleDateString("en-GB", {
+                    day: "numeric",
+                    month: "short",
+                });
+
+                return dayName + " " + dateStr + " - " + next.summary;
+            }
+
+            // Initialize home dojo on page load
+            document.addEventListener("DOMContentLoaded", function () {
+                const savedDojo = localStorage.getItem("homeDojo") || "swindon";
+                document.getElementById("home-dojo-select").value = savedDojo;
+                fetchNextClass(savedDojo);
             });
 
             // Search functionality

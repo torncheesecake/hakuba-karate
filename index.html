@@ -2500,6 +2500,7 @@
                     <button class="nav-button" data-tab="study">Study Mode</button>
                     <button class="nav-button" data-tab="grading">Grading Checklist</button>
                     <button class="nav-button" data-tab="achievements">Achievements</button>
+                    <button class="nav-button" data-tab="calendar">Calendar</button>
                     <button class="nav-button" data-tab="search">Search</button>
                 </div>
             </div>
@@ -4484,6 +4485,131 @@
                                 margin-top: 2rem;
                             "
                         ></div>
+                    </div>
+                </div>
+
+                <!-- Calendar Tab -->
+                <div id="calendar-tab" class="tab-content">
+                    <div class="card">
+                        <h2>Dojo Calendar</h2>
+                        <p>Upcoming classes, events, and gradings for Hakuba Karate.</p>
+
+                        <div style="margin: 1.5rem 0; display: flex; gap: 0.75rem; flex-wrap: wrap">
+                            <button
+                                onclick="filterCalendar('all')"
+                                id="cal-filter-all"
+                                class="cal-filter-btn active"
+                                style="
+                                    padding: 0.75rem 1.25rem;
+                                    border-radius: 0.5rem;
+                                    border: 2px solid #1e5ba8;
+                                    background: #1e5ba8;
+                                    color: white;
+                                    font-weight: 600;
+                                    cursor: pointer;
+                                    transition: all 0.2s;
+                                "
+                            >
+                                All Locations
+                            </button>
+                            <button
+                                onclick="filterCalendar('swindon')"
+                                id="cal-filter-swindon"
+                                class="cal-filter-btn"
+                                style="
+                                    padding: 0.75rem 1.25rem;
+                                    border-radius: 0.5rem;
+                                    border: 2px solid #039be5;
+                                    background: white;
+                                    color: #039be5;
+                                    font-weight: 600;
+                                    cursor: pointer;
+                                    transition: all 0.2s;
+                                "
+                            >
+                                <span
+                                    style="
+                                        display: inline-block;
+                                        width: 12px;
+                                        height: 12px;
+                                        background: #039be5;
+                                        border-radius: 50%;
+                                        margin-right: 0.5rem;
+                                    "
+                                ></span>
+                                Swindon
+                            </button>
+                            <button
+                                onclick="filterCalendar('mevagissey')"
+                                id="cal-filter-mevagissey"
+                                class="cal-filter-btn"
+                                style="
+                                    padding: 0.75rem 1.25rem;
+                                    border-radius: 0.5rem;
+                                    border: 2px solid #9e69af;
+                                    background: white;
+                                    color: #9e69af;
+                                    font-weight: 600;
+                                    cursor: pointer;
+                                    transition: all 0.2s;
+                                "
+                            >
+                                <span
+                                    style="
+                                        display: inline-block;
+                                        width: 12px;
+                                        height: 12px;
+                                        background: #9e69af;
+                                        border-radius: 50%;
+                                        margin-right: 0.5rem;
+                                    "
+                                ></span>
+                                Mevagissey
+                            </button>
+                        </div>
+
+                        <div
+                            id="calendar-container"
+                            style="
+                                border-radius: 0.75rem;
+                                overflow: hidden;
+                                border: 1px solid #e5e7eb;
+                            "
+                        >
+                            <iframe
+                                id="dojo-calendar"
+                                src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe/London&showPrint=0&mode=AGENDA&hl=en_GB&src=aGFrdWJhLndhZG9yeXUua2FyYXRlQGdtYWlsLmNvbQ&src=ZDg4MjliN2RjOGMzZmRkNjIyYjFlMWYyZTBlODIyNjNjODI1YWI2ZDNhNmExYzYzODYwNmU2M2I5M2FmNjViYUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23039be5&color=%239e69af"
+                                style="border: 0; width: 100%; height: 600px"
+                                frameborder="0"
+                                scrolling="no"
+                            ></iframe>
+                        </div>
+
+                        <p style="margin-top: 1rem; font-size: 0.9rem; color: #6b7280">
+                            <span
+                                style="
+                                    display: inline-block;
+                                    width: 12px;
+                                    height: 12px;
+                                    background: #039be5;
+                                    border-radius: 50%;
+                                    margin-right: 0.25rem;
+                                "
+                            ></span>
+                            Swindon classes
+                            <span
+                                style="
+                                    margin-left: 1rem;
+                                    display: inline-block;
+                                    width: 12px;
+                                    height: 12px;
+                                    background: #9e69af;
+                                    border-radius: 50%;
+                                    margin-right: 0.25rem;
+                                "
+                            ></span>
+                            Mevagissey classes
+                        </p>
                     </div>
                 </div>
 
@@ -8995,6 +9121,61 @@
                     }
                 }, 400);
             }
+
+            // Calendar filter functionality
+            function filterCalendar(location) {
+                const iframe = document.getElementById("dojo-calendar");
+                const baseUrl =
+                    "https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe/London&showPrint=0&mode=AGENDA&hl=en_GB";
+
+                // Calendar source IDs
+                const swindonSrc = "aGFrdWJhLndhZG9yeXUua2FyYXRlQGdtYWlsLmNvbQ"; // Blue
+                const mevagisseySrc =
+                    "ZDg4MjliN2RjOGMzZmRkNjIyYjFlMWYyZTBlODIyNjNjODI1YWI2ZDNhNmExYzYzODYwNmU2M2I5M2FmNjViYUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t"; // Purple
+
+                let url = baseUrl;
+
+                if (location === "swindon") {
+                    url += "&src=" + swindonSrc + "&color=%23039be5";
+                } else if (location === "mevagissey") {
+                    url += "&src=" + mevagisseySrc + "&color=%239e69af";
+                } else {
+                    // All locations
+                    url +=
+                        "&src=" +
+                        swindonSrc +
+                        "&src=" +
+                        mevagisseySrc +
+                        "&color=%23039be5&color=%239e69af";
+                }
+
+                iframe.src = url;
+
+                // Update button states
+                document.querySelectorAll(".cal-filter-btn").forEach((btn) => {
+                    btn.classList.remove("active");
+                    btn.style.background = "white";
+                    btn.style.color = btn.style.borderColor;
+                });
+
+                const activeBtn = document.getElementById("cal-filter-" + location);
+                if (activeBtn) {
+                    activeBtn.classList.add("active");
+                    activeBtn.style.background = activeBtn.style.borderColor;
+                    activeBtn.style.color = "white";
+                }
+
+                // Save preference
+                localStorage.setItem("calendarFilter", location);
+            }
+
+            // Load saved calendar filter on page load
+            document.addEventListener("DOMContentLoaded", function () {
+                const savedFilter = localStorage.getItem("calendarFilter");
+                if (savedFilter) {
+                    filterCalendar(savedFilter);
+                }
+            });
 
             // Search functionality
             function performSearch() {

@@ -4317,43 +4317,131 @@
 
                 try {
                     const userDoc = await db.collection("users").doc(currentUser.uid).get();
+                    const cloudData = userDoc.exists ? userDoc.data() : {};
 
-                    if (userDoc.exists) {
-                        const data = userDoc.data();
+                    // Get local data
+                    const localAchievements = JSON.parse(
+                        localStorage.getItem("hakubaAchievements") || "{}",
+                    );
+                    const localQuizHistory = JSON.parse(
+                        localStorage.getItem("quizHistory") || "{}",
+                    );
+                    const localProgress = JSON.parse(
+                        localStorage.getItem("hakubaProgress") || "{}",
+                    );
 
-                        // Load progress
-                        if (data.progress) {
-                            if (data.progress.currentBelt) {
-                                selectBelt(data.progress.currentBelt);
-                            }
-                            if (data.progress.notes) {
-                                window.userNotes = data.progress.notes;
-                            }
-                            if (data.progress.bookmarks) {
-                                window.userBookmarks = data.progress.bookmarks;
-                            }
-                            if (data.progress.darkMode) {
-                                toggleDarkMode(true);
-                            }
+                    // Merge achievements - take the higher values
+                    const mergedAchievements = mergeAchievements(
+                        localAchievements,
+                        cloudData.achievements || {},
+                    );
+                    localStorage.setItem("hakubaAchievements", JSON.stringify(mergedAchievements));
+
+                    // Merge quiz history - combine both
+                    const mergedQuizHistory = mergeQuizHistory(
+                        localQuizHistory,
+                        cloudData.quizHistory || {},
+                    );
+                    localStorage.setItem("quizHistory", JSON.stringify(mergedQuizHistory));
+
+                    // Load progress (prefer cloud if exists, otherwise keep local)
+                    if (cloudData.progress) {
+                        if (cloudData.progress.currentBelt) {
+                            selectBelt(cloudData.progress.currentBelt);
                         }
-
-                        // Load achievements
-                        if (data.achievements) {
-                            localStorage.setItem(
-                                "hakubaAchievements",
-                                JSON.stringify(data.achievements),
-                            );
+                        if (cloudData.progress.notes) {
+                            window.userNotes = {
+                                ...localProgress.notes,
+                                ...cloudData.progress.notes,
+                            };
                         }
-
-                        // Load quiz history
-                        if (data.quizHistory) {
-                            localStorage.setItem("quizHistory", JSON.stringify(data.quizHistory));
-                            quizHistory = Object.values(data.quizHistory).slice(-20);
+                        if (cloudData.progress.bookmarks) {
+                            window.userBookmarks = {
+                                ...localProgress.bookmarks,
+                                ...cloudData.progress.bookmarks,
+                            };
+                        }
+                        if (cloudData.progress.darkMode) {
+                            toggleDarkMode(true);
                         }
                     }
+
+                    // Always sync merged data back to cloud
+                    await syncLocalDataToCloud();
                 } catch (error) {
                     console.error("Error loading from Firestore:", error);
                 }
+            }
+
+            // Merge achievements - take the maximum values
+            function mergeAchievements(local, cloud) {
+                const merged = { ...local };
+
+                // Numeric fields - take the max
+                const numericFields = [
+                    "techniquesLearned",
+                    "quizzesCompleted",
+                    "perfectQuizzes",
+                    "bestStreak",
+                    "currentStreak",
+                    "beltsCompleted",
+                    "categoriesStudied",
+                    "practiceStreak",
+                    "correctAnswers",
+                    "badgesEarned",
+                ];
+
+                numericFields.forEach((field) => {
+                    merged[field] = Math.max(local[field] || 0, cloud[field] || 0);
+                });
+
+                // Array fields - combine unique values
+                const arrayFields = ["unlockedBadges", "studiedCategories", "earnedBelts"];
+                arrayFields.forEach((field) => {
+                    const localArr = local[field] || [];
+                    const cloudArr = cloud[field] || [];
+                    merged[field] = [...new Set([...localArr, ...cloudArr])];
+                });
+
+                // Boolean fields - true if either is true
+                if (local.allTechniquesLearned || cloud.allTechniquesLearned) {
+                    merged.allTechniquesLearned = true;
+                }
+
+                // Date fields - take the most recent
+                if (cloud.lastPracticeDate && local.lastPracticeDate) {
+                    merged.lastPracticeDate =
+                        new Date(cloud.lastPracticeDate) > new Date(local.lastPracticeDate)
+                            ? cloud.lastPracticeDate
+                            : local.lastPracticeDate;
+                } else {
+                    merged.lastPracticeDate = cloud.lastPracticeDate || local.lastPracticeDate;
+                }
+
+                return merged;
+            }
+
+            // Merge quiz history - combine records, taking best performance
+            function mergeQuizHistory(local, cloud) {
+                const merged = { ...local };
+
+                Object.keys(cloud).forEach((term) => {
+                    if (!merged[term]) {
+                        merged[term] = cloud[term];
+                    } else {
+                        // Take the record with more correct answers, or combine
+                        merged[term] = {
+                            wrong: Math.min(merged[term].wrong || 0, cloud[term].wrong || 0),
+                            correct: Math.max(merged[term].correct || 0, cloud[term].correct || 0),
+                            lastSeen: Math.max(
+                                merged[term].lastSeen || 0,
+                                cloud[term].lastSeen || 0,
+                            ),
+                        };
+                    }
+                });
+
+                return merged;
             }
 
             async function syncLocalDataToCloud() {

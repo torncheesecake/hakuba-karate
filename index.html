@@ -2813,7 +2813,7 @@
                                 border-radius: 4px;
                             "
                         >
-                            v1.4.6
+                            v1.4.7
                         </p>
                     </div>
 
@@ -7799,6 +7799,119 @@
                     xp: 100,
                     check: (stats) => stats.totalXP >= 1000,
                 },
+                // New achievements
+                {
+                    id: "terminology_novice",
+                    name: "Terminology Novice",
+                    icon: "📝",
+                    description: "Answer 25 quiz questions correctly",
+                    xp: 30,
+                    check: (stats) => stats.correctAnswers >= 25,
+                },
+                {
+                    id: "terminology_expert",
+                    name: "Terminology Expert",
+                    icon: "🎓",
+                    description: "Answer 500 quiz questions correctly",
+                    xp: 150,
+                    check: (stats) => stats.correctAnswers >= 500,
+                },
+                {
+                    id: "half_century",
+                    name: "Half Century",
+                    icon: "5️⃣0️⃣",
+                    description: "Learn 50 techniques",
+                    xp: 75,
+                    check: (stats) => stats.techniquesLearned >= 50,
+                },
+                {
+                    id: "technique_collector",
+                    name: "Technique Collector",
+                    icon: "🗂️",
+                    description: "Learn 100 techniques",
+                    xp: 150,
+                    check: (stats) => stats.techniquesLearned >= 100,
+                },
+                {
+                    id: "daily_streak_3",
+                    name: "Three Day Streak",
+                    icon: "3️⃣",
+                    description: "Practice 3 days in a row",
+                    xp: 30,
+                    check: (stats) => stats.practiceStreak >= 3,
+                },
+                {
+                    id: "daily_streak_14",
+                    name: "Two Week Warrior",
+                    icon: "🗓️",
+                    description: "Practice 14 days in a row",
+                    xp: 200,
+                    check: (stats) => stats.practiceStreak >= 14,
+                },
+                {
+                    id: "daily_streak_30",
+                    name: "Monthly Master",
+                    icon: "📆",
+                    description: "Practice 30 days in a row",
+                    xp: 500,
+                    check: (stats) => stats.practiceStreak >= 30,
+                },
+                {
+                    id: "xp_enthusiast",
+                    name: "XP Enthusiast",
+                    icon: "💫",
+                    description: "Earn 2500 XP",
+                    xp: 200,
+                    check: (stats) => stats.totalXP >= 2500,
+                },
+                {
+                    id: "xp_master",
+                    name: "XP Master",
+                    icon: "🌟",
+                    description: "Earn 5000 XP",
+                    xp: 350,
+                    check: (stats) => stats.totalXP >= 5000,
+                },
+                {
+                    id: "perfect_ten",
+                    name: "Perfect Ten",
+                    icon: "🔟",
+                    description: "Get 100% on 10 quizzes",
+                    xp: 200,
+                    check: (stats) => stats.perfectQuizzes >= 10,
+                },
+                {
+                    id: "quiz_veteran",
+                    name: "Quiz Veteran",
+                    icon: "🎖️",
+                    description: "Complete 100 quizzes",
+                    xp: 250,
+                    check: (stats) => stats.quizzesCompleted >= 100,
+                },
+                {
+                    id: "streak_master",
+                    name: "Streak Master",
+                    icon: "🔥",
+                    description: "Get 15 correct answers in a row",
+                    xp: 125,
+                    check: (stats) => stats.bestStreak >= 15,
+                },
+                {
+                    id: "daily_devotee",
+                    name: "Daily Devotee",
+                    icon: "🌅",
+                    description: "Complete 30 daily challenges",
+                    xp: 250,
+                    check: (stats) => stats.dailyChallengesCompleted >= 30,
+                },
+                {
+                    id: "weak_spot_warrior",
+                    name: "Weak Spot Warrior",
+                    icon: "💪",
+                    description: "Complete 5 Weak Spots quizzes",
+                    xp: 75,
+                    check: (stats) => stats.weakSpotsQuizzesCompleted >= 5,
+                },
             ];
 
             // Get achievement stats from localStorage
@@ -7923,6 +8036,9 @@
                         if (badge.xp) {
                             stats.totalXP = (stats.totalXP || 0) + badge.xp;
                         }
+                        // Track last earned badge
+                        stats.lastEarnedBadge = badge.id;
+                        stats.lastEarnedBadgeDate = new Date().toISOString();
                     }
                 });
 
@@ -8065,9 +8181,20 @@
             }
 
             // Update stats when quiz is completed
-            function updateQuizStats(score, total, currentStreakCount, quizTimeSeconds) {
+            function updateQuizStats(
+                score,
+                total,
+                currentStreakCount,
+                quizTimeSeconds,
+                wasWeakSpotsQuiz,
+            ) {
                 const stats = getAchievementStats();
                 stats.quizzesCompleted++;
+
+                // Track weak spots quizzes
+                if (wasWeakSpotsQuiz) {
+                    stats.weakSpotsQuizzesCompleted = (stats.weakSpotsQuizzesCompleted || 0) + 1;
+                }
                 stats.correctAnswers += score;
 
                 if (score === total && total > 0) {
@@ -8281,9 +8408,10 @@
             }
 
             // ==========================================
-            // DAILY CHALLENGE
+            // DAILY CHALLENGE & WEAK SPOTS
             // ==========================================
             let isDailyChallenge = false;
+            let isWeakSpotsQuiz = false;
 
             function getDailySeed() {
                 const today = new Date();
@@ -8536,21 +8664,60 @@
                 // Update XP display
                 updateXPDisplay();
 
-                grid.innerHTML = badges
-                    .map((badge) => {
-                        const unlocked = stats.unlockedBadges.includes(badge.id);
-                        const xpDisplay = badge.xp
-                            ? `<div style="margin-top: 0.5rem; color: ${unlocked ? "#7c3aed" : "#9ca3af"}; font-weight: 600; font-size: 0.875rem;">${unlocked ? "+" : ""}${badge.xp} XP</div>`
+                // Sort badges: unlocked first, then locked
+                const sortedBadges = [...badges].sort((a, b) => {
+                    const aUnlocked = stats.unlockedBadges.includes(a.id);
+                    const bUnlocked = stats.unlockedBadges.includes(b.id);
+                    if (aUnlocked && !bUnlocked) return -1;
+                    if (!aUnlocked && bUnlocked) return 1;
+                    return 0;
+                });
+
+                // Show last earned badge banner if exists
+                let lastEarnedHtml = "";
+                if (stats.lastEarnedBadge) {
+                    const lastBadge = badges.find((b) => b.id === stats.lastEarnedBadge);
+                    if (lastBadge) {
+                        const earnedDate = stats.lastEarnedBadgeDate
+                            ? new Date(stats.lastEarnedBadgeDate).toLocaleDateString("en-GB", {
+                                  day: "numeric",
+                                  month: "short",
+                                  year: "numeric",
+                              })
                             : "";
-                        return `
+                        lastEarnedHtml = `
+                            <div style="background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border: 2px solid #059669; border-radius: 0.75rem; padding: 1rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem;">
+                                <div style="font-size: 2.5rem;">${lastBadge.icon}</div>
+                                <div style="flex: 1;">
+                                    <div style="font-size: 0.85rem; color: #047857; font-weight: 600;">Latest Achievement</div>
+                                    <div style="font-weight: 700; font-size: 1.1rem; color: #059669;">${lastBadge.name}</div>
+                                    <div style="color: #047857; font-size: 0.9rem;">${lastBadge.description}</div>
+                                </div>
+                                ${earnedDate ? `<div style="color: #059669; font-size: 0.8rem; text-align: right;">${earnedDate}</div>` : ""}
+                            </div>
+                        `;
+                    }
+                }
+
+                grid.innerHTML =
+                    lastEarnedHtml +
+                    sortedBadges
+                        .map((badge) => {
+                            const unlocked = stats.unlockedBadges.includes(badge.id);
+                            const isLatest = stats.lastEarnedBadge === badge.id;
+                            const xpDisplay = badge.xp
+                                ? `<div style="margin-top: 0.5rem; color: ${unlocked ? "#7c3aed" : "#9ca3af"}; font-weight: 600; font-size: 0.875rem;">${unlocked ? "+" : ""}${badge.xp} XP</div>`
+                                : "";
+                            return `
                         <div style="
                             background: ${unlocked ? "white" : "#f3f4f6"};
-                            border: 2px solid ${unlocked ? "#1e5ba8" : "#e5e7eb"};
+                            border: 2px solid ${isLatest ? "#059669" : unlocked ? "#1e5ba8" : "#e5e7eb"};
                             border-radius: 0.75rem;
                             padding: 1.5rem;
                             text-align: center;
                             opacity: ${unlocked ? "1" : "0.6"};
                             transition: all 0.2s;
+                            ${isLatest ? "box-shadow: 0 0 12px rgba(5, 150, 105, 0.3);" : ""}
                         ">
                             <div style="font-size: 3rem; margin-bottom: 0.75rem; ${unlocked ? "" : "filter: grayscale(100%);"}">${badge.icon}</div>
                             <div style="font-weight: 700; font-size: 1.25rem; color: ${unlocked ? "#1e5ba8" : "#9ca3af"}; margin-bottom: 0.5rem;">${badge.name}</div>
@@ -8559,8 +8726,8 @@
                             ${unlocked ? '<div style="margin-top: 0.5rem; color: #059669; font-weight: 600; font-size: 0.875rem;">✓ Unlocked</div>' : ""}
                         </div>
                     `;
-                    })
-                    .join("");
+                        })
+                        .join("");
             }
 
             const quizTerms = [
@@ -9085,6 +9252,7 @@
                 categoryStats = {};
                 streakCount = 0;
                 currentStreak = 0;
+                isWeakSpotsQuiz = true;
 
                 // Use weak spots as the quiz, max 10 questions
                 currentQuiz = weakSpots.slice(0, Math.min(10, weakSpots.length));
@@ -9332,11 +9500,20 @@
 
                 // Update achievement stats (only for regular quizzes)
                 if (!isDailyChallenge) {
-                    updateQuizStats(correct, attempted, streakCount, quizTimeSeconds);
+                    updateQuizStats(
+                        correct,
+                        attempted,
+                        streakCount,
+                        quizTimeSeconds,
+                        isWeakSpotsQuiz,
+                    );
                 } else {
                     // Complete daily challenge
                     completeDailyChallenge(correct, attempted);
                 }
+
+                // Reset quiz type flags
+                isWeakSpotsQuiz = false;
 
                 // Show category breakdown
                 let breakdownHTML =

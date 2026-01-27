@@ -161,6 +161,24 @@
                 opacity: 0.95;
             }
 
+            /* Offline Banner */
+            .offline-banner {
+                background: linear-gradient(135deg, #6b7280, #4b5563);
+                padding: 0.5rem 1rem;
+                text-align: center;
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+                font-size: 0.9rem;
+                font-weight: 500;
+            }
+
+            .offline-banner svg {
+                flex-shrink: 0;
+            }
+
             /* Support Banner */
             .support-banner {
                 background: linear-gradient(135deg, #ff5e5b, #ff8584);
@@ -2063,6 +2081,20 @@
                 .support-text-short {
                     display: inline;
                 }
+
+                /* Kata step navigation mobile */
+                .kata-steps .btn-primary {
+                    padding: 0.4rem 0.6rem !important;
+                    font-size: 0.8rem !important;
+                }
+
+                .kata-steps h3 {
+                    font-size: 1.25rem !important;
+                }
+
+                .kata-steps h4 {
+                    font-size: 1rem !important;
+                }
             }
 
             /* Tablet adjustments */
@@ -2744,6 +2776,27 @@
             </div>
         </div>
 
+        <!-- Offline Indicator Banner -->
+        <div id="offline-banner" class="offline-banner" style="display: none">
+            <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+            >
+                <line x1="1" y1="1" x2="23" y2="23"></line>
+                <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
+                <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
+                <path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
+                <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
+                <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                <line x1="12" y1="20" x2="12.01" y2="20"></line>
+            </svg>
+            <span>You're offline - changes will sync when you reconnect</span>
+        </div>
+
         <!-- Support Banner - At very top -->
         <div class="support-banner">
             <a href="https://monzo.me/matthewhillman" target="_blank" class="support-link">
@@ -3410,6 +3463,94 @@
                                         <strong>S</strong> = Skip question<br />
                                         <strong>Enter</strong> = Next question<br />
                                         <strong>Esc</strong> = Exit quiz
+                                    </div>
+                                </div>
+
+                                <!-- Smart Practice Recommendation -->
+                                <div
+                                    id="smart-practice-panel"
+                                    style="
+                                        display: none;
+                                        max-width: 550px;
+                                        margin: 0 auto 2rem auto;
+                                        background: linear-gradient(135deg, #fef3c7, #fde68a);
+                                        border: 2px solid #f59e0b;
+                                        border-radius: 0.75rem;
+                                        padding: 1.25rem;
+                                        text-align: left;
+                                    "
+                                >
+                                    <div
+                                        style="
+                                            display: flex;
+                                            align-items: center;
+                                            gap: 0.5rem;
+                                            margin-bottom: 0.75rem;
+                                        "
+                                    >
+                                        <span style="font-size: 1.25rem">🎯</span>
+                                        <span
+                                            style="
+                                                font-weight: 700;
+                                                color: #92400e;
+                                                font-size: 1.1rem;
+                                            "
+                                            >Smart Practice Recommendation</span
+                                        >
+                                    </div>
+                                    <p
+                                        id="smart-practice-message"
+                                        style="
+                                            color: #78350f;
+                                            margin-bottom: 1rem;
+                                            line-height: 1.5;
+                                        "
+                                    ></p>
+                                    <div
+                                        id="weak-spots-preview"
+                                        style="display: none; margin-bottom: 1rem"
+                                    >
+                                        <div
+                                            style="
+                                                font-weight: 600;
+                                                color: #92400e;
+                                                margin-bottom: 0.5rem;
+                                                font-size: 0.9rem;
+                                            "
+                                        >
+                                            Terms to focus on:
+                                        </div>
+                                        <div
+                                            id="weak-spots-list"
+                                            style="display: flex; flex-wrap: wrap; gap: 0.5rem"
+                                        ></div>
+                                    </div>
+                                    <div
+                                        id="mastery-stats"
+                                        style="
+                                            background: rgba(255, 255, 255, 0.6);
+                                            border-radius: 0.5rem;
+                                            padding: 0.75rem;
+                                            margin-top: 0.75rem;
+                                        "
+                                    >
+                                        <div
+                                            style="
+                                                display: flex;
+                                                justify-content: space-between;
+                                                font-size: 0.9rem;
+                                                color: #78350f;
+                                            "
+                                        >
+                                            <span
+                                                >Terms mastered:
+                                                <strong id="terms-mastered-count">0</strong></span
+                                            >
+                                            <span
+                                                >Need practice:
+                                                <strong id="terms-weak-count">0</strong></span
+                                            >
+                                        </div>
                                     </div>
                                 </div>
 
@@ -4757,6 +4898,167 @@
                             </div>
                         </div>
 
+                        <!-- Readiness Assessment Panel -->
+                        <div
+                            id="readiness-assessment"
+                            style="
+                                background: white;
+                                border: 2px solid #e5e7eb;
+                                border-radius: 0.75rem;
+                                padding: 1.5rem;
+                                margin-bottom: 2rem;
+                            "
+                        >
+                            <div
+                                style="
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 0.5rem;
+                                    margin-bottom: 1rem;
+                                "
+                            >
+                                <span style="font-size: 1.25rem">📊</span>
+                                <span style="font-weight: 700; color: #374151; font-size: 1.1rem"
+                                    >Readiness Assessment</span
+                                >
+                            </div>
+
+                            <div
+                                id="readiness-score"
+                                style="
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 1.5rem;
+                                    margin-bottom: 1.25rem;
+                                    flex-wrap: wrap;
+                                "
+                            >
+                                <div style="text-align: center">
+                                    <div
+                                        id="readiness-percentage"
+                                        style="font-size: 2.5rem; font-weight: 800; color: #1e5ba8"
+                                    >
+                                        --%
+                                    </div>
+                                    <div style="font-size: 0.85rem; color: #6b7280">Ready</div>
+                                </div>
+                                <div style="flex: 1; min-width: 200px">
+                                    <div
+                                        id="readiness-message"
+                                        style="
+                                            color: #374151;
+                                            line-height: 1.5;
+                                            margin-bottom: 0.75rem;
+                                        "
+                                    ></div>
+                                    <div id="readiness-action" style="display: none">
+                                        <button
+                                            onclick="switchTab('quiz')"
+                                            style="
+                                                background: #1e5ba8;
+                                                color: white;
+                                                border: none;
+                                                padding: 0.5rem 1rem;
+                                                border-radius: 0.5rem;
+                                                cursor: pointer;
+                                                font-weight: 500;
+                                                font-size: 0.9rem;
+                                            "
+                                        >
+                                            Practice Quiz
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                style="
+                                    display: grid;
+                                    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                                    gap: 0.75rem;
+                                "
+                            >
+                                <div
+                                    style="
+                                        background: #f0fdf4;
+                                        border: 1px solid #bbf7d0;
+                                        border-radius: 0.5rem;
+                                        padding: 0.75rem;
+                                        text-align: center;
+                                    "
+                                >
+                                    <div
+                                        id="readiness-checklist-done"
+                                        style="font-size: 1.5rem; font-weight: 700; color: #16a34a"
+                                    >
+                                        0
+                                    </div>
+                                    <div style="font-size: 0.8rem; color: #15803d">Checked Off</div>
+                                </div>
+                                <div
+                                    style="
+                                        background: #fef3c7;
+                                        border: 1px solid #fde68a;
+                                        border-radius: 0.5rem;
+                                        padding: 0.75rem;
+                                        text-align: center;
+                                    "
+                                >
+                                    <div
+                                        id="readiness-checklist-remaining"
+                                        style="font-size: 1.5rem; font-weight: 700; color: #d97706"
+                                    >
+                                        0
+                                    </div>
+                                    <div style="font-size: 0.8rem; color: #b45309">Remaining</div>
+                                </div>
+                                <div
+                                    style="
+                                        background: #eff6ff;
+                                        border: 1px solid #bfdbfe;
+                                        border-radius: 0.5rem;
+                                        padding: 0.75rem;
+                                        text-align: center;
+                                    "
+                                >
+                                    <div
+                                        id="readiness-quiz-score"
+                                        style="font-size: 1.5rem; font-weight: 700; color: #2563eb"
+                                    >
+                                        --
+                                    </div>
+                                    <div style="font-size: 0.8rem; color: #1d4ed8">
+                                        Quiz Mastery
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                id="readiness-weak-spots"
+                                style="
+                                    display: none;
+                                    margin-top: 1rem;
+                                    padding-top: 1rem;
+                                    border-top: 1px solid #e5e7eb;
+                                "
+                            >
+                                <div
+                                    style="
+                                        font-weight: 600;
+                                        color: #dc2626;
+                                        margin-bottom: 0.5rem;
+                                        font-size: 0.9rem;
+                                    "
+                                >
+                                    ⚠️ Terms needing practice:
+                                </div>
+                                <div
+                                    id="readiness-weak-list"
+                                    style="display: flex; flex-wrap: wrap; gap: 0.5rem"
+                                ></div>
+                            </div>
+                        </div>
+
                         <div id="grading-checklist-content"></div>
 
                         <div
@@ -5046,6 +5348,261 @@
                     Content from
                     <a href="https://hakuba-karate.co.uk/" target="_blank">Hakuba Karate Dojo</a>
                 </p>
+
+                <!-- Federation Memberships -->
+                <div style="margin: 2rem 0 1.5rem">
+                    <div
+                        style="
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 1rem;
+                            margin-bottom: 1.25rem;
+                        "
+                    >
+                        <div
+                            style="
+                                height: 1px;
+                                width: 60px;
+                                background: linear-gradient(
+                                    90deg,
+                                    transparent,
+                                    rgba(255, 255, 255, 0.3)
+                                );
+                            "
+                        ></div>
+                        <span
+                            style="
+                                font-size: 0.8rem;
+                                color: #9ca3af;
+                                text-transform: uppercase;
+                                letter-spacing: 0.15em;
+                                font-weight: 600;
+                            "
+                            >Proud Member Of</span
+                        >
+                        <div
+                            style="
+                                height: 1px;
+                                width: 60px;
+                                background: linear-gradient(
+                                    90deg,
+                                    rgba(255, 255, 255, 0.3),
+                                    transparent
+                                );
+                            "
+                        ></div>
+                    </div>
+                    <div
+                        style="
+                            display: flex;
+                            flex-wrap: wrap;
+                            justify-content: center;
+                            align-items: stretch;
+                            gap: 1rem;
+                        "
+                    >
+                        <a
+                            href="https://britishwadofederation.org.uk/"
+                            target="_blank"
+                            class="federation-badge"
+                            style="
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                text-decoration: none;
+                                background: linear-gradient(
+                                    145deg,
+                                    rgba(255, 255, 255, 0.1),
+                                    rgba(255, 255, 255, 0.03)
+                                );
+                                border: 1px solid rgba(255, 255, 255, 0.1);
+                                border-radius: 1rem;
+                                padding: 1.25rem 1.5rem;
+                                min-width: 140px;
+                                transition: all 0.3s ease;
+                            "
+                            onmouseover="
+                                this.style.transform = 'translateY(-4px)';
+                                this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)';
+                                this.style.borderColor = 'rgba(147,197,253,0.4)';
+                            "
+                            onmouseout="
+                                this.style.transform = 'translateY(0)';
+                                this.style.boxShadow = 'none';
+                                this.style.borderColor = 'rgba(255,255,255,0.1)';
+                            "
+                        >
+                            <div
+                                style="
+                                    width: 70px;
+                                    height: 70px;
+                                    border-radius: 50%;
+                                    background: white;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    margin-bottom: 0.75rem;
+                                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                                "
+                            >
+                                <img
+                                    src="bwf-logo.jpg"
+                                    alt="British Wado Federation"
+                                    style="
+                                        width: 58px;
+                                        height: 58px;
+                                        border-radius: 50%;
+                                        object-fit: cover;
+                                    "
+                                />
+                            </div>
+                            <span
+                                style="
+                                    font-size: 0.8rem;
+                                    color: white;
+                                    font-weight: 600;
+                                    text-align: center;
+                                    line-height: 1.3;
+                                "
+                                >British Wado<br />Federation</span
+                            >
+                        </a>
+                        <a
+                            href="https://europeanwadofederation.com/"
+                            target="_blank"
+                            class="federation-badge"
+                            style="
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                text-decoration: none;
+                                background: linear-gradient(
+                                    145deg,
+                                    rgba(255, 255, 255, 0.1),
+                                    rgba(255, 255, 255, 0.03)
+                                );
+                                border: 1px solid rgba(255, 255, 255, 0.1);
+                                border-radius: 1rem;
+                                padding: 1.25rem 1.5rem;
+                                min-width: 140px;
+                                transition: all 0.3s ease;
+                            "
+                            onmouseover="
+                                this.style.transform = 'translateY(-4px)';
+                                this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)';
+                                this.style.borderColor = 'rgba(147,197,253,0.4)';
+                            "
+                            onmouseout="
+                                this.style.transform = 'translateY(0)';
+                                this.style.boxShadow = 'none';
+                                this.style.borderColor = 'rgba(255,255,255,0.1)';
+                            "
+                        >
+                            <div
+                                style="
+                                    width: 70px;
+                                    height: 70px;
+                                    border-radius: 50%;
+                                    background: white;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    margin-bottom: 0.75rem;
+                                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                                "
+                            >
+                                <img
+                                    src="ewf-logo.png"
+                                    alt="European Wado Federation"
+                                    style="
+                                        width: 58px;
+                                        height: 58px;
+                                        border-radius: 50%;
+                                        object-fit: cover;
+                                    "
+                                />
+                            </div>
+                            <span
+                                style="
+                                    font-size: 0.8rem;
+                                    color: white;
+                                    font-weight: 600;
+                                    text-align: center;
+                                    line-height: 1.3;
+                                "
+                                >European Wado<br />Federation</span
+                            >
+                        </a>
+                        <a
+                            href="https://iwf-karate.org/"
+                            target="_blank"
+                            class="federation-badge"
+                            style="
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                text-decoration: none;
+                                background: linear-gradient(
+                                    145deg,
+                                    rgba(255, 255, 255, 0.1),
+                                    rgba(255, 255, 255, 0.03)
+                                );
+                                border: 1px solid rgba(255, 255, 255, 0.1);
+                                border-radius: 1rem;
+                                padding: 1.25rem 1.5rem;
+                                min-width: 140px;
+                                transition: all 0.3s ease;
+                            "
+                            onmouseover="
+                                this.style.transform = 'translateY(-4px)';
+                                this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)';
+                                this.style.borderColor = 'rgba(147,197,253,0.4)';
+                            "
+                            onmouseout="
+                                this.style.transform = 'translateY(0)';
+                                this.style.boxShadow = 'none';
+                                this.style.borderColor = 'rgba(255,255,255,0.1)';
+                            "
+                        >
+                            <div
+                                style="
+                                    width: 70px;
+                                    height: 70px;
+                                    border-radius: 50%;
+                                    background: white;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    margin-bottom: 0.75rem;
+                                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                                "
+                            >
+                                <img
+                                    src="https://iwf-karate.org/uploads/6/3/3/3/6333193/2941994.png"
+                                    alt="International Wado Federation"
+                                    style="
+                                        width: 58px;
+                                        height: 58px;
+                                        border-radius: 50%;
+                                        object-fit: contain;
+                                    "
+                                />
+                            </div>
+                            <span
+                                style="
+                                    font-size: 0.8rem;
+                                    color: white;
+                                    font-weight: 600;
+                                    text-align: center;
+                                    line-height: 1.3;
+                                "
+                                >International Wado<br />Federation</span
+                            >
+                        </a>
+                    </div>
+                </div>
+
                 <p style="margin-top: 1rem">
                     <a
                         href="https://monzo.me/matthewhillman"
@@ -7170,6 +7727,823 @@
                                     "Draw back left foot and return to natural stance (Shizen Hontai).",
                             },
                         ],
+                        "Pinan Shodan": [
+                            {
+                                num: 0,
+                                japanese: "Yōi",
+                                english: "Ready",
+                                direction: "",
+                                stance: "Hachiji-dachi",
+                                description:
+                                    "From musubi-dachi (attention stance), bow, then open to hachiji-dachi (ready stance).",
+                            },
+                            {
+                                num: 1,
+                                japanese: "Soto-uke + Agi-uke",
+                                english: "Middle block + Rising block",
+                                direction: "Turn 90° left",
+                                stance: "Mahanmi Neko-ashi-dachi",
+                                description:
+                                    "Drop body into left side-facing cat stance. Perform left soto-uke (middle block) with right hand in agi-uke (rising/bump block) position over forehead.",
+                            },
+                            {
+                                num: 2,
+                                japanese: "Tetsui-uke",
+                                english: "Hammer fist block",
+                                direction: "Shoulders turn 90° left",
+                                stance: "Mahanmi Neko-ashi-dachi",
+                                description:
+                                    "Keep feet position, turn shoulders 90° left. Pull left hand across body, drop right hand as tetsui-uke (hammer fist block) at solar plexus level.",
+                            },
+                            {
+                                num: 3,
+                                japanese: "Tetsui Yoko-uchi",
+                                english: "Horizontal hammer strike",
+                                direction: "Return to centre",
+                                stance: "Hachiji-dachi",
+                                description:
+                                    "Turn shoulders back 90°, pull left foot back to hachiji-dachi. Pull right hand to hikite while striking left horizontal tetsui above shoulder level.",
+                            },
+                            {
+                                num: 4,
+                                japanese: "Soto-uke + Agi-uke",
+                                english: "Middle block + Rising block",
+                                direction: "Turn 90° right",
+                                stance: "Mahanmi Neko-ashi-dachi",
+                                description:
+                                    "Drop body into right side-facing cat stance. Perform right soto-uke with left hand in agi-uke position.",
+                            },
+                            {
+                                num: 5,
+                                japanese: "Tetsui-uke",
+                                english: "Hammer fist block",
+                                direction: "Shoulders turn 90° right",
+                                stance: "Mahanmi Neko-ashi-dachi",
+                                description:
+                                    "Keep feet position, turn shoulders 90° right. Pull right hand across body, drop left hand as tetsui-uke at solar plexus.",
+                            },
+                            {
+                                num: 6,
+                                japanese: "Tetsui Yoko-uchi",
+                                english: "Horizontal hammer strike",
+                                direction: "Return to centre",
+                                stance: "Hachiji-dachi",
+                                description:
+                                    "Turn shoulders back 90°, pull right foot to hachiji-dachi. Pull left hand to hikite while striking right horizontal tetsui.",
+                            },
+                            {
+                                num: 7,
+                                japanese: "Soto-uke + Mae-geri",
+                                english: "Middle block + Front kick",
+                                direction: "Pivot 90° right",
+                                stance: "Transitional",
+                                description:
+                                    "Pivot 90° right, throw right soto-uke and right mae-geri simultaneously toward rear. Set kick down at 115° angle.",
+                            },
+                            {
+                                num: 8,
+                                japanese: "Shuto-uke",
+                                english: "Knife hand block",
+                                direction: "Face original front",
+                                stance: "Mahanmi Neko-ashi-dachi",
+                                description:
+                                    "Drop into left side-facing cat stance toward original front, executing left shuto-uke (open hand block).",
+                            },
+                            {
+                                num: 9,
+                                japanese: "Shuto-uke",
+                                english: "Knife hand block",
+                                direction: "Step forward",
+                                stance: "Mahanmi Neko-ashi-dachi",
+                                description:
+                                    "Step forward into right mahanmi neko-ashi-dachi executing right shuto-uke.",
+                            },
+                            {
+                                num: 10,
+                                japanese: "Shuto-uke",
+                                english: "Knife hand block",
+                                direction: "Step forward",
+                                stance: "Mahanmi Neko-ashi-dachi",
+                                description:
+                                    "Step forward into left mahanmi neko-ashi-dachi executing left shuto-uke.",
+                            },
+                            {
+                                num: 11,
+                                japanese: "Tate Nukite",
+                                english: "Vertical spear hand",
+                                direction: "Step forward",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Step forward into right junzuki-dachi (front stance), throwing right vertical nukite (spear hand) to solar plexus. KIAI.",
+                            },
+                            {
+                                num: 12,
+                                japanese: "Shuto-uke",
+                                english: "Knife hand block",
+                                direction: "Turn 225° left",
+                                stance: "Mahanmi Neko-ashi-dachi",
+                                description:
+                                    "Set left back foot 45° behind, body follows turning left 225° into left mahanmi neko-ashi-dachi with left shuto-uke.",
+                            },
+                            {
+                                num: 13,
+                                japanese: "Shuto-uke",
+                                english: "Knife hand block",
+                                direction: "Step forward",
+                                stance: "Mahanmi Neko-ashi-dachi",
+                                description:
+                                    "Step forward into right mahanmi neko-ashi-dachi executing right shuto-uke.",
+                            },
+                            {
+                                num: 14,
+                                japanese: "Shuto-uke",
+                                english: "Knife hand block",
+                                direction: "Turn 90° right",
+                                stance: "Mahanmi Neko-ashi-dachi",
+                                description:
+                                    "Turn 90° right into right mahanmi neko-ashi-dachi executing right shuto-uke.",
+                            },
+                            {
+                                num: 15,
+                                japanese: "Shuto-uke",
+                                english: "Knife hand block",
+                                direction: "Step forward",
+                                stance: "Mahanmi Neko-ashi-dachi",
+                                description:
+                                    "Step forward into left mahanmi neko-ashi-dachi executing left shuto-uke.",
+                            },
+                            {
+                                num: 16,
+                                japanese: "Soto-uke",
+                                english: "Middle block",
+                                direction: "Turn 45° left",
+                                stance: "Gyakuzuki-dachi",
+                                description:
+                                    "Turn 45° left into left gyakuzuki-dachi, throwing soto-uke (middle block) with back (right) hand.",
+                            },
+                            {
+                                num: 17,
+                                japanese: "Kette Gyakuzuki",
+                                english: "Kick and reverse punch",
+                                direction: "Forward",
+                                stance: "Gyakuzuki-dachi",
+                                description:
+                                    "Perform right mae-geri (front kick) and left gyakuzuki (reverse punch), setting into right gyakuzuki-dachi.",
+                            },
+                            {
+                                num: 18,
+                                japanese: "Soto-uke",
+                                english: "Middle block",
+                                direction: "No foot movement",
+                                stance: "Gyakuzuki-dachi",
+                                description:
+                                    "Throw soto-uke (middle block) with back (left) hand. No foot movement.",
+                            },
+                            {
+                                num: 19,
+                                japanese: "Kette Gyakuzuki",
+                                english: "Kick and reverse punch",
+                                direction: "Forward",
+                                stance: "Gyakuzuki-dachi",
+                                description:
+                                    "Perform left mae-geri and right gyakuzuki, setting into left gyakuzuki-dachi.",
+                            },
+                            {
+                                num: 20,
+                                japanese: "Morote Soto-uke",
+                                english: "Double-arm middle block",
+                                direction: "Step forward",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Drop hands relaxed to left side, step into right junzuki-dachi throwing right soto-uke with left chudan ude-uke support.",
+                            },
+                            {
+                                num: 21,
+                                japanese: "Gedan-barai",
+                                english: "Lower sweeping block",
+                                direction: "Turn 225° left",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Set left back foot 45° left, body follows turning 225° into left junzuki-dachi with left gedan-barai (low block).",
+                            },
+                            {
+                                num: 22,
+                                japanese: "Jodan-uke",
+                                english: "Upper block",
+                                direction: "Step forward",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Step forward into right junzuki-dachi throwing right jodan-uke (high block).",
+                            },
+                            {
+                                num: 23,
+                                japanese: "Gedan-barai",
+                                english: "Lower sweeping block",
+                                direction: "Turn 90° right",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Turn 90° right into right junzuki-dachi with right gedan-barai.",
+                            },
+                            {
+                                num: 24,
+                                japanese: "Jodan-uke",
+                                english: "Upper block",
+                                direction: "Step forward",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Step forward into left junzuki-dachi throwing left jodan-uke. KIAI.",
+                            },
+                            {
+                                num: 25,
+                                japanese: "Yame",
+                                english: "Finish",
+                                direction: "Return to centre",
+                                stance: "Hachiji-dachi",
+                                description:
+                                    "Pull front foot back, relax arms, turn body 45° to front ending in hachiji-dachi. Close to musubi-dachi and bow.",
+                            },
+                        ],
+                        "Pinan Sandan": [
+                            {
+                                num: 0,
+                                japanese: "Yōi",
+                                english: "Ready",
+                                direction: "",
+                                stance: "Hachiji-dachi",
+                                description:
+                                    "From musubi-dachi (attention stance), bow, then open to hachiji-dachi (ready stance).",
+                            },
+                            {
+                                num: 1,
+                                japanese: "Soto-uke",
+                                english: "Middle block",
+                                direction: "Turn 90° left",
+                                stance: "Shomen Neko-ashi-dachi",
+                                description:
+                                    "Drop body into left front-facing cat stance. Perform left soto-uke (outside middle block).",
+                            },
+                            {
+                                num: 2,
+                                japanese: "Soto-uke + Gedan-uke",
+                                english: "Middle block + Low block",
+                                direction: "Step in",
+                                stance: "Heisoku-dachi",
+                                description:
+                                    "Step right foot to left into heisoku-dachi. Simultaneously perform right soto-uke and left gedan-uke.",
+                            },
+                            {
+                                num: 3,
+                                japanese: "Soto-uke + Gedan-uke",
+                                english: "Middle block + Low block",
+                                direction: "Same position",
+                                stance: "Heisoku-dachi",
+                                description:
+                                    "Reverse blocks: left soto-uke and right gedan-uke simultaneously.",
+                            },
+                            {
+                                num: 4,
+                                japanese: "Soto-uke",
+                                english: "Middle block",
+                                direction: "Turn 180° right",
+                                stance: "Shomen Neko-ashi-dachi",
+                                description:
+                                    "Turn 180° right into right front-facing cat stance with right soto-uke.",
+                            },
+                            {
+                                num: 5,
+                                japanese: "Soto-uke + Gedan-uke",
+                                english: "Middle block + Low block",
+                                direction: "Step in",
+                                stance: "Heisoku-dachi",
+                                description:
+                                    "Step left foot to right into heisoku-dachi. Simultaneously perform left soto-uke and right gedan-uke.",
+                            },
+                            {
+                                num: 6,
+                                japanese: "Soto-uke + Gedan-uke",
+                                english: "Middle block + Low block",
+                                direction: "Same position",
+                                stance: "Heisoku-dachi",
+                                description:
+                                    "Reverse blocks: right soto-uke and left gedan-uke simultaneously.",
+                            },
+                            {
+                                num: 7,
+                                japanese: "Soto-uke",
+                                english: "Middle block",
+                                direction: "Turn 90° left",
+                                stance: "Shomen Neko-ashi-dachi",
+                                description:
+                                    "Turn 90° left into left front-facing cat stance with left soto-uke.",
+                            },
+                            {
+                                num: 8,
+                                japanese: "Yohon Nukite",
+                                english: "Four-finger spear hand",
+                                direction: "Step forward",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Step forward into right junzuki-dachi executing right yohon nukite (four-finger spear hand) to solar plexus.",
+                            },
+                            {
+                                num: 9,
+                                japanese: "Uchi-uke",
+                                english: "Inside block",
+                                direction: "Turn 180° left",
+                                stance: "Junzuki no Tsukomi-dachi",
+                                description:
+                                    "Turn 180° left into left junzuki no tsukomi-dachi (lunge stance), left arm performing uchi-uke.",
+                            },
+                            {
+                                num: 10,
+                                japanese: "Gedan-uke",
+                                english: "Low block",
+                                direction: "Pull back",
+                                stance: "Shiko-dachi",
+                                description:
+                                    "Pull left foot back into shiko-dachi (straddle stance), perform gedan-uke to the left side.",
+                            },
+                            {
+                                num: 11,
+                                japanese: "Junzuki",
+                                english: "Front punch",
+                                direction: "Step forward",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Step forward with right foot into right junzuki-dachi, execute right junzuki (front punch). KIAI.",
+                            },
+                            {
+                                num: 12,
+                                japanese: "Gedan-uke",
+                                english: "Low block",
+                                direction: "Turn 90° left",
+                                stance: "Shiko-dachi",
+                                description:
+                                    "Turn 90° left into shiko-dachi, perform gedan-uke to the left.",
+                            },
+                            {
+                                num: 13,
+                                japanese: "Gedan-uke",
+                                english: "Low block",
+                                direction: "Turn 180° right",
+                                stance: "Shiko-dachi",
+                                description:
+                                    "Turn 180° right into shiko-dachi, perform gedan-uke to the right.",
+                            },
+                            {
+                                num: 14,
+                                japanese: "Gedan-uke",
+                                english: "Low block",
+                                direction: "Turn 90° left",
+                                stance: "Shiko-dachi",
+                                description:
+                                    "Turn 90° left (facing original front) into shiko-dachi, perform gedan-uke to the front.",
+                            },
+                            {
+                                num: 15,
+                                japanese: "Tetsui-uchi",
+                                english: "Hammer fist strike",
+                                direction: "Same position",
+                                stance: "Shiko-dachi",
+                                description:
+                                    "Maintaining shiko-dachi, strike with right tetsui-uchi (hammer fist) in a downward arc.",
+                            },
+                            {
+                                num: 16,
+                                japanese: "Tetsui-uchi",
+                                english: "Hammer fist strike",
+                                direction: "Same position",
+                                stance: "Shiko-dachi",
+                                description:
+                                    "Strike with left tetsui-uchi (hammer fist) in a downward arc. KIAI.",
+                            },
+                            {
+                                num: 17,
+                                japanese: "Yame",
+                                english: "Finish",
+                                direction: "Return to centre",
+                                stance: "Hachiji-dachi",
+                                description:
+                                    "Stand up, bring feet together to musubi-dachi. Bow. Return to hachiji-dachi.",
+                            },
+                        ],
+                        "Pinan Yodan": [
+                            {
+                                num: 0,
+                                japanese: "Yōi",
+                                english: "Ready",
+                                direction: "",
+                                stance: "Hachiji-dachi",
+                                description:
+                                    "From musubi-dachi (attention stance), bow, then open to hachiji-dachi (ready stance).",
+                            },
+                            {
+                                num: 1,
+                                japanese: "Haishu-uke + Agi-uke",
+                                english: "Backhand block + Rising block",
+                                direction: "Turn 90° left",
+                                stance: "Mahanmi Neko-ashi-dachi",
+                                description:
+                                    "Drop body into left side-facing cat stance. Perform left jodan haishu-uke (upper backhand block) with right hand in agi-uke position over forehead, palm out.",
+                            },
+                            {
+                                num: 2,
+                                japanese: "Haishu-uke + Agi-uke",
+                                english: "Backhand block + Rising block",
+                                direction: "Turn 180° right",
+                                stance: "Mahanmi Neko-ashi-dachi",
+                                description:
+                                    "Bring left foot back, step out to right into right mahanmi neko-ashi-dachi. Perform right jodan haishu-uke with left agi-uke.",
+                            },
+                            {
+                                num: 3,
+                                japanese: "Gedan Juji-uke",
+                                english: "Low X-block",
+                                direction: "Turn to front",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Step forward into junzuki-dachi (front stance), performing gedan juji-uke (low X-block) with right arm on top.",
+                            },
+                            {
+                                num: 4,
+                                japanese: "Soto-uke + Uriken-uke",
+                                english: "Middle block + Backfist block",
+                                direction: "Rise up",
+                                stance: "Mahanmi Neko-ashi-dachi",
+                                description:
+                                    "Rise into right mahanmi neko-ashi-dachi. Perform right soto-uke with left uriken-uke (backfist block) across body, left arm parallel to floor.",
+                            },
+                            {
+                                num: 5,
+                                japanese: "Gedan-uke + Mae-geri",
+                                english: "Low block + Front kick",
+                                direction: "Turn left",
+                                stance: "Transitional",
+                                description:
+                                    "Turn head left. Perform left gedan-uke and left mae-geri simultaneously to the left side.",
+                            },
+                            {
+                                num: 6,
+                                japanese: "Yoko Empi-uchi",
+                                english: "Sideward elbow strike",
+                                direction: "Step left",
+                                stance: "Gyakuzuki-dachi",
+                                description:
+                                    "Set kick down, step into left gyakuzuki-dachi. Throw right yoko empi-uchi (sideward elbow strike) parallel to floor into left palm.",
+                            },
+                            {
+                                num: 7,
+                                japanese: "Gedan-uke + Mae-geri",
+                                english: "Low block + Front kick",
+                                direction: "Turn right",
+                                stance: "Transitional",
+                                description:
+                                    "Turn 90° right. Perform right gedan-uke and right mae-geri simultaneously.",
+                            },
+                            {
+                                num: 8,
+                                japanese: "Yoko Empi-uchi",
+                                english: "Sideward elbow strike",
+                                direction: "Step right",
+                                stance: "Gyakuzuki-dachi",
+                                description:
+                                    "Set kick down, step into right gyakuzuki-dachi. Throw left yoko empi-uchi into right palm.",
+                            },
+                            {
+                                num: 9,
+                                japanese: "Gedan-uke + Agi-uke",
+                                english: "Low block + Rising block",
+                                direction: "Turn 90° left",
+                                stance: "Shomen Neko-ashi-dachi",
+                                description:
+                                    "Turn 90° left. Perform left gedan-uke with right open hand agi-uke, sweeping forward.",
+                            },
+                            {
+                                num: 10,
+                                japanese: "Mae-geri + Uriken",
+                                english: "Front kick + Backfist",
+                                direction: "Forward",
+                                stance: "Shomen Neko-ashi-dachi",
+                                description:
+                                    "Throw right mae-geri to front line. Land in reverse shomen neko-ashi-dachi with downward uriken (backfist) to nose bridge level, left hand in hikite.",
+                            },
+                            {
+                                num: 11,
+                                japanese: "Soto-uke",
+                                english: "Middle block",
+                                direction: "Turn 225° left",
+                                stance: "Shomen Neko-ashi-dachi",
+                                description:
+                                    "Turn 225° left into left shomen neko-ashi-dachi (front-facing cat stance). Perform left soto-uke.",
+                            },
+                            {
+                                num: 12,
+                                japanese: "Mae-geri + Junzuki + Gyakuzuki",
+                                english: "Front kick + Front punch + Reverse punch",
+                                direction: "Forward",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Throw right mae-geri, step down into right junzuki-dachi. Execute right junzuki (front punch) then left gyakuzuki (reverse punch). KIAI on gyakuzuki.",
+                            },
+                            {
+                                num: 13,
+                                japanese: "Soto-uke",
+                                english: "Middle block",
+                                direction: "Turn 90° right",
+                                stance: "Shomen Neko-ashi-dachi",
+                                description:
+                                    "Turn 90° right into right shomen neko-ashi-dachi. Perform right soto-uke.",
+                            },
+                            {
+                                num: 14,
+                                japanese: "Mae-geri + Junzuki + Gyakuzuki",
+                                english: "Front kick + Front punch + Reverse punch",
+                                direction: "Forward",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Throw left mae-geri, step down into left junzuki-dachi. Execute left junzuki then right gyakuzuki.",
+                            },
+                            {
+                                num: 15,
+                                japanese: "Soto-uke + Uriken-uke",
+                                english: "Middle block + Backfist block",
+                                direction: "Turn 45° left",
+                                stance: "Mahanmi Neko-ashi-dachi",
+                                description:
+                                    "Turn 45° left into left mahanmi neko-ashi-dachi. Perform left soto-uke with right uriken-uke across body.",
+                            },
+                            {
+                                num: 16,
+                                japanese: "Soto-uke + Uriken-uke",
+                                english: "Middle block + Backfist block",
+                                direction: "Step forward",
+                                stance: "Mahanmi Neko-ashi-dachi",
+                                description:
+                                    "Step forward into right mahanmi neko-ashi-dachi. Perform right soto-uke with left uriken-uke.",
+                            },
+                            {
+                                num: 17,
+                                japanese: "Soto-uke + Uriken-uke",
+                                english: "Middle block + Backfist block",
+                                direction: "Step forward",
+                                stance: "Mahanmi Neko-ashi-dachi",
+                                description:
+                                    "Step forward into left mahanmi neko-ashi-dachi. Perform left soto-uke with right uriken-uke.",
+                            },
+                            {
+                                num: 18,
+                                japanese: "Morote Soto-uke",
+                                english: "Double middle block",
+                                direction: "Shift back",
+                                stance: "Shomen Neko-ashi-dachi",
+                                description:
+                                    "Pull left hip back, shift into left shomen neko-ashi-dachi. Perform circular morote soto-uke (double inside block) - meant to break a grab on your gi or neck.",
+                            },
+                            {
+                                num: 19,
+                                japanese: "Hiza-geri + Morote Gedan-barai",
+                                english: "Knee kick + Double low block",
+                                direction: "Raise knee",
+                                stance: "One-legged",
+                                description:
+                                    "Perform right hiza-geri (knee kick) with morote gedan-barai (double low block) to sides - striking opponent's face with knee. KIAI. Hands in fists at sides.",
+                            },
+                            {
+                                num: 20,
+                                japanese: "Shuto-uke",
+                                english: "Knife hand block",
+                                direction: "Turn 135° left",
+                                stance: "Mahanmi Neko-ashi-dachi",
+                                description:
+                                    "Turn 135° left into left mahanmi neko-ashi-dachi (45° from original front). Perform left shuto-uke at 45° downward angle, right arm drops across body.",
+                            },
+                            {
+                                num: 21,
+                                japanese: "Shuto-uke",
+                                english: "Knife hand block",
+                                direction: "Turn 90° right",
+                                stance: "Mahanmi Neko-ashi-dachi",
+                                description:
+                                    "Turn 90° right into right mahanmi neko-ashi-dachi. Perform right shuto-uke at 45° downward angle, left arm drops across body.",
+                            },
+                            {
+                                num: 22,
+                                japanese: "Yame",
+                                english: "Finish",
+                                direction: "Return to centre",
+                                stance: "Hachiji-dachi",
+                                description:
+                                    "Return to hachiji-dachi (ready stance). Close to musubi-dachi and bow.",
+                            },
+                        ],
+                        "Pinan Godan": [
+                            {
+                                num: 0,
+                                japanese: "Yōi",
+                                english: "Ready",
+                                direction: "",
+                                stance: "Hachiji-dachi",
+                                description:
+                                    "From musubi-dachi (attention stance), bow, then open to hachiji-dachi (ready stance).",
+                            },
+                            {
+                                num: 1,
+                                japanese: "Soto-uke",
+                                english: "Middle block",
+                                direction: "Turn 90° left",
+                                stance: "Shomen Neko-ashi-dachi",
+                                description:
+                                    "Drop weight, turn hips 90° left into left shomen neko-ashi-dachi (front-facing cat stance). Perform left soto-uke with right hand in hikite.",
+                            },
+                            {
+                                num: 2,
+                                japanese: "Gyakuzuki",
+                                english: "Reverse punch",
+                                direction: "Same position",
+                                stance: "Shomen Neko-ashi-dachi",
+                                description:
+                                    "Pull left hand to hikite, throw right gyakuzuki (reverse punch).",
+                            },
+                            {
+                                num: 3,
+                                japanese: "Tae-uke preparation",
+                                english: "Pulling block preparation",
+                                direction: "Pivot right",
+                                stance: "Heisoku-dachi",
+                                description:
+                                    "Step right foot to left into heisoku-dachi (feet together), pivot 90° right with hands in right tae-uke position.",
+                            },
+                            {
+                                num: 4,
+                                japanese: "Soto-uke",
+                                english: "Middle block",
+                                direction: "Turn 90° right",
+                                stance: "Shomen Neko-ashi-dachi",
+                                description:
+                                    "Drop weight, turn hips 90° right into right shomen neko-ashi-dachi. Perform right soto-uke with left hand in hikite.",
+                            },
+                            {
+                                num: 5,
+                                japanese: "Gyakuzuki",
+                                english: "Reverse punch",
+                                direction: "Same position",
+                                stance: "Shomen Neko-ashi-dachi",
+                                description: "Pull right hand to hikite, throw left gyakuzuki.",
+                            },
+                            {
+                                num: 6,
+                                japanese: "Tae-uke preparation",
+                                english: "Pulling block preparation",
+                                direction: "Pivot left",
+                                stance: "Heisoku-dachi",
+                                description:
+                                    "Step left foot to right into heisoku-dachi, pivot 90° left with hands in left tae-uke position.",
+                            },
+                            {
+                                num: 7,
+                                japanese: "Soto-uke + Uriken-uke",
+                                english: "Middle block + Backfist block",
+                                direction: "Step forward",
+                                stance: "Mahanmi Neko-ashi-dachi",
+                                description:
+                                    "Step right foot forward into right mahanmi neko-ashi-dachi. Perform right soto-uke with left uriken-uke across body.",
+                            },
+                            {
+                                num: 8,
+                                japanese: "Gedan Juji-uke",
+                                english: "Low X-block",
+                                direction: "Step forward",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Step left foot forward into left junzuki-dachi. Draw hands to belt, throw gedan juji-uke (low X-block).",
+                            },
+                            {
+                                num: 9,
+                                japanese: "Jodan Juji-uke",
+                                english: "High X-block",
+                                direction: "Same position",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Bend both arms, open hands, throw jodan juji-uke (high X-block).",
+                            },
+                            {
+                                num: 10,
+                                japanese: "Arm release",
+                                english: "Circular arm release",
+                                direction: "Same position",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Drop left hand across body (palm down), right arm pivots and rotates around left wrist in circular motion, finishing parallel to floor. This is an arm release technique.",
+                            },
+                            {
+                                num: 11,
+                                japanese: "Gedan-barai",
+                                english: "Lower sweeping block",
+                                direction: "Same position",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Pull right hand to hikite, throw left gedan-barai (low block).",
+                            },
+                            {
+                                num: 12,
+                                japanese: "Junzuki",
+                                english: "Lunge punch",
+                                direction: "Step forward",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Step right foot forward into right junzuki-dachi, throw right junzuki (front punch). KIAI.",
+                            },
+                            {
+                                num: 13,
+                                japanese: "Gedan-barai (Telephone block)",
+                                english: "Low block with ear protection",
+                                direction: "Turn 180° left",
+                                stance: "Shiko-dachi",
+                                description:
+                                    "Pull right hand to right ear (telephone block position), step right foot to left, turn 180° into shiko-dachi (straddle stance). Throw right gedan-barai.",
+                            },
+                            {
+                                num: 14,
+                                japanese: "Gedan-barai",
+                                english: "Lower sweeping block",
+                                direction: "Adjust stance",
+                                stance: "Hachiji-dachi width",
+                                description:
+                                    "Draw left foot back to hachiji-dachi width, throw left gedan-barai.",
+                            },
+                            {
+                                num: 15,
+                                japanese: "Empi-uchi",
+                                english: "Elbow strike",
+                                direction: "Turn 90° left",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Step right foot to left into right junzuki-dachi, turn 90° left. Throw right empi-uchi (elbow strike) into left palm.",
+                            },
+                            {
+                                num: 16,
+                                japanese: "Morote Soto-uke",
+                                english: "Supported middle block",
+                                direction: "Step forward",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Draw left foot close, step forward with right soto-uke supported by left fist pressing against right forearm.",
+                            },
+                            {
+                                num: 17,
+                                japanese: "Osae-uke",
+                                english: "Pressing block",
+                                direction: "Reach back",
+                                stance: "Kokutsu-dachi",
+                                description:
+                                    "Reach back with left foot into left kokutsu-dachi (back stance). Extend right fist behind to chin level - pressing/checking technique.",
+                            },
+                            {
+                                num: 18,
+                                japanese: "Tobi - Gedan Juji-uke",
+                                english: "Jump - Low X-block",
+                                direction: "Jump, turn 90° left",
+                                stance: "Kosa-dachi",
+                                description:
+                                    "Draw hands to belt, jump off left foot, turn 90° left in air. Land in kosa-dachi (cross-legged stance) with gedan juji-uke. KIAI.",
+                            },
+                            {
+                                num: 19,
+                                japanese: "Morote Soto-uke",
+                                english: "Double middle block",
+                                direction: "Turn 90° right",
+                                stance: "Junzuki-dachi",
+                                description:
+                                    "Turn 90° right into junzuki-dachi. Perform right soto-uke with left chudan ude-uke support.",
+                            },
+                            {
+                                num: 20,
+                                japanese: "Soto-uke + Gedan-uke",
+                                english: "Middle block front, Low block rear",
+                                direction: "Slide left",
+                                stance: "Kokutsu-dachi",
+                                description:
+                                    "Slide left foot left into left kokutsu-dachi toward original front. Right soto-uke to rear, left gedan-uke to front - defending both directions.",
+                            },
+                            {
+                                num: 21,
+                                japanese: "Soto-uke + Gedan-uke",
+                                english: "Middle block rear, Low block front",
+                                direction: "Slide 45° right",
+                                stance: "Kokutsu-dachi",
+                                description:
+                                    "Pull left foot back, slide right foot 45° right into right kokutsu-dachi. Left soto-uke to rear, right gedan-uke to front.",
+                            },
+                            {
+                                num: 22,
+                                japanese: "Yame",
+                                english: "Finish",
+                                direction: "Return to centre",
+                                stance: "Hachiji-dachi",
+                                description:
+                                    "Pull right foot back, relax arms to sides in hachiji-dachi. Close to musubi-dachi and bow.",
+                            },
+                        ],
                     };
 
                     // Find matching videos for this belt's kata
@@ -7221,23 +8595,23 @@
 
                                 // Navigation buttons
                                 html +=
-                                    '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">';
+                                    '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; gap: 0.5rem; flex-wrap: wrap;">';
                                 html +=
                                     "<button onclick=\"prevKataStep('" +
                                     key +
-                                    '\')" class="btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;" id="kata-prev-' +
+                                    '\')" class="btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; min-width: 90px;" id="kata-prev-' +
                                     key.replace(/\s/g, "-") +
-                                    '">← Previous</button>';
+                                    '">← Prev</button>';
                                 html +=
                                     '<span id="kata-progress-' +
                                     key.replace(/\s/g, "-") +
-                                    '" style="font-weight: 600; color: #374151;">Step 0 of ' +
+                                    '" style="font-weight: 600; color: #374151; text-align: center; flex: 1; min-width: 80px;">Step 0 of ' +
                                     (steps.length - 1) +
                                     "</span>";
                                 html +=
                                     "<button onclick=\"nextKataStep('" +
                                     key +
-                                    '\')" class="btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;" id="kata-next-' +
+                                    '\')" class="btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; min-width: 90px;" id="kata-next-' +
                                     key.replace(/\s/g, "-") +
                                     '">Next →</button>';
                                 html += "</div>";
@@ -7421,6 +8795,41 @@
                         closeMobileMenu();
                     });
                 });
+            }
+
+            // Switch to a specific tab programmatically
+            function switchTab(tabName) {
+                document
+                    .querySelectorAll(".nav-button")
+                    .forEach((b) => b.classList.remove("active"));
+                document
+                    .querySelectorAll(".tab-content")
+                    .forEach((t) => t.classList.remove("active"));
+
+                const navButton = document.querySelector(`.nav-button[data-tab="${tabName}"]`);
+                if (navButton) {
+                    navButton.classList.add("active");
+                }
+                const tabContent = document.getElementById(tabName + "-tab");
+                if (tabContent) {
+                    tabContent.classList.add("active");
+                }
+
+                // Render achievements when tab is selected
+                if (tabName === "achievements") {
+                    renderAchievements();
+                }
+
+                // Update daily challenge button when quiz tab is selected
+                if (tabName === "quiz") {
+                    updateDailyChallengeButton();
+                }
+
+                // Close mobile menu
+                closeMobileMenu();
+
+                // Scroll to top
+                window.scrollTo(0, 0);
             }
 
             // Mobile menu functions
@@ -9137,6 +10546,9 @@
                 const availableQuestions = quizTerms.filter((q) => beltIds.includes(q.belt));
                 document.getElementById("question-count").textContent =
                     "~" + availableQuestions.length + " available questions";
+
+                // Update smart practice panel when belt changes
+                updateSmartPracticePanel();
             }
 
             function exitQuiz() {
@@ -9210,6 +10622,117 @@
                     countSpan.textContent = weakSpots.length + " terms to practice";
                 } else {
                     btn.style.display = "none";
+                }
+
+                // Update smart practice panel
+                updateSmartPracticePanel();
+            }
+
+            function updateSmartPracticePanel() {
+                const panel = document.getElementById("smart-practice-panel");
+                const messageEl = document.getElementById("smart-practice-message");
+                const previewEl = document.getElementById("weak-spots-preview");
+                const listEl = document.getElementById("weak-spots-list");
+                const masteredEl = document.getElementById("terms-mastered-count");
+                const weakEl = document.getElementById("terms-weak-count");
+
+                if (!panel) return;
+
+                const history = getQuizHistory();
+                const weakSpots = getWeakSpots();
+
+                // Calculate mastery stats
+                let mastered = 0;
+                let needsPractice = 0;
+                let neverSeen = 0;
+
+                // Get current belt level terms
+                const sliderValue = parseInt(document.getElementById("belt-slider")?.value) || 0;
+                const includedBelts = beltLevels.slice(0, sliderValue + 1);
+                const beltIds = includedBelts.map((b) => b.id);
+                const availableTerms = quizTerms.filter((q) => beltIds.includes(q.belt));
+
+                availableTerms.forEach((term) => {
+                    const record = history[term.term];
+                    if (!record) {
+                        neverSeen++;
+                    } else if (record.wrong >= 2) {
+                        needsPractice++;
+                    } else if (record.correct >= 3 && record.wrong === 0) {
+                        mastered++;
+                    }
+                });
+
+                masteredEl.textContent = mastered;
+                weakEl.textContent = weakSpots.length;
+
+                // Determine recommendation message
+                let message = "";
+                if (weakSpots.length >= 5) {
+                    message =
+                        "You have several terms that need attention. The <strong>Practice Weak Spots</strong> quiz will focus on these to help you improve!";
+                    panel.style.background = "linear-gradient(135deg, #fee2e2, #fecaca)";
+                    panel.style.borderColor = "#ef4444";
+                    messageEl.style.color = "#991b1b";
+                } else if (weakSpots.length >= 3) {
+                    message =
+                        "A few terms could use more practice. Try the <strong>Practice Weak Spots</strong> quiz to reinforce them.";
+                    panel.style.background = "linear-gradient(135deg, #fef3c7, #fde68a)";
+                    panel.style.borderColor = "#f59e0b";
+                    messageEl.style.color = "#78350f";
+                } else if (neverSeen > availableTerms.length * 0.3) {
+                    message =
+                        "You're doing great! Start a regular quiz to discover new terms - there are still <strong>" +
+                        neverSeen +
+                        " terms</strong> you haven't seen yet.";
+                    panel.style.background = "linear-gradient(135deg, #dbeafe, #bfdbfe)";
+                    panel.style.borderColor = "#3b82f6";
+                    messageEl.style.color = "#1e40af";
+                } else if (mastered > availableTerms.length * 0.5) {
+                    message =
+                        "Excellent progress! You've mastered over half the terms at this level. Keep it up!";
+                    panel.style.background = "linear-gradient(135deg, #d1fae5, #a7f3d0)";
+                    panel.style.borderColor = "#10b981";
+                    messageEl.style.color = "#065f46";
+                } else {
+                    message =
+                        "Regular practice helps build muscle memory. Try the <strong>Daily Challenge</strong> to stay sharp!";
+                    panel.style.background = "linear-gradient(135deg, #ede9fe, #ddd6fe)";
+                    panel.style.borderColor = "#8b5cf6";
+                    messageEl.style.color = "#5b21b6";
+                }
+
+                messageEl.innerHTML = message;
+
+                // Show weak spots preview if there are any
+                if (weakSpots.length > 0) {
+                    previewEl.style.display = "block";
+                    listEl.innerHTML =
+                        weakSpots
+                            .slice(0, 5)
+                            .map(
+                                (ws) =>
+                                    '<span style="background: rgba(255,255,255,0.7); padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.85rem; color: #78350f; border: 1px solid rgba(0,0,0,0.1);">' +
+                                    ws.term +
+                                    ' <span style="opacity: 0.6;">(' +
+                                    ws.wrongCount +
+                                    "x)</span></span>",
+                            )
+                            .join("") +
+                        (weakSpots.length > 5
+                            ? '<span style="padding: 0.25rem 0.5rem; font-size: 0.85rem; color: #78350f;">+' +
+                              (weakSpots.length - 5) +
+                              " more</span>"
+                            : "");
+                } else {
+                    previewEl.style.display = "none";
+                }
+
+                // Show panel if there's any quiz history
+                if (Object.keys(history).length > 0 || weakSpots.length > 0) {
+                    panel.style.display = "block";
+                } else {
+                    panel.style.display = "none";
                 }
             }
 
@@ -10849,6 +12372,130 @@
                 } else {
                     document.getElementById("grading-progress-bar").style.background = "#1e5ba8";
                 }
+
+                // Update readiness assessment
+                updateReadinessAssessment(nextBeltKey, checkedItems, totalItems);
+            }
+
+            function updateReadinessAssessment(beltKey, checkedItems, totalItems) {
+                const percentageEl = document.getElementById("readiness-percentage");
+                const messageEl = document.getElementById("readiness-message");
+                const actionEl = document.getElementById("readiness-action");
+                const checklistDoneEl = document.getElementById("readiness-checklist-done");
+                const checklistRemainingEl = document.getElementById(
+                    "readiness-checklist-remaining",
+                );
+                const quizScoreEl = document.getElementById("readiness-quiz-score");
+                const weakSpotsEl = document.getElementById("readiness-weak-spots");
+                const weakListEl = document.getElementById("readiness-weak-list");
+                const assessmentEl = document.getElementById("readiness-assessment");
+
+                if (!percentageEl) return;
+
+                // Get quiz history for this belt level
+                const history = getQuizHistory ? getQuizHistory() : {};
+                const beltIndex = beltLevels.findIndex((b) => b.id === beltKey);
+                const includedBelts = beltLevels.slice(0, beltIndex + 1);
+                const beltIds = includedBelts.map((b) => b.id);
+                const relevantTerms = quizTerms
+                    ? quizTerms.filter((q) => beltIds.includes(q.belt))
+                    : [];
+
+                // Calculate quiz mastery
+                let mastered = 0;
+                let weakSpots = [];
+
+                relevantTerms.forEach((term) => {
+                    const record = history[term.term];
+                    if (record) {
+                        if (record.correct >= 2 && record.wrong === 0) {
+                            mastered++;
+                        } else if (record.wrong >= 2) {
+                            weakSpots.push({ term: term.term, wrongCount: record.wrong });
+                        }
+                    }
+                });
+
+                const quizMasteryPercent =
+                    relevantTerms.length > 0
+                        ? Math.round((mastered / relevantTerms.length) * 100)
+                        : 0;
+                const checklistPercent =
+                    totalItems > 0 ? Math.round((checkedItems / totalItems) * 100) : 0;
+
+                // Overall readiness is weighted: 60% checklist, 40% quiz mastery
+                const overallReadiness = Math.round(
+                    checklistPercent * 0.6 + quizMasteryPercent * 0.4,
+                );
+
+                // Update display
+                checklistDoneEl.textContent = checkedItems;
+                checklistRemainingEl.textContent = totalItems - checkedItems;
+                quizScoreEl.textContent = quizMasteryPercent + "%";
+                percentageEl.textContent = overallReadiness + "%";
+
+                // Color code the readiness percentage
+                if (overallReadiness >= 80) {
+                    percentageEl.style.color = "#16a34a";
+                    assessmentEl.style.borderColor = "#bbf7d0";
+                } else if (overallReadiness >= 50) {
+                    percentageEl.style.color = "#d97706";
+                    assessmentEl.style.borderColor = "#fde68a";
+                } else {
+                    percentageEl.style.color = "#dc2626";
+                    assessmentEl.style.borderColor = "#fecaca";
+                }
+
+                // Determine message and action
+                let message = "";
+                let showAction = false;
+
+                if (overallReadiness >= 90) {
+                    message =
+                        "🎉 <strong>Excellent!</strong> You're well prepared for your grading. Keep practicing to stay sharp!";
+                } else if (overallReadiness >= 70) {
+                    message =
+                        "👍 <strong>Good progress!</strong> You're nearly ready. Focus on the remaining items and weak spots.";
+                    showAction = weakSpots.length > 0;
+                } else if (overallReadiness >= 50) {
+                    message =
+                        "📚 <strong>Keep going!</strong> You're halfway there. Regular practice will help solidify your knowledge.";
+                    showAction = true;
+                } else if (overallReadiness >= 25) {
+                    message =
+                        "💪 <strong>Building foundations!</strong> Work through the checklist and use the quiz to reinforce learning.";
+                    showAction = true;
+                } else {
+                    message =
+                        "🌱 <strong>Just starting!</strong> Begin by checking off items as you learn them and testing yourself with quizzes.";
+                    showAction = true;
+                }
+
+                messageEl.innerHTML = message;
+                actionEl.style.display = showAction ? "block" : "none";
+
+                // Show weak spots if any
+                if (weakSpots.length > 0) {
+                    weakSpotsEl.style.display = "block";
+                    weakSpots.sort((a, b) => b.wrongCount - a.wrongCount);
+                    weakListEl.innerHTML =
+                        weakSpots
+                            .slice(0, 5)
+                            .map(
+                                (ws) =>
+                                    '<span style="background: #fee2e2; padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.85rem; color: #991b1b; border: 1px solid #fecaca;">' +
+                                    ws.term +
+                                    "</span>",
+                            )
+                            .join("") +
+                        (weakSpots.length > 5
+                            ? '<span style="padding: 0.25rem 0.5rem; font-size: 0.85rem; color: #991b1b;">+' +
+                              (weakSpots.length - 5) +
+                              " more</span>"
+                            : "");
+                } else {
+                    weakSpotsEl.style.display = "none";
+                }
             }
 
             // Initialize grading checklist when DOM is ready
@@ -10964,6 +12611,34 @@
                         console.log("Service Worker registration failed:", error);
                     });
             }
+
+            // ==========================================
+            // OFFLINE DETECTION & INDICATOR
+            // ==========================================
+            function updateOfflineStatus() {
+                const offlineBanner = document.getElementById("offline-banner");
+                if (!offlineBanner) return;
+
+                if (!navigator.onLine) {
+                    offlineBanner.style.display = "flex";
+                } else {
+                    offlineBanner.style.display = "none";
+                }
+            }
+
+            // Listen for online/offline events
+            window.addEventListener("online", () => {
+                updateOfflineStatus();
+                // Trigger sync when back online
+                if (currentUser) {
+                    debouncedSync();
+                }
+            });
+
+            window.addEventListener("offline", updateOfflineStatus);
+
+            // Check initial status
+            document.addEventListener("DOMContentLoaded", updateOfflineStatus);
 
             // Show install prompt for PWA
             let deferredPrompt = null;

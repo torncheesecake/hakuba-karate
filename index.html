@@ -2856,8 +2856,15 @@
                         </a>
                     </div>
                     <div class="header-text">
-                        <h1>Hakuba Wado Ryu</h1>
-                        <p style="font-size: 1.5rem; font-weight: 600; margin-bottom: 0.25rem">
+                        <h1 style="margin-bottom: 0.25rem">Hakuba Wado Ryu</h1>
+                        <p
+                            style="
+                                font-size: 1.5rem;
+                                font-weight: 600;
+                                margin-top: 0;
+                                margin-bottom: 0.25rem;
+                            "
+                        >
                             The Path to Progress
                         </p>
                         <p>Traditional Wadoryu Atemi Jujutsu Karate - Swindon & Mevagissey</p>
@@ -2906,7 +2913,7 @@
                             <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
                             <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                         </svg>
-                        <span id="member-count-number">0</span> members
+                        <span id="member-count-number">0</span> learning
                     </div>
 
                     <!-- User Menu -->
@@ -5738,17 +5745,17 @@
 
             // Fetch and display member count
             async function updateMemberCount() {
+                const badge = document.getElementById("member-count-badge");
+                const countEl = document.getElementById("member-count-number");
+
                 try {
-                    const usersSnapshot = await db.collection("users").get();
-                    const count = usersSnapshot.size;
-                    const badge = document.getElementById("member-count-badge");
-                    const countEl = document.getElementById("member-count-number");
-                    if (badge && countEl && count > 0) {
-                        countEl.textContent = count;
+                    const statsDoc = await db.collection("stats").doc("members").get();
+                    if (statsDoc.exists && statsDoc.data().count) {
+                        countEl.textContent = statsDoc.data().count;
                         badge.style.display = "flex";
                     }
                 } catch (err) {
-                    console.log("Could not fetch member count:", err);
+                    console.log("Could not fetch member count from Firestore:", err);
                 }
             }
 
@@ -5835,6 +5842,15 @@
                             },
                             { merge: true },
                         );
+                        // Increment member count
+                        await db
+                            .collection("stats")
+                            .doc("members")
+                            .set(
+                                { count: firebase.firestore.FieldValue.increment(1) },
+                                { merge: true },
+                            );
+                        updateMemberCount();
                     }
 
                     hideAuthModal();

@@ -2462,6 +2462,12 @@
                     font-size: 0.875rem;
                 }
 
+                #member-count-badge {
+                    margin-right: 0.5rem;
+                    padding: 0.35rem 0.6rem;
+                    font-size: 0.8rem;
+                }
+
                 .user-menu-dropdown {
                     left: 50%;
                     right: auto;
@@ -2868,6 +2874,39 @@
                         >
                             v1.4.8
                         </p>
+                    </div>
+
+                    <!-- Member Count -->
+                    <div
+                        id="member-count-badge"
+                        style="
+                            display: none;
+                            align-items: center;
+                            gap: 0.4rem;
+                            background: rgba(255, 255, 255, 0.15);
+                            border: 1px solid rgba(255, 255, 255, 0.2);
+                            color: rgba(255, 255, 255, 0.9);
+                            padding: 0.4rem 0.75rem;
+                            border-radius: 0.5rem;
+                            font-size: 0.85rem;
+                            margin-right: 0.75rem;
+                        "
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                        <span id="member-count-number">0</span> members
                     </div>
 
                     <!-- User Menu -->
@@ -5695,6 +5734,29 @@
                     signInBtn.style.display = "flex";
                     userMenuBtn.style.display = "none";
                 }
+            }
+
+            // Fetch and display member count
+            async function updateMemberCount() {
+                try {
+                    const usersSnapshot = await db.collection("users").get();
+                    const count = usersSnapshot.size;
+                    const badge = document.getElementById("member-count-badge");
+                    const countEl = document.getElementById("member-count-number");
+                    if (badge && countEl && count > 0) {
+                        countEl.textContent = count;
+                        badge.style.display = "flex";
+                    }
+                } catch (err) {
+                    console.log("Could not fetch member count:", err);
+                }
+            }
+
+            // Load member count on page load
+            if (document.readyState === "complete") {
+                updateMemberCount();
+            } else {
+                window.addEventListener("load", updateMemberCount);
             }
 
             function showAuthModal() {

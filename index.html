@@ -2565,6 +2565,629 @@
                 animation: spin 1s linear infinite;
             }
 
+            /* ==========================================
+               PROFILE & SETTINGS PANEL
+               ========================================== */
+            .profile-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 10001;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s;
+            }
+
+            .profile-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .profile-panel {
+                position: fixed;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                max-width: 460px;
+                background: #f5f7fa;
+                overflow-y: auto;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                z-index: 10002;
+            }
+
+            .profile-overlay.active .profile-panel {
+                transform: translateX(0);
+            }
+
+            .profile-panel-header {
+                background: #1e5ba8;
+                color: white;
+                padding: 1.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .profile-panel-header h2 {
+                font-size: 1.35rem;
+                color: white;
+            }
+
+            .profile-close-btn {
+                background: rgba(255, 255, 255, 0.2);
+                border: none;
+                color: white;
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                font-size: 1.25rem;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: background 0.2s;
+            }
+
+            .profile-close-btn:hover {
+                background: rgba(255, 255, 255, 0.35);
+            }
+
+            .profile-user-header {
+                background: #1e5ba8;
+                color: white;
+                padding: 0 1.5rem 1.5rem;
+                text-align: center;
+            }
+
+            .profile-avatar {
+                width: 64px;
+                height: 64px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.2);
+                border: 3px solid rgba(255, 255, 255, 0.4);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+                font-weight: 700;
+                margin: 0 auto 0.75rem;
+            }
+
+            .profile-user-name {
+                font-size: 1.2rem;
+                font-weight: 600;
+                margin-bottom: 0.25rem;
+            }
+
+            .profile-user-email {
+                font-size: 0.85rem;
+                opacity: 0.8;
+            }
+
+            .profile-body {
+                padding: 1.25rem;
+            }
+
+            .profile-section {
+                background: white;
+                border: 1px solid var(--border-color);
+                border-radius: var(--border-radius);
+                margin-bottom: 1rem;
+                overflow: hidden;
+            }
+
+            .profile-section-title {
+                font-weight: 700;
+                font-size: 0.8rem;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                color: #6b7280;
+                padding: 0.75rem 1rem 0.5rem;
+            }
+
+            .profile-stat-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1px;
+                background: var(--border-color);
+            }
+
+            .profile-stat {
+                background: white;
+                padding: 0.875rem 1rem;
+                text-align: center;
+            }
+
+            .profile-stat-value {
+                font-size: 1.35rem;
+                font-weight: 700;
+                color: #1e5ba8;
+                line-height: 1.2;
+            }
+
+            .profile-stat-label {
+                font-size: 0.75rem;
+                color: #6b7280;
+                margin-top: 0.15rem;
+            }
+
+            .profile-setting-row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0.875rem 1rem;
+                border-top: 1px solid var(--border-color);
+            }
+
+            .profile-setting-row:first-child {
+                border-top: none;
+            }
+
+            .profile-setting-label {
+                font-weight: 500;
+                font-size: 0.95rem;
+                color: #374151;
+            }
+
+            .profile-setting-control select {
+                padding: 0.4rem 0.75rem;
+                border-radius: 0.5rem;
+                border: 1px solid var(--border-color);
+                font-size: 0.9rem;
+                cursor: pointer;
+            }
+
+            .profile-btn {
+                display: block;
+                width: 100%;
+                padding: 0.75rem 1rem;
+                border: none;
+                background: none;
+                cursor: pointer;
+                font-size: 0.95rem;
+                font-weight: 500;
+                text-align: left;
+                border-top: 1px solid var(--border-color);
+                transition: background 0.2s;
+                color: #374151;
+            }
+
+            .profile-btn:first-child {
+                border-top: none;
+            }
+
+            .profile-btn:hover {
+                background: #f3f4f6;
+            }
+
+            .profile-btn.danger {
+                color: #dc2626;
+            }
+
+            .profile-btn svg {
+                vertical-align: middle;
+                margin-right: 0.5rem;
+            }
+
+            /* ==========================================
+               ONBOARDING WIZARD
+               ========================================== */
+            .onboarding-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.6);
+                z-index: 10003;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 1rem;
+            }
+
+            .onboarding-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .onboarding-modal {
+                background: white;
+                border-radius: 1rem;
+                max-width: 540px;
+                width: 100%;
+                max-height: 90vh;
+                overflow-y: auto;
+                transform: translateY(20px);
+                transition: transform 0.3s;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            }
+
+            .onboarding-overlay.active .onboarding-modal {
+                transform: translateY(0);
+            }
+
+            .onboarding-header {
+                padding: 1.5rem 1.5rem 0;
+                text-align: center;
+            }
+
+            .onboarding-steps {
+                display: flex;
+                justify-content: center;
+                gap: 0.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .onboarding-step-dot {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: #e5e7eb;
+                transition: all 0.3s;
+            }
+
+            .onboarding-step-dot.active {
+                background: #1e5ba8;
+                transform: scale(1.2);
+            }
+
+            .onboarding-step-dot.completed {
+                background: #059669;
+            }
+
+            .onboarding-content {
+                padding: 0 1.5rem;
+                min-height: 280px;
+            }
+
+            .onboarding-content h2 {
+                font-size: 1.5rem;
+                color: #111827;
+                margin-bottom: 0.75rem;
+                text-align: center;
+            }
+
+            .onboarding-content p {
+                color: #6b7280;
+                text-align: center;
+                margin-bottom: 1.25rem;
+                line-height: 1.6;
+            }
+
+            .onboarding-belt-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.5rem;
+                margin: 1rem 0;
+            }
+
+            .onboarding-belt-btn {
+                padding: 0.6rem 0.5rem;
+                border-radius: 0.5rem;
+                border: 3px solid transparent;
+                cursor: pointer;
+                font-weight: 600;
+                font-size: 0.8rem;
+                text-align: center;
+                transition: all 0.2s;
+            }
+
+            .onboarding-belt-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: var(--shadow-md);
+            }
+
+            .onboarding-belt-btn.selected {
+                outline: 3px solid #1e5ba8;
+                outline-offset: 2px;
+            }
+
+            .onboarding-dojo-options {
+                display: flex;
+                gap: 1rem;
+                justify-content: center;
+                margin: 1.5rem 0;
+            }
+
+            .onboarding-dojo-btn {
+                flex: 1;
+                max-width: 200px;
+                padding: 1.25rem 1rem;
+                border-radius: 0.75rem;
+                border: 2px solid var(--border-color);
+                background: white;
+                cursor: pointer;
+                text-align: center;
+                transition: all 0.2s;
+                font-weight: 600;
+                font-size: 1rem;
+            }
+
+            .onboarding-dojo-btn:hover {
+                border-color: #1e5ba8;
+                background: #eff6ff;
+            }
+
+            .onboarding-dojo-btn.selected {
+                border-color: #1e5ba8;
+                background: #eff6ff;
+                box-shadow: 0 0 0 3px rgba(30, 91, 168, 0.2);
+            }
+
+            .onboarding-dojo-btn .dojo-icon {
+                font-size: 2rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .onboarding-date-input {
+                display: block;
+                margin: 1.5rem auto;
+                padding: 0.75rem 1.25rem;
+                border: 2px solid var(--border-color);
+                border-radius: 0.75rem;
+                font-size: 1rem;
+                font-family: inherit;
+                cursor: pointer;
+            }
+
+            .onboarding-date-input:focus {
+                outline: none;
+                border-color: #1e5ba8;
+            }
+
+            .onboarding-skip-text {
+                text-align: center;
+                font-size: 0.85rem;
+                color: #9ca3af;
+                margin-top: 0.5rem;
+            }
+
+            .onboarding-nav {
+                display: flex;
+                justify-content: space-between;
+                padding: 1.25rem 1.5rem;
+                border-top: 1px solid var(--border-color);
+                margin-top: 1rem;
+            }
+
+            .onboarding-btn {
+                padding: 0.65rem 1.5rem;
+                border-radius: 0.5rem;
+                border: none;
+                cursor: pointer;
+                font-weight: 600;
+                font-size: 0.95rem;
+                transition: all 0.2s;
+            }
+
+            .onboarding-btn-back {
+                background: #e5e7eb;
+                color: #374151;
+            }
+
+            .onboarding-btn-back:hover {
+                background: #d1d5db;
+            }
+
+            .onboarding-btn-next {
+                background: #1e5ba8;
+                color: white;
+            }
+
+            .onboarding-btn-next:hover {
+                background: #1a4f94;
+            }
+
+            /* ==========================================
+               WEAK SPOTS DASHBOARD
+               ========================================== */
+            .weak-spots-dashboard {
+                max-width: 550px;
+                margin: 0 auto 2rem auto;
+                background: white;
+                border: 1px solid var(--border-color);
+                border-radius: var(--border-radius);
+                overflow: hidden;
+            }
+
+            .weak-spots-dashboard-header {
+                padding: 1rem 1.25rem;
+                background: linear-gradient(135deg, #fef3c7, #fde68a);
+                border-bottom: 1px solid #f59e0b;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .weak-spots-dashboard-header span:first-child {
+                font-size: 1.25rem;
+            }
+
+            .weak-spots-dashboard-header span:last-child {
+                font-weight: 700;
+                color: #92400e;
+                font-size: 1rem;
+            }
+
+            .weak-spots-summary {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 1px;
+                background: var(--border-color);
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .weak-spots-summary-stat {
+                background: white;
+                padding: 0.875rem 0.5rem;
+                text-align: center;
+            }
+
+            .weak-spots-summary-value {
+                font-size: 1.5rem;
+                font-weight: 700;
+                line-height: 1.2;
+            }
+
+            .weak-spots-summary-value.mastered {
+                color: #059669;
+            }
+
+            .weak-spots-summary-value.weak {
+                color: #dc2626;
+            }
+
+            .weak-spots-summary-value.unseen {
+                color: #6b7280;
+            }
+
+            .weak-spots-summary-label {
+                font-size: 0.7rem;
+                color: #6b7280;
+                text-transform: uppercase;
+                letter-spacing: 0.03em;
+                margin-top: 0.1rem;
+            }
+
+            .weak-spots-mastery-bar {
+                padding: 0.75rem 1.25rem;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .weak-spots-mastery-track {
+                height: 8px;
+                background: #e5e7eb;
+                border-radius: 4px;
+                overflow: hidden;
+            }
+
+            .weak-spots-mastery-fill {
+                height: 100%;
+                border-radius: 4px;
+                background: linear-gradient(90deg, #059669, #34d399);
+                transition: width 0.5s ease;
+            }
+
+            .weak-spots-mastery-text {
+                display: flex;
+                justify-content: space-between;
+                font-size: 0.8rem;
+                color: #6b7280;
+                margin-top: 0.35rem;
+            }
+
+            .weak-spots-term-list {
+                max-height: 300px;
+                overflow-y: auto;
+            }
+
+            .weak-spots-term-item {
+                display: flex;
+                align-items: center;
+                padding: 0.65rem 1.25rem;
+                border-bottom: 1px solid #f3f4f6;
+                gap: 0.75rem;
+            }
+
+            .weak-spots-term-item:last-child {
+                border-bottom: none;
+            }
+
+            .weak-spots-term-info {
+                flex: 1;
+                min-width: 0;
+            }
+
+            .weak-spots-term-name {
+                font-weight: 600;
+                font-size: 0.9rem;
+                color: #111827;
+            }
+
+            .weak-spots-term-answer {
+                font-size: 0.8rem;
+                color: #6b7280;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .weak-spots-term-badge {
+                font-size: 0.65rem;
+                padding: 0.15rem 0.5rem;
+                border-radius: 1rem;
+                background: #f3f4f6;
+                color: #6b7280;
+                white-space: nowrap;
+            }
+
+            .weak-spots-term-ratio {
+                font-size: 0.75rem;
+                font-weight: 600;
+                white-space: nowrap;
+            }
+
+            .weak-spots-term-ratio .wrong {
+                color: #dc2626;
+            }
+
+            .weak-spots-term-ratio .correct {
+                color: #059669;
+            }
+
+            .strength-bar {
+                width: 40px;
+                height: 6px;
+                background: #e5e7eb;
+                border-radius: 3px;
+                overflow: hidden;
+                flex-shrink: 0;
+            }
+
+            .strength-bar-fill {
+                height: 100%;
+                border-radius: 3px;
+                transition: width 0.3s;
+            }
+
+            .weak-spots-action {
+                padding: 0.875rem 1.25rem;
+                border-top: 1px solid var(--border-color);
+                text-align: center;
+            }
+
+            .weak-spots-empty {
+                padding: 1.5rem;
+                text-align: center;
+                color: #6b7280;
+                font-size: 0.9rem;
+            }
+
+            @media screen and (max-width: 1400px) {
+                .profile-panel {
+                    max-width: 100%;
+                }
+
+                .onboarding-belt-grid {
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 0.4rem;
+                }
+
+                .onboarding-belt-btn {
+                    font-size: 0.7rem;
+                    padding: 0.5rem 0.25rem;
+                }
+            }
+
             @keyframes xpSlideIn {
                 from {
                     transform: translateX(100px);
@@ -2782,6 +3405,151 @@
             </div>
         </div>
 
+        <!-- Profile & Settings Panel -->
+        <div class="profile-overlay" id="profile-overlay" onclick="if(event.target===this)hideProfile()">
+            <div class="profile-panel">
+                <div class="profile-panel-header">
+                    <h2>Profile & Settings</h2>
+                    <button class="profile-close-btn" onclick="hideProfile()">&times;</button>
+                </div>
+                <div class="profile-user-header">
+                    <div class="profile-avatar" id="profile-avatar">?</div>
+                    <div class="profile-user-name" id="profile-user-name">Guest</div>
+                    <div class="profile-user-email" id="profile-user-email">Not signed in</div>
+                </div>
+                <div class="profile-body">
+                    <div class="profile-section">
+                        <div class="profile-section-title">Your Progress</div>
+                        <div class="profile-stat-grid">
+                            <div class="profile-stat">
+                                <div class="profile-stat-value" id="profile-belt">-</div>
+                                <div class="profile-stat-label">Current Belt</div>
+                            </div>
+                            <div class="profile-stat">
+                                <div class="profile-stat-value" id="profile-level">-</div>
+                                <div class="profile-stat-label">Level / XP</div>
+                            </div>
+                            <div class="profile-stat">
+                                <div class="profile-stat-value" id="profile-badges">0</div>
+                                <div class="profile-stat-label">Badges</div>
+                            </div>
+                            <div class="profile-stat">
+                                <div class="profile-stat-value" id="profile-techniques">0</div>
+                                <div class="profile-stat-label">Techniques</div>
+                            </div>
+                            <div class="profile-stat">
+                                <div class="profile-stat-value" id="profile-quizzes">0</div>
+                                <div class="profile-stat-label">Quizzes</div>
+                            </div>
+                            <div class="profile-stat">
+                                <div class="profile-stat-value" id="profile-streak">0</div>
+                                <div class="profile-stat-label">Best Streak</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-section">
+                        <div class="profile-section-title">Settings</div>
+                        <div class="profile-setting-row">
+                            <span class="profile-setting-label">Home Dojo</span>
+                            <div class="profile-setting-control">
+                                <select id="profile-dojo-select" onchange="setHomeDojo(this.value); renderProfileStats();">
+                                    <option value="swindon">Swindon</option>
+                                    <option value="mevagissey">Mevagissey</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-section" id="profile-account-section">
+                        <div class="profile-section-title">Account</div>
+                        <button class="profile-btn" onclick="handleChangePassword()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            Change Password
+                        </button>
+                        <button class="profile-btn" onclick="exportProgressData()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            Export Progress Data
+                        </button>
+                        <button class="profile-btn danger" onclick="handleLogout(); hideProfile();">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                            Sign Out
+                        </button>
+                    </div>
+
+                    <div class="profile-section" id="profile-guest-section" style="display:none">
+                        <div class="profile-section-title">Account</div>
+                        <button class="profile-btn" onclick="hideProfile(); showAuthModal();">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+                            Sign In to Sync Progress
+                        </button>
+                        <button class="profile-btn" onclick="exportProgressData()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            Export Progress Data
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Onboarding Wizard -->
+        <div class="onboarding-overlay" id="onboarding-overlay">
+            <div class="onboarding-modal">
+                <div class="onboarding-header">
+                    <div class="onboarding-steps">
+                        <div class="onboarding-step-dot active" id="ob-dot-0"></div>
+                        <div class="onboarding-step-dot" id="ob-dot-1"></div>
+                        <div class="onboarding-step-dot" id="ob-dot-2"></div>
+                        <div class="onboarding-step-dot" id="ob-dot-3"></div>
+                    </div>
+                </div>
+
+                <!-- Step 0: Welcome -->
+                <div class="onboarding-content" id="ob-step-0">
+                    <h2>Welcome to Hakuba Karate</h2>
+                    <p>Your complete Wado Ryu learning companion. Track your techniques, quiz yourself on terminology, and prepare for gradings.</p>
+                    <div style="text-align:center; font-size:3rem; margin: 1.5rem 0;">🥋</div>
+                    <p>Let's set up a few things to personalise your experience.</p>
+                </div>
+
+                <!-- Step 1: Belt Selection -->
+                <div class="onboarding-content" id="ob-step-1" style="display:none">
+                    <h2>What belt are you working towards?</h2>
+                    <p>Select the belt you're currently training for.</p>
+                    <div class="onboarding-belt-grid" id="ob-belt-grid"></div>
+                </div>
+
+                <!-- Step 2: Grading Date -->
+                <div class="onboarding-content" id="ob-step-2" style="display:none">
+                    <h2>When's your next grading?</h2>
+                    <p>We'll show you a countdown to keep you motivated.</p>
+                    <input type="date" class="onboarding-date-input" id="ob-grading-date" />
+                    <div class="onboarding-skip-text">You can skip this and set it later</div>
+                </div>
+
+                <!-- Step 3: Home Dojo -->
+                <div class="onboarding-content" id="ob-step-3" style="display:none">
+                    <h2>Which dojo do you train at?</h2>
+                    <p>We'll show your next class time and filter the calendar.</p>
+                    <div class="onboarding-dojo-options">
+                        <button class="onboarding-dojo-btn selected" data-dojo="swindon" onclick="selectOnboardingDojo(this)">
+                            <div class="dojo-icon">🏯</div>
+                            Swindon
+                        </button>
+                        <button class="onboarding-dojo-btn" data-dojo="mevagissey" onclick="selectOnboardingDojo(this)">
+                            <div class="dojo-icon">🌊</div>
+                            Mevagissey
+                        </button>
+                    </div>
+                </div>
+
+                <div class="onboarding-nav">
+                    <button class="onboarding-btn onboarding-btn-back" id="ob-back-btn" onclick="onboardingPrevStep()" style="visibility:hidden">Back</button>
+                    <button class="onboarding-btn onboarding-btn-next" id="ob-next-btn" onclick="onboardingNextStep()">Next</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Offline Indicator Banner -->
         <div id="offline-banner" class="offline-banner" style="display: none">
             <svg
@@ -2879,7 +3647,7 @@
                                 border-radius: 4px;
                             "
                         >
-                            v1.4.8
+                            v1.5.0
                         </p>
                     </div>
 
@@ -2971,6 +3739,9 @@
 
                         <div class="user-menu-dropdown" id="user-menu-dropdown">
                             <div class="user-email" id="user-email-display"></div>
+                            <button class="user-menu-dropdown-item" onclick="showProfile(); closeUserMenu();">
+                                Profile & Settings
+                            </button>
                             <button class="user-menu-dropdown-item danger" onclick="handleLogout()">
                                 Sign Out
                             </button>
@@ -3512,91 +4283,40 @@
                                     </div>
                                 </div>
 
-                                <!-- Smart Practice Recommendation -->
-                                <div
-                                    id="smart-practice-panel"
-                                    style="
-                                        display: none;
-                                        max-width: 550px;
-                                        margin: 0 auto 2rem auto;
-                                        background: linear-gradient(135deg, #fef3c7, #fde68a);
-                                        border: 2px solid #f59e0b;
-                                        border-radius: 0.75rem;
-                                        padding: 1.25rem;
-                                        text-align: left;
-                                    "
-                                >
-                                    <div
-                                        style="
-                                            display: flex;
-                                            align-items: center;
-                                            gap: 0.5rem;
-                                            margin-bottom: 0.75rem;
-                                        "
-                                    >
-                                        <span style="font-size: 1.25rem">🎯</span>
-                                        <span
-                                            style="
-                                                font-weight: 700;
-                                                color: #92400e;
-                                                font-size: 1.1rem;
-                                            "
-                                            >Smart Practice Recommendation</span
-                                        >
+                                <!-- Weak Spots Dashboard -->
+                                <div id="weak-spots-dashboard" class="weak-spots-dashboard" style="display:none">
+                                    <div class="weak-spots-dashboard-header">
+                                        <span>🎯</span>
+                                        <span>Your Weak Spots</span>
                                     </div>
-                                    <p
-                                        id="smart-practice-message"
-                                        style="
-                                            color: #78350f;
-                                            margin-bottom: 1rem;
-                                            line-height: 1.5;
-                                        "
-                                    ></p>
-                                    <div
-                                        id="weak-spots-preview"
-                                        style="display: none; margin-bottom: 1rem"
-                                    >
-                                        <div
-                                            style="
-                                                font-weight: 600;
-                                                color: #92400e;
-                                                margin-bottom: 0.5rem;
-                                                font-size: 0.9rem;
-                                            "
-                                        >
-                                            Terms to focus on:
+                                    <div class="weak-spots-summary">
+                                        <div class="weak-spots-summary-stat">
+                                            <div class="weak-spots-summary-value mastered" id="ws-mastered-count">0</div>
+                                            <div class="weak-spots-summary-label">Mastered</div>
                                         </div>
-                                        <div
-                                            id="weak-spots-list"
-                                            style="display: flex; flex-wrap: wrap; gap: 0.5rem"
-                                        ></div>
+                                        <div class="weak-spots-summary-stat">
+                                            <div class="weak-spots-summary-value weak" id="ws-weak-count">0</div>
+                                            <div class="weak-spots-summary-label">Need Work</div>
+                                        </div>
+                                        <div class="weak-spots-summary-stat">
+                                            <div class="weak-spots-summary-value unseen" id="ws-unseen-count">0</div>
+                                            <div class="weak-spots-summary-label">Unseen</div>
+                                        </div>
                                     </div>
-                                    <div
-                                        id="mastery-stats"
-                                        style="
-                                            background: rgba(255, 255, 255, 0.6);
-                                            border-radius: 0.5rem;
-                                            padding: 0.75rem;
-                                            margin-top: 0.75rem;
-                                        "
-                                    >
-                                        <div
-                                            style="
-                                                display: flex;
-                                                justify-content: space-between;
-                                                font-size: 0.9rem;
-                                                color: #78350f;
-                                            "
-                                        >
-                                            <span
-                                                >Terms mastered:
-                                                <strong id="terms-mastered-count">0</strong></span
-                                            >
-                                            <span
-                                                >Need practice:
-                                                <strong id="terms-weak-count">0</strong></span
-                                            >
+                                    <div class="weak-spots-mastery-bar">
+                                        <div class="weak-spots-mastery-track">
+                                            <div class="weak-spots-mastery-fill" id="ws-mastery-fill" style="width:0%"></div>
                                         </div>
+                                        <div class="weak-spots-mastery-text">
+                                            <span id="ws-mastery-label">0% mastered</span>
+                                            <span id="ws-total-label">0 terms</span>
+                                        </div>
+                                    </div>
+                                    <div class="weak-spots-term-list" id="ws-term-list"></div>
+                                    <div class="weak-spots-action" id="ws-action" style="display:none">
+                                        <button onclick="startWeakSpotsQuiz()" class="btn-primary" style="background:linear-gradient(135deg,#f59e0b,#d97706);font-size:0.9rem;padding:0.6rem 1.5rem;">
+                                            Practice Weak Spots
+                                        </button>
                                     </div>
                                 </div>
 
@@ -4152,7 +4872,7 @@
                             <div class="technique-card">
                                 <div class="japanese">Junzuki (順突き)</div>
                                 <div class="english">
-                                    Orthodox punch (same arm, same leg forward)
+                                    Straight punch (same arm, same leg forward)
                                 </div>
                             </div>
                             <div class="technique-card">
@@ -4171,7 +4891,7 @@
                             </div>
                             <div class="technique-card">
                                 <div class="japanese">Tobikomizuki (飛び込み突き)</div>
-                                <div class="english">Leaping body-in punch</div>
+                                <div class="english">Snap punch</div>
                             </div>
                             <div class="technique-card">
                                 <div class="japanese">Nagashizuki (流し突き)</div>
@@ -5855,6 +6575,11 @@
 
                     hideAuthModal();
 
+                    // Show onboarding for first-time users
+                    if (!localStorage.getItem("hakubaHasVisited")) {
+                        setTimeout(() => showOnboarding(), 300);
+                    }
+
                     // Sync local data to cloud after login/register
                     await syncLocalDataToCloud();
                 } catch (error) {
@@ -5886,8 +6611,8 @@
             }
 
             function continueAsGuest() {
-                localStorage.setItem("hakubaHasVisited", "true");
                 hideAuthModal();
+                setTimeout(() => showOnboarding(), 300);
             }
 
             async function handleLogout() {
@@ -5915,6 +6640,213 @@
                     closeUserMenu();
                 }
             });
+
+            // ==========================================
+            // PROFILE & SETTINGS
+            // ==========================================
+            function showProfile() {
+                renderProfileStats();
+                document.getElementById("profile-overlay").classList.add("active");
+            }
+
+            function hideProfile() {
+                document.getElementById("profile-overlay").classList.remove("active");
+            }
+
+            function renderProfileStats() {
+                const stats = typeof getAchievementStats === "function" ? getAchievementStats() : {};
+                const savedBelt = localStorage.getItem("selectedBelt") || "9th";
+                const beltInfo = typeof beltData !== "undefined" && beltData[savedBelt] ? beltData[savedBelt] : null;
+                const savedDojo = localStorage.getItem("homeDojo") || "swindon";
+
+                // User info
+                if (currentUser) {
+                    const name = currentUser.email.split("@")[0];
+                    document.getElementById("profile-avatar").textContent = name.charAt(0).toUpperCase();
+                    document.getElementById("profile-user-name").textContent = name;
+                    document.getElementById("profile-user-email").textContent = currentUser.email;
+                    document.getElementById("profile-account-section").style.display = "";
+                    document.getElementById("profile-guest-section").style.display = "none";
+                } else {
+                    document.getElementById("profile-avatar").textContent = "G";
+                    document.getElementById("profile-user-name").textContent = "Guest";
+                    document.getElementById("profile-user-email").textContent = "Sign in to sync progress";
+                    document.getElementById("profile-account-section").style.display = "none";
+                    document.getElementById("profile-guest-section").style.display = "";
+                }
+
+                // Stats
+                document.getElementById("profile-belt").textContent = beltInfo ? beltInfo.name : savedBelt;
+                document.getElementById("profile-level").textContent = "Lvl " + (stats.level || 1) + " / " + (stats.totalXP || 0) + " XP";
+                document.getElementById("profile-badges").textContent = stats.unlockedBadges ? stats.unlockedBadges.length : 0;
+                document.getElementById("profile-techniques").textContent = stats.techniquesLearned || 0;
+                document.getElementById("profile-quizzes").textContent = stats.quizzesCompleted || 0;
+                document.getElementById("profile-streak").textContent = stats.bestStreak || 0;
+
+                // Settings
+                document.getElementById("profile-dojo-select").value = savedDojo;
+            }
+
+            function exportProgressData() {
+                const data = {
+                    exportDate: new Date().toISOString(),
+                    selectedBelt: localStorage.getItem("selectedBelt"),
+                    homeDojo: localStorage.getItem("homeDojo"),
+                    gradingDate: localStorage.getItem("gradingDate"),
+                    achievements: JSON.parse(localStorage.getItem("hakubaAchievements") || "{}"),
+                    quizHistory: JSON.parse(localStorage.getItem("quizHistory") || "{}"),
+                    learnedTechniques: JSON.parse(localStorage.getItem("learnedTechniques") || "{}"),
+                };
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "hakuba-karate-progress-" + new Date().toISOString().slice(0, 10) + ".json";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+
+            async function handleChangePassword() {
+                if (!currentUser) return;
+                const newPassword = prompt("Enter your new password (at least 6 characters):");
+                if (!newPassword) return;
+                if (newPassword.length < 6) {
+                    alert("Password must be at least 6 characters.");
+                    return;
+                }
+                try {
+                    await currentUser.updatePassword(newPassword);
+                    alert("Password updated successfully!");
+                } catch (error) {
+                    if (error.code === "auth/requires-recent-login") {
+                        alert("For security, please sign out and sign back in before changing your password.");
+                    } else {
+                        alert("Error updating password: " + error.message);
+                    }
+                }
+            }
+
+            // ==========================================
+            // ONBOARDING WIZARD
+            // ==========================================
+            let onboardingStep = 0;
+            let onboardingBelt = "9th";
+            let onboardingDojo = "swindon";
+
+            function showOnboarding() {
+                onboardingStep = 0;
+                onboardingBelt = "9th";
+                onboardingDojo = "swindon";
+                buildOnboardingBeltGrid();
+                updateOnboardingUI();
+                document.getElementById("onboarding-overlay").classList.add("active");
+            }
+
+            function hideOnboarding() {
+                document.getElementById("onboarding-overlay").classList.remove("active");
+            }
+
+            function buildOnboardingBeltGrid() {
+                const grid = document.getElementById("ob-belt-grid");
+                if (!grid) return;
+                const belts = [
+                    { key: "9th", name: "9th Kyū", color: "Red", bg: "#dc2626", text: "white" },
+                    { key: "8th", name: "8th Kyū", color: "Yellow", bg: "#fbbf24", text: "#111" },
+                    { key: "7th", name: "7th Kyū", color: "Orange", bg: "#f97316", text: "white" },
+                    { key: "6th", name: "6th Kyū", color: "Green", bg: "#059669", text: "white" },
+                    { key: "5th", name: "5th Kyū", color: "Blue", bg: "#2563eb", text: "white" },
+                    { key: "4th", name: "4th Kyū", color: "Purple", bg: "#7c3aed", text: "white" },
+                    { key: "3rd", name: "3rd Kyū", color: "Brown", bg: "#92400e", text: "white" },
+                    { key: "2nd", name: "2nd Kyū", color: "Brown/White", bg: "#92400e", text: "white" },
+                    { key: "1st", name: "1st Kyū", color: "Brown/Black", bg: "#92400e", text: "white" },
+                    { key: "Shodan", name: "Shodan", color: "1st Dan", bg: "#000", text: "white" },
+                    { key: "Nidan", name: "Nidan", color: "2nd Dan", bg: "#000", text: "white" },
+                    { key: "Sandan", name: "Sandan", color: "3rd Dan", bg: "#000", text: "white" },
+                ];
+                grid.innerHTML = belts.map(b =>
+                    '<button class="onboarding-belt-btn' + (b.key === onboardingBelt ? ' selected' : '') +
+                    '" style="background:' + b.bg + ';color:' + b.text +
+                    '" data-belt="' + b.key + '" onclick="selectOnboardingBelt(this)">' +
+                    '<div style="font-weight:700;font-size:0.85rem;">' + b.name + '</div>' +
+                    '<div style="font-size:0.7rem;opacity:0.85;">' + b.color + '</div></button>'
+                ).join("");
+            }
+
+            function selectOnboardingBelt(btn) {
+                onboardingBelt = btn.dataset.belt;
+                document.querySelectorAll(".onboarding-belt-btn").forEach(b => b.classList.remove("selected"));
+                btn.classList.add("selected");
+            }
+
+            function selectOnboardingDojo(btn) {
+                onboardingDojo = btn.dataset.dojo;
+                document.querySelectorAll(".onboarding-dojo-btn").forEach(b => b.classList.remove("selected"));
+                btn.classList.add("selected");
+            }
+
+            function updateOnboardingUI() {
+                for (let i = 0; i < 4; i++) {
+                    const step = document.getElementById("ob-step-" + i);
+                    const dot = document.getElementById("ob-dot-" + i);
+                    if (step) step.style.display = i === onboardingStep ? "" : "none";
+                    if (dot) {
+                        dot.className = "onboarding-step-dot";
+                        if (i < onboardingStep) dot.classList.add("completed");
+                        else if (i === onboardingStep) dot.classList.add("active");
+                    }
+                }
+                const backBtn = document.getElementById("ob-back-btn");
+                const nextBtn = document.getElementById("ob-next-btn");
+                if (backBtn) backBtn.style.visibility = onboardingStep === 0 ? "hidden" : "visible";
+                if (nextBtn) nextBtn.textContent = onboardingStep === 3 ? "Get Started" : "Next";
+            }
+
+            function onboardingNextStep() {
+                if (onboardingStep < 3) {
+                    onboardingStep++;
+                    updateOnboardingUI();
+                } else {
+                    completeOnboarding();
+                }
+            }
+
+            function onboardingPrevStep() {
+                if (onboardingStep > 0) {
+                    onboardingStep--;
+                    updateOnboardingUI();
+                }
+            }
+
+            function completeOnboarding() {
+                // Save belt
+                localStorage.setItem("selectedBelt", onboardingBelt);
+
+                // Save grading date
+                const dateInput = document.getElementById("ob-grading-date");
+                if (dateInput && dateInput.value) {
+                    localStorage.setItem("gradingDate", dateInput.value);
+                    if (typeof setGradingDate === "function") setGradingDate(dateInput.value);
+                }
+
+                // Save dojo
+                localStorage.setItem("homeDojo", onboardingDojo);
+                const dojoSelect = document.getElementById("home-dojo-select");
+                if (dojoSelect) dojoSelect.value = onboardingDojo;
+                if (typeof fetchNextClass === "function") fetchNextClass(onboardingDojo);
+
+                // Mark as visited
+                localStorage.setItem("hakubaHasVisited", "true");
+
+                // Apply belt selection in main UI
+                if (typeof selectBelt === "function") selectBelt(onboardingBelt);
+
+                // Navigate to Belt Syllabus
+                if (typeof switchTab === "function") switchTab("belts");
+
+                hideOnboarding();
+            }
 
             // ==========================================
             // FIRESTORE DATA SYNC
@@ -6183,9 +7115,9 @@
                         otherStance: "Hanmi-gamae",
                         blocks: [
                             { name: "Jōdan-uke", translation: "Head block" },
-                            { name: "Soto-uke", translation: "Outer block" },
-                            { name: "Uchi-uke", translation: "Inner block" },
-                            { name: "Gedan-barai", translation: "Lower sweeping block" },
+                            { name: "Chūdan-soto-uke", translation: "Body outer block" },
+                            { name: "Chūdan-uchi-uke", translation: "Body inner block" },
+                            { name: "Gedan-barai", translation: "Lower body sweeping block" },
                         ],
                         strikes: [
                             { name: "Jōdan-zuki", translation: "Head snap-punch" },
@@ -6218,20 +7150,20 @@
                         list: [
                             {
                                 name: "Junzuki, Mawatte-jōdan-uke",
-                                translation: "Orthodox punch, turn with head block",
+                                translation: "Straight punch, turn with head block",
                             },
                             {
                                 name: "Gyakuzuki, Mawatte-gedan-barai",
-                                translation: "Reverse punch, turn with lower sweeping block",
+                                translation: "Reverse punch, turn with lower body sweeping block",
                             },
-                            { name: "Mae-geri-chūdan", translation: "Body front kick" },
+                            { name: "Mae-geri-chūdan", translation: "Front kick to the body" },
                             {
                                 name: "Suri komi-mae-geri-chūdan",
-                                translation: "One step body front kick",
+                                translation: "One step front kick to the body",
                             },
                             {
                                 name: "Sokutō-fumikomi-hiza",
-                                translation: "Thrusting stamp kick to the knee",
+                                translation: "Side edge stamping kick to the knee",
                             },
                         ],
                     },
@@ -6242,20 +7174,20 @@
                             {
                                 name: "Mae-geri-chūdan-tobikomizuki-jōdan",
                                 translation:
-                                    "Front kick to mid level, leaping punch to upper level",
+                                    "Front kick to the body, snap punch to the head",
                             },
                             {
                                 name: "Suri komi-mae-geri-chūdan-tobikomizuki-jōdan",
                                 translation:
-                                    "Step up front kick to mid level, leaping punch to upper level",
+                                    "One step front kick to the body, snap punch to the head",
                             },
                             {
                                 name: "Mae-geri-chūdan-gyakuzuki-chūdan",
-                                translation: "Front kick, reverse punch to mid level",
+                                translation: "Front kick, reverse punch to the body",
                             },
                             {
                                 name: "Suri komi-mae-geri-chūdan-gyakuzuki-chūdan",
-                                translation: "Step up front kick, reverse punch to mid level",
+                                translation: "One step front kick, reverse punch to the body",
                             },
                         ],
                     },
@@ -6264,12 +7196,12 @@
                         stance: "Junzuki-dachi",
                         list: [
                             {
-                                name: "Soto-uke-gyakuzuki",
-                                translation: "Outer block, reverse punch",
+                                name: "Chūdan-soto-uke-gyakuzuki",
+                                translation: "Body outer block, reverse punch",
                             },
                             {
-                                name: "Uchi-uke-gyakuzuki",
-                                translation: "Inner block, reverse punch",
+                                name: "Chūdan-uchi-uke-gyakuzuki",
+                                translation: "Body inner block, reverse punch",
                             },
                         ],
                         note: "All blocks performed with turning block (outer/inner), reverse punch",
@@ -6348,7 +7280,7 @@
                             },
                             {
                                 name: "Tobikomizuki-jōdan",
-                                translation: "Leaping body-in punch to upper level",
+                                translation: "Snap punch to the head",
                             },
                             {
                                 name: "Suri komi-mawashi-geri-chūdan",
@@ -6577,7 +7509,7 @@
                             },
                             {
                                 name: "Tobikomizuki-jōdan",
-                                translation: "Leaping body-in punch to upper level",
+                                translation: "Snap punch to the head",
                             },
                             {
                                 name: "Nagashizuki-jōdan",
@@ -6868,7 +7800,7 @@
                             },
                             {
                                 name: "Tobikomizuki-jōdan",
-                                translation: "Leaping body-in punch to upper level",
+                                translation: "Snap punch to the head",
                             },
                             {
                                 name: "Nagashizuki-jōdan",
@@ -6973,7 +7905,7 @@
                             },
                             {
                                 name: "Tobikomizuki-jōdan",
-                                translation: "Leaping body-in punch to upper level",
+                                translation: "Snap punch to the head",
                             },
                             {
                                 name: "Nagashizuki-jōdan",
@@ -7078,7 +8010,7 @@
                             },
                             {
                                 name: "Tobikomizuki-jōdan",
-                                translation: "Leaping body-in punch to upper level",
+                                translation: "Snap punch to the head",
                             },
                             {
                                 name: "Nagashizuki-jōdan",
@@ -10264,7 +11196,7 @@
                     answer: "Backfist",
                     category: "Strike",
                     belt: "9th",
-                    wrong: ["Elbow strike", "Reverse punch", "Orthodox punch"],
+                    wrong: ["Elbow strike", "Reverse punch", "Straight punch"],
                 },
                 {
                     term: "Yōi",
@@ -10296,7 +11228,7 @@
                 },
                 {
                     term: "Junzuki-dachi",
-                    answer: "Orthodox punch stance",
+                    answer: "Front punch stance",
                     category: "Stance",
                     belt: "9th",
                     wrong: ["Fighting stance", "Reverse punch stance", "Horse riding stance"],
@@ -10306,7 +11238,7 @@
                     answer: "Half-body posture (Fighting stance)",
                     category: "Stance",
                     belt: "9th",
-                    wrong: ["Orthodox punch stance", "Horse riding stance", "Cat stance"],
+                    wrong: ["Front punch stance", "Horse riding stance", "Cat stance"],
                 },
                 {
                     term: "Kata",
@@ -10364,11 +11296,11 @@
                     answer: "Reverse punch",
                     category: "Strike",
                     belt: "8th",
-                    wrong: ["Orthodox punch", "Backfist", "Elbow strike"],
+                    wrong: ["Straight punch", "Backfist", "Elbow strike"],
                 },
                 {
                     term: "Junzuki",
-                    answer: "Orthodox punch",
+                    answer: "Straight punch",
                     category: "Strike",
                     belt: "8th",
                     wrong: ["Reverse punch", "Backfist", "Elbow strike"],
@@ -10408,14 +11340,14 @@
                     answer: "Reverse punch stance",
                     category: "Stance",
                     belt: "7th",
-                    wrong: ["Orthodox punch stance", "Fighting stance", "Horse riding stance"],
+                    wrong: ["Front punch stance", "Fighting stance", "Horse riding stance"],
                 },
                 {
                     term: "Enpi Uchi",
                     answer: "Elbow strike",
                     category: "Strike",
                     belt: "7th",
-                    wrong: ["Backfist", "Reverse punch", "Orthodox punch"],
+                    wrong: ["Backfist", "Reverse punch", "Straight punch"],
                 },
                 {
                     term: "Ipponme",
@@ -10449,10 +11381,10 @@
                 },
                 {
                     term: "Tobikomizuki",
-                    answer: "Leaping body-in punch",
+                    answer: "Snap punch",
                     category: "Strike",
                     belt: "6th",
-                    wrong: ["Reverse punch", "Orthodox punch", "Flowing punch"],
+                    wrong: ["Reverse punch", "Straight punch", "Flowing punch"],
                 },
                 {
                     term: "Yonhonme",
@@ -10475,7 +11407,7 @@
                     answer: "Flowing punch",
                     category: "Strike",
                     belt: "5th",
-                    wrong: ["Leaping body-in punch", "Orthodox punch", "Reverse punch"],
+                    wrong: ["Snap punch", "Straight punch", "Reverse punch"],
                 },
                 {
                     term: "Gohonme",
@@ -10626,7 +11558,7 @@
                     "~" + availableQuestions.length + " available questions";
 
                 // Update smart practice panel when belt changes
-                updateSmartPracticePanel();
+                updateWeakSpotsDashboard();
             }
 
             function exitQuiz() {
@@ -10703,32 +11635,26 @@
                 }
 
                 // Update smart practice panel
-                updateSmartPracticePanel();
+                updateWeakSpotsDashboard();
             }
 
-            function updateSmartPracticePanel() {
-                const panel = document.getElementById("smart-practice-panel");
-                const messageEl = document.getElementById("smart-practice-message");
-                const previewEl = document.getElementById("weak-spots-preview");
-                const listEl = document.getElementById("weak-spots-list");
-                const masteredEl = document.getElementById("terms-mastered-count");
-                const weakEl = document.getElementById("terms-weak-count");
-
-                if (!panel) return;
+            function updateWeakSpotsDashboard() {
+                const dashboard = document.getElementById("weak-spots-dashboard");
+                if (!dashboard) return;
 
                 const history = getQuizHistory();
                 const weakSpots = getWeakSpots();
-
-                // Calculate mastery stats
-                let mastered = 0;
-                let needsPractice = 0;
-                let neverSeen = 0;
 
                 // Get current belt level terms
                 const sliderValue = parseInt(document.getElementById("belt-slider")?.value) || 0;
                 const includedBelts = beltLevels.slice(0, sliderValue + 1);
                 const beltIds = includedBelts.map((b) => b.id);
                 const availableTerms = quizTerms.filter((q) => beltIds.includes(q.belt));
+
+                // Calculate mastery stats
+                let mastered = 0;
+                let needsPractice = 0;
+                let neverSeen = 0;
 
                 availableTerms.forEach((term) => {
                     const record = history[term.term];
@@ -10741,76 +11667,55 @@
                     }
                 });
 
-                masteredEl.textContent = mastered;
-                weakEl.textContent = weakSpots.length;
+                // Update summary counts
+                document.getElementById("ws-mastered-count").textContent = mastered;
+                document.getElementById("ws-weak-count").textContent = needsPractice;
+                document.getElementById("ws-unseen-count").textContent = neverSeen;
 
-                // Determine recommendation message
-                let message = "";
-                if (weakSpots.length >= 5) {
-                    message =
-                        "You have several terms that need attention. The <strong>Practice Weak Spots</strong> quiz will focus on these to help you improve!";
-                    panel.style.background = "linear-gradient(135deg, #fee2e2, #fecaca)";
-                    panel.style.borderColor = "#ef4444";
-                    messageEl.style.color = "#991b1b";
-                } else if (weakSpots.length >= 3) {
-                    message =
-                        "A few terms could use more practice. Try the <strong>Practice Weak Spots</strong> quiz to reinforce them.";
-                    panel.style.background = "linear-gradient(135deg, #fef3c7, #fde68a)";
-                    panel.style.borderColor = "#f59e0b";
-                    messageEl.style.color = "#78350f";
-                } else if (neverSeen > availableTerms.length * 0.3) {
-                    message =
-                        "You're doing great! Start a regular quiz to discover new terms - there are still <strong>" +
-                        neverSeen +
-                        " terms</strong> you haven't seen yet.";
-                    panel.style.background = "linear-gradient(135deg, #dbeafe, #bfdbfe)";
-                    panel.style.borderColor = "#3b82f6";
-                    messageEl.style.color = "#1e40af";
-                } else if (mastered > availableTerms.length * 0.5) {
-                    message =
-                        "Excellent progress! You've mastered over half the terms at this level. Keep it up!";
-                    panel.style.background = "linear-gradient(135deg, #d1fae5, #a7f3d0)";
-                    panel.style.borderColor = "#10b981";
-                    messageEl.style.color = "#065f46";
-                } else {
-                    message =
-                        "Regular practice helps build muscle memory. Try the <strong>Daily Challenge</strong> to stay sharp!";
-                    panel.style.background = "linear-gradient(135deg, #ede9fe, #ddd6fe)";
-                    panel.style.borderColor = "#8b5cf6";
-                    messageEl.style.color = "#5b21b6";
-                }
+                // Update mastery bar
+                const total = availableTerms.length;
+                const masteryPct = total > 0 ? Math.round((mastered / total) * 100) : 0;
+                document.getElementById("ws-mastery-fill").style.width = masteryPct + "%";
+                document.getElementById("ws-mastery-label").textContent = masteryPct + "% mastered";
+                document.getElementById("ws-total-label").textContent = total + " terms";
 
-                messageEl.innerHTML = message;
-
-                // Show weak spots preview if there are any
+                // Render weak spots term list (up to 10)
+                const termList = document.getElementById("ws-term-list");
                 if (weakSpots.length > 0) {
-                    previewEl.style.display = "block";
-                    listEl.innerHTML =
-                        weakSpots
-                            .slice(0, 5)
-                            .map(
-                                (ws) =>
-                                    '<span style="background: rgba(255,255,255,0.7); padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.85rem; color: #78350f; border: 1px solid rgba(0,0,0,0.1);">' +
-                                    ws.term +
-                                    ' <span style="opacity: 0.6;">(' +
-                                    ws.wrongCount +
-                                    "x)</span></span>",
-                            )
-                            .join("") +
-                        (weakSpots.length > 5
-                            ? '<span style="padding: 0.25rem 0.5rem; font-size: 0.85rem; color: #78350f;">+' +
-                              (weakSpots.length - 5) +
-                              " more</span>"
-                            : "");
+                    const items = weakSpots.slice(0, 10).map((ws) => {
+                        const record = history[ws.term] || { correct: 0, wrong: 0 };
+                        const totalAttempts = record.correct + record.wrong;
+                        const strengthPct = totalAttempts > 0 ? Math.round((record.correct / totalAttempts) * 100) : 0;
+                        const strengthColor = strengthPct >= 50 ? "#f59e0b" : "#ef4444";
+
+                        return '<div class="weak-spots-term-item">' +
+                            '<div class="weak-spots-term-info">' +
+                                '<div class="weak-spots-term-name">' + ws.term + '</div>' +
+                                '<div class="weak-spots-term-answer">' + ws.answer + '</div>' +
+                            '</div>' +
+                            '<span class="weak-spots-term-badge">' + ws.category + '</span>' +
+                            '<span class="weak-spots-term-ratio"><span class="wrong">' + record.wrong + 'W</span> / <span class="correct">' + record.correct + 'C</span></span>' +
+                            '<div class="strength-bar">' +
+                                '<div class="strength-bar-fill" style="width:' + strengthPct + '%;background:' + strengthColor + '"></div>' +
+                            '</div>' +
+                        '</div>';
+                    });
+                    termList.innerHTML = items.join("");
                 } else {
-                    previewEl.style.display = "none";
+                    termList.innerHTML = '<div style="text-align:center;padding:1rem;color:#6b7280;font-size:0.85rem;">No weak spots yet — start quizzing to track your progress!</div>';
                 }
 
-                // Show panel if there's any quiz history
-                if (Object.keys(history).length > 0 || weakSpots.length > 0) {
-                    panel.style.display = "block";
+                // Show/hide practice button
+                const actionEl = document.getElementById("ws-action");
+                if (actionEl) {
+                    actionEl.style.display = weakSpots.length >= 3 ? "block" : "none";
+                }
+
+                // Show dashboard if there's any quiz history
+                if (Object.keys(history).length > 0) {
+                    dashboard.style.display = "block";
                 } else {
-                    panel.style.display = "none";
+                    dashboard.style.display = "none";
                 }
             }
 

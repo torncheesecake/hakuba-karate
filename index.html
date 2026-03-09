@@ -6921,8 +6921,6 @@
                 return merged;
             }
 
-            const FORCED_RECOVERY_UIDS = ["g5eAsImurFSASU84dLOpIH4eCnF2"];
-
             function normaliseLegacyAchievements(sourceData) {
                 const source = sourceData || {};
                 const fromRoot =
@@ -7044,38 +7042,6 @@
                 }
             }
 
-            async function recoverCloudDataFromKnownUIDs(baseCloudData) {
-                const baseData = baseCloudData || {};
-                if (!currentUser) return baseData;
-
-                try {
-                    let merged = {
-                        progress: { ...(baseData.progress || {}) },
-                        achievements: { ...(baseData.achievements || {}) },
-                        quizHistory: { ...(baseData.quizHistory || {}) },
-                    };
-                    let recovered = false;
-
-                    for (const uid of FORCED_RECOVERY_UIDS) {
-                        if (!uid || uid === currentUser.uid) continue;
-                        const doc = await db.collection("users").doc(uid).get();
-                        if (!doc.exists) continue;
-                        merged = mergeCloudUserPayload(merged, doc.data() || {});
-                        recovered = true;
-                    }
-
-                    if (!recovered) return baseData;
-                    console.log("Recovered additional cloud data from known UID(s)");
-                    return {
-                        ...baseData,
-                        ...merged,
-                    };
-                } catch (error) {
-                    console.warn("Could not recover known-UID cloud data:", error);
-                    return baseData;
-                }
-            }
-
             function showSyncIndicator(syncing) {
                 const indicator = document.getElementById("sync-indicator");
                 if (!indicator) return;
@@ -7097,9 +7063,7 @@
                 try {
                     const userDoc = await db.collection("users").doc(currentUser.uid).get();
                     const primaryCloudData = userDoc.exists ? userDoc.data() : {};
-                    const emailRecoveredCloudData =
-                        await recoverCloudDataFromEmailMatches(primaryCloudData);
-                    const cloudData = await recoverCloudDataFromKnownUIDs(emailRecoveredCloudData);
+                    const cloudData = await recoverCloudDataFromEmailMatches(primaryCloudData);
 
                     // Get local data
                     const localAchievements = safeParseStorageItem("hakubaAchievements", {});

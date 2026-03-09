@@ -6556,6 +6556,7 @@
                         await db.collection("users").doc(auth.currentUser.uid).set(
                             {
                                 email: email,
+                                emailLower: String(email || "").toLowerCase(),
                                 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                             },
                             { merge: true },
@@ -6920,6 +6921,79 @@
                 return merged;
             }
 
+            async function recoverCloudDataFromEmailMatches(primaryCloudData) {
+                const baseData = primaryCloudData || {};
+                if (!currentUser || !currentUser.email) return baseData;
+
+                try {
+                    const email = currentUser.email;
+                    const emailLower = String(email).toLowerCase();
+                    let snapshot = await db
+                        .collection("users")
+                        .where("emailLower", "==", emailLower)
+                        .get();
+
+                    // Fallback for older records before emailLower existed
+                    if (snapshot.empty) {
+                        snapshot = await db.collection("users").where("email", "==", email).get();
+                    }
+
+                    if (snapshot.empty) return baseData;
+
+                    let foundLegacyDoc = false;
+                    const recoveredData = {
+                        progress: { ...(baseData.progress || {}) },
+                        achievements: { ...(baseData.achievements || {}) },
+                        quizHistory: { ...(baseData.quizHistory || {}) },
+                    };
+
+                    snapshot.forEach((doc) => {
+                        if (doc.id === currentUser.uid) return;
+                        const data = doc.data() || {};
+                        foundLegacyDoc = true;
+
+                        recoveredData.achievements = mergeAchievements(
+                            recoveredData.achievements || {},
+                            data.achievements || {},
+                        );
+                        recoveredData.quizHistory = mergeQuizHistory(
+                            recoveredData.quizHistory || {},
+                            data.quizHistory || {},
+                        );
+
+                        const recoveredProgress = recoveredData.progress || {};
+                        const incomingProgress = data.progress || {};
+                        recoveredData.progress = {
+                            ...recoveredProgress,
+                            ...incomingProgress,
+                            notes: {
+                                ...(recoveredProgress.notes || {}),
+                                ...(incomingProgress.notes || {}),
+                            },
+                            bookmarks: {
+                                ...(recoveredProgress.bookmarks || {}),
+                                ...(incomingProgress.bookmarks || {}),
+                            },
+                            learnedTechniques: mergeLearnedTechniques(
+                                recoveredProgress.learnedTechniques || {},
+                                incomingProgress.learnedTechniques || {},
+                            ),
+                        };
+                    });
+
+                    if (!foundLegacyDoc) return baseData;
+
+                    console.log("Recovered additional cloud data from same-email legacy account(s)");
+                    return {
+                        ...baseData,
+                        ...recoveredData,
+                    };
+                } catch (error) {
+                    console.warn("Could not recover same-email cloud data:", error);
+                    return baseData;
+                }
+            }
+
             function showSyncIndicator(syncing) {
                 const indicator = document.getElementById("sync-indicator");
                 if (!indicator) return;
@@ -6940,7 +7014,8 @@
 
                 try {
                     const userDoc = await db.collection("users").doc(currentUser.uid).get();
-                    const cloudData = userDoc.exists ? userDoc.data() : {};
+                    const primaryCloudData = userDoc.exists ? userDoc.data() : {};
+                    const cloudData = await recoverCloudDataFromEmailMatches(primaryCloudData);
 
                     // Get local data
                     const localAchievements = safeParseStorageItem("hakubaAchievements", {});
@@ -7161,6 +7236,8 @@
 
                     await db.collection("users").doc(currentUser.uid).set(
                         {
+                            email: currentUser.email || "",
+                            emailLower: String(currentUser.email || "").toLowerCase(),
                             progress: progressData,
                             achievements: achievementData,
                             quizHistory: quizHistoryData,

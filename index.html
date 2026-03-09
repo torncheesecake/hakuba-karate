@@ -6921,6 +6921,47 @@
                 return merged;
             }
 
+            const FORCED_RECOVERY_UIDS = ["g5eAsImurFSASU84dLOpIH4eCnF2"];
+
+            function mergeCloudUserPayload(targetData, incomingData) {
+                const target = {
+                    progress: { ...(targetData?.progress || {}) },
+                    achievements: { ...(targetData?.achievements || {}) },
+                    quizHistory: { ...(targetData?.quizHistory || {}) },
+                };
+                const incoming = incomingData || {};
+
+                target.achievements = mergeAchievements(
+                    target.achievements || {},
+                    incoming.achievements || {},
+                );
+                target.quizHistory = mergeQuizHistory(
+                    target.quizHistory || {},
+                    incoming.quizHistory || {},
+                );
+
+                const targetProgress = target.progress || {};
+                const incomingProgress = incoming.progress || {};
+                target.progress = {
+                    ...targetProgress,
+                    ...incomingProgress,
+                    notes: {
+                        ...(targetProgress.notes || {}),
+                        ...(incomingProgress.notes || {}),
+                    },
+                    bookmarks: {
+                        ...(targetProgress.bookmarks || {}),
+                        ...(incomingProgress.bookmarks || {}),
+                    },
+                    learnedTechniques: mergeLearnedTechniques(
+                        targetProgress.learnedTechniques || {},
+                        incomingProgress.learnedTechniques || {},
+                    ),
+                };
+
+                return target;
+            }
+
             async function recoverCloudDataFromEmailMatches(primaryCloudData) {
                 const baseData = primaryCloudData || {};
                 if (!currentUser || !currentUser.email) return baseData;
@@ -6941,7 +6982,7 @@
                     if (snapshot.empty) return baseData;
 
                     let foundLegacyDoc = false;
-                    const recoveredData = {
+                    let recoveredData = {
                         progress: { ...(baseData.progress || {}) },
                         achievements: { ...(baseData.achievements || {}) },
                         quizHistory: { ...(baseData.quizHistory || {}) },
@@ -6951,34 +6992,7 @@
                         if (doc.id === currentUser.uid) return;
                         const data = doc.data() || {};
                         foundLegacyDoc = true;
-
-                        recoveredData.achievements = mergeAchievements(
-                            recoveredData.achievements || {},
-                            data.achievements || {},
-                        );
-                        recoveredData.quizHistory = mergeQuizHistory(
-                            recoveredData.quizHistory || {},
-                            data.quizHistory || {},
-                        );
-
-                        const recoveredProgress = recoveredData.progress || {};
-                        const incomingProgress = data.progress || {};
-                        recoveredData.progress = {
-                            ...recoveredProgress,
-                            ...incomingProgress,
-                            notes: {
-                                ...(recoveredProgress.notes || {}),
-                                ...(incomingProgress.notes || {}),
-                            },
-                            bookmarks: {
-                                ...(recoveredProgress.bookmarks || {}),
-                                ...(incomingProgress.bookmarks || {}),
-                            },
-                            learnedTechniques: mergeLearnedTechniques(
-                                recoveredProgress.learnedTechniques || {},
-                                incomingProgress.learnedTechniques || {},
-                            ),
-                        };
+                        recoveredData = mergeCloudUserPayload(recoveredData, data);
                     });
 
                     if (!foundLegacyDoc) return baseData;
@@ -6990,6 +7004,38 @@
                     };
                 } catch (error) {
                     console.warn("Could not recover same-email cloud data:", error);
+                    return baseData;
+                }
+            }
+
+            async function recoverCloudDataFromKnownUIDs(baseCloudData) {
+                const baseData = baseCloudData || {};
+                if (!currentUser) return baseData;
+
+                try {
+                    let merged = {
+                        progress: { ...(baseData.progress || {}) },
+                        achievements: { ...(baseData.achievements || {}) },
+                        quizHistory: { ...(baseData.quizHistory || {}) },
+                    };
+                    let recovered = false;
+
+                    for (const uid of FORCED_RECOVERY_UIDS) {
+                        if (!uid || uid === currentUser.uid) continue;
+                        const doc = await db.collection("users").doc(uid).get();
+                        if (!doc.exists) continue;
+                        merged = mergeCloudUserPayload(merged, doc.data() || {});
+                        recovered = true;
+                    }
+
+                    if (!recovered) return baseData;
+                    console.log("Recovered additional cloud data from known UID(s)");
+                    return {
+                        ...baseData,
+                        ...merged,
+                    };
+                } catch (error) {
+                    console.warn("Could not recover known-UID cloud data:", error);
                     return baseData;
                 }
             }
@@ -7015,7 +7061,9 @@
                 try {
                     const userDoc = await db.collection("users").doc(currentUser.uid).get();
                     const primaryCloudData = userDoc.exists ? userDoc.data() : {};
-                    const cloudData = await recoverCloudDataFromEmailMatches(primaryCloudData);
+                    const emailRecoveredCloudData =
+                        await recoverCloudDataFromEmailMatches(primaryCloudData);
+                    const cloudData = await recoverCloudDataFromKnownUIDs(emailRecoveredCloudData);
 
                     // Get local data
                     const localAchievements = safeParseStorageItem("hakubaAchievements", {});

@@ -6998,6 +6998,12 @@
                     if (typeof updateTechniqueStats === "function") {
                         updateTechniqueStats();
                     }
+                    if (typeof updateXPDisplay === "function") {
+                        updateXPDisplay();
+                    }
+                    if (typeof renderAchievements === "function") {
+                        renderAchievements();
+                    }
 
                     // Always sync merged data back to cloud
                     await syncLocalDataToCloud();
@@ -7008,7 +7014,7 @@
 
             // Merge achievements - take the maximum values
             function mergeAchievements(local, cloud) {
-                const merged = { ...local };
+                const merged = { ...(cloud || {}), ...(local || {}) };
 
                 // Numeric fields - take the max
                 const numericFields = [
@@ -7022,6 +7028,13 @@
                     "practiceStreak",
                     "correctAnswers",
                     "badgesEarned",
+                    "totalXP",
+                    "level",
+                    "dailyChallengeStreak",
+                    "dailyChallengesCompleted",
+                    "weakSpotsQuizzesCompleted",
+                    "consecutivePerfectQuizzes",
+                    "bestConsecutivePerfect",
                 ];
 
                 numericFields.forEach((field) => {
@@ -7036,10 +7049,23 @@
                     merged[field] = [...new Set([...localArr, ...cloudArr])];
                 });
 
+                // Object fields - merge both, preferring local on key collisions
+                merged.badgeUnlockDates = {
+                    ...(cloud.badgeUnlockDates || {}),
+                    ...(local.badgeUnlockDates || {}),
+                };
+
                 // Boolean fields - true if either is true
-                if (local.allTechniquesLearned || cloud.allTechniquesLearned) {
-                    merged.allTechniquesLearned = true;
-                }
+                const booleanFields = [
+                    "allTechniquesLearned",
+                    "nightOwlPractice",
+                    "earlyBirdPractice",
+                    "weekendWarrior",
+                    "badgeXPMigrated",
+                ];
+                booleanFields.forEach((field) => {
+                    merged[field] = !!(local[field] || cloud[field]);
+                });
 
                 // Date fields - take the most recent
                 if (cloud.lastPracticeDate && local.lastPracticeDate) {
@@ -7049,6 +7075,36 @@
                             : local.lastPracticeDate;
                 } else {
                     merged.lastPracticeDate = cloud.lastPracticeDate || local.lastPracticeDate;
+                }
+
+                if (cloud.lastDailyChallengeDate && local.lastDailyChallengeDate) {
+                    merged.lastDailyChallengeDate =
+                        new Date(cloud.lastDailyChallengeDate) > new Date(local.lastDailyChallengeDate)
+                            ? cloud.lastDailyChallengeDate
+                            : local.lastDailyChallengeDate;
+                } else {
+                    merged.lastDailyChallengeDate =
+                        cloud.lastDailyChallengeDate || local.lastDailyChallengeDate;
+                }
+
+                if (cloud.previousDailyChallengeDate && local.previousDailyChallengeDate) {
+                    merged.previousDailyChallengeDate =
+                        new Date(cloud.previousDailyChallengeDate) >
+                        new Date(local.previousDailyChallengeDate)
+                            ? cloud.previousDailyChallengeDate
+                            : local.previousDailyChallengeDate;
+                } else {
+                    merged.previousDailyChallengeDate =
+                        cloud.previousDailyChallengeDate || local.previousDailyChallengeDate;
+                }
+
+                // Fastest quiz should be the lower positive value
+                const localFastest = Number(local.fastestQuizTime) || 0;
+                const cloudFastest = Number(cloud.fastestQuizTime) || 0;
+                if (localFastest && cloudFastest) {
+                    merged.fastestQuizTime = Math.min(localFastest, cloudFastest);
+                } else {
+                    merged.fastestQuizTime = localFastest || cloudFastest || null;
                 }
 
                 return merged;

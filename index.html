@@ -6421,8 +6421,6 @@
                     const doSync = async () => {
                         try {
                             await loadDataFromFirestore();
-                            // Also sync local data to cloud on login
-                            await syncLocalDataToCloud();
                         } catch (err) {
                             console.error("Sync error:", err);
                         }
@@ -6580,8 +6578,6 @@
                         setTimeout(() => showOnboarding(), 300);
                     }
 
-                    // Sync local data to cloud after login/register
-                    await syncLocalDataToCloud();
                 } catch (error) {
                     let message = "An error occurred. Please try again.";
                     switch (error.code) {
@@ -6693,9 +6689,9 @@
                     selectedBelt: localStorage.getItem("selectedBelt"),
                     homeDojo: localStorage.getItem("homeDojo"),
                     gradingDate: localStorage.getItem("gradingDate"),
-                    achievements: JSON.parse(localStorage.getItem("hakubaAchievements") || "{}"),
-                    quizHistory: JSON.parse(localStorage.getItem("quizHistory") || "{}"),
-                    learnedTechniques: JSON.parse(localStorage.getItem("learnedTechniques") || "{}"),
+                    achievements: safeParseStorageItem("hakubaAchievements", {}),
+                    quizHistory: safeParseStorageItem("quizHistory", {}),
+                    learnedTechniques: getSavedLearnedTechniques(),
                 };
                 const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
                 const url = URL.createObjectURL(blob);
@@ -6851,6 +6847,79 @@
             // ==========================================
             // FIRESTORE DATA SYNC
             // ==========================================
+            const TECHNIQUE_STORAGE_KEYS = [
+                "hakubaLearnedTechniques",
+                "learnedTechniques",
+            ];
+
+            function safeParseStorageItem(key, fallback) {
+                try {
+                    const raw = localStorage.getItem(key);
+                    if (!raw) return fallback;
+                    const parsed = JSON.parse(raw);
+                    return parsed && typeof parsed === "object" ? parsed : fallback;
+                } catch (error) {
+                    console.warn("Could not parse localStorage key:", key, error);
+                    return fallback;
+                }
+            }
+
+            function isTechniqueProgressObject(data) {
+                if (!data || typeof data !== "object" || Array.isArray(data)) return false;
+                const reservedKeys = ["currentBelt", "notes", "bookmarks", "darkMode", "quizHistory"];
+                if (reservedKeys.some((key) => Object.prototype.hasOwnProperty.call(data, key))) {
+                    return false;
+                }
+                return true;
+            }
+
+            function getSavedLearnedTechniques() {
+                const primary = safeParseStorageItem("hakubaLearnedTechniques", null);
+                if (isTechniqueProgressObject(primary)) return primary;
+
+                const legacy = safeParseStorageItem("learnedTechniques", null);
+                if (isTechniqueProgressObject(legacy)) return legacy;
+
+                const mixed = safeParseStorageItem("hakubaProgress", null);
+                if (mixed && isTechniqueProgressObject(mixed.learnedTechniques)) {
+                    return mixed.learnedTechniques;
+                }
+                if (isTechniqueProgressObject(mixed)) {
+                    return mixed;
+                }
+
+                return {};
+            }
+
+            function saveLearnedTechniquesLocal(data) {
+                const serialised = JSON.stringify(data || {});
+                TECHNIQUE_STORAGE_KEYS.forEach((key) => {
+                    localStorage.setItem(key, serialised);
+                });
+            }
+
+            function mergeLearnedTechniques(local, cloud) {
+                const merged = { ...(local || {}) };
+                const cloudData = cloud && typeof cloud === "object" ? cloud : {};
+
+                Object.keys(cloudData).forEach((techniqueId) => {
+                    const localValue = Number(merged[techniqueId]) || 0;
+                    const cloudValue = Number(cloudData[techniqueId]) || 0;
+
+                    if (localValue && cloudValue) {
+                        merged[techniqueId] = Math.max(localValue, cloudValue);
+                    } else if (localValue) {
+                        merged[techniqueId] = localValue;
+                    } else if (cloudValue) {
+                        merged[techniqueId] = cloudValue;
+                    } else if (cloudData[techniqueId]) {
+                        merged[techniqueId] = Date.now();
+                    }
+                });
+
+                return merged;
+            }
+
             function showSyncIndicator(syncing) {
                 const indicator = document.getElementById("sync-indicator");
                 if (!indicator) return;
@@ -6874,15 +6943,10 @@
                     const cloudData = userDoc.exists ? userDoc.data() : {};
 
                     // Get local data
-                    const localAchievements = JSON.parse(
-                        localStorage.getItem("hakubaAchievements") || "{}",
-                    );
-                    const localQuizHistory = JSON.parse(
-                        localStorage.getItem("quizHistory") || "{}",
-                    );
-                    const localProgress = JSON.parse(
-                        localStorage.getItem("hakubaProgress") || "{}",
-                    );
+                    const localAchievements = safeParseStorageItem("hakubaAchievements", {});
+                    const localQuizHistory = safeParseStorageItem("quizHistory", {});
+                    const localProgress = safeParseStorageItem("hakubaProgress", {});
+                    const localLearnedTechniques = getSavedLearnedTechniques();
 
                     // Merge achievements - take the higher values
                     const mergedAchievements = mergeAchievements(
@@ -6897,6 +6961,14 @@
                         cloudData.quizHistory || {},
                     );
                     localStorage.setItem("quizHistory", JSON.stringify(mergedQuizHistory));
+
+                    // Merge learned techniques from local and cloud
+                    const mergedLearnedTechniques = mergeLearnedTechniques(
+                        localLearnedTechniques,
+                        cloudData.progress?.learnedTechniques || {},
+                    );
+                    learnedTechniques = mergedLearnedTechniques;
+                    saveLearnedTechniquesLocal(mergedLearnedTechniques);
 
                     // Load progress (prefer cloud if exists, otherwise keep local)
                     if (cloudData.progress) {
@@ -6918,6 +6990,13 @@
                         if (cloudData.progress.darkMode) {
                             toggleDarkMode(true);
                         }
+                    }
+
+                    if (typeof updateBeltProgress === "function") {
+                        updateBeltProgress();
+                    }
+                    if (typeof updateTechniqueStats === "function") {
+                        updateTechniqueStats();
                     }
 
                     // Always sync merged data back to cloud
@@ -7012,12 +7091,11 @@
                         notes: window.userNotes || {},
                         bookmarks: window.userBookmarks || {},
                         darkMode: document.body.classList.contains("dark-mode"),
+                        learnedTechniques: getSavedLearnedTechniques(),
                     };
 
-                    const achievementData = JSON.parse(
-                        localStorage.getItem("hakubaAchievements") || "{}",
-                    );
-                    const quizHistoryData = JSON.parse(localStorage.getItem("quizHistory") || "{}");
+                    const achievementData = safeParseStorageItem("hakubaAchievements", {});
+                    const quizHistoryData = safeParseStorageItem("quizHistory", {});
 
                     console.log("Syncing data:", {
                         progressData,
@@ -9873,14 +9951,7 @@
 
             document.addEventListener("DOMContentLoaded", function () {
                 // Load learned techniques BEFORE initializing belt selector
-                const savedProgress = localStorage.getItem("hakubaProgress");
-                if (savedProgress) {
-                    try {
-                        learnedTechniques = JSON.parse(savedProgress);
-                    } catch (e) {
-                        learnedTechniques = {};
-                    }
-                }
+                loadProgress();
                 initBeltSelector();
                 initTabs();
                 updateBeltProgress();
@@ -12084,14 +12155,13 @@
             }
 
             function loadProgress() {
-                const saved = localStorage.getItem("hakubaProgress");
-                if (saved) {
-                    learnedTechniques = JSON.parse(saved);
-                }
+                learnedTechniques = getSavedLearnedTechniques();
+                saveLearnedTechniquesLocal(learnedTechniques);
             }
 
             function saveProgress() {
-                localStorage.setItem("hakubaProgress", JSON.stringify(learnedTechniques));
+                saveLearnedTechniquesLocal(learnedTechniques);
+                debouncedSync();
             }
 
             function toggleLearned(techniqueId) {

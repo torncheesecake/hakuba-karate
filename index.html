@@ -6923,6 +6923,41 @@
 
             const FORCED_RECOVERY_UIDS = ["g5eAsImurFSASU84dLOpIH4eCnF2"];
 
+            function normaliseLegacyAchievements(sourceData) {
+                const source = sourceData || {};
+                const fromRoot =
+                    source.achievements && typeof source.achievements === "object"
+                        ? source.achievements
+                        : source;
+                const fromProgress =
+                    source.progress &&
+                    source.progress.achievements &&
+                    typeof source.progress.achievements === "object"
+                        ? source.progress.achievements
+                        : {};
+
+                const merged = {
+                    ...fromRoot,
+                    ...fromProgress,
+                };
+
+                if (!merged.unlockedBadges && Array.isArray(source.unlockedBadges)) {
+                    merged.unlockedBadges = [...source.unlockedBadges];
+                }
+                if (!merged.badgeUnlockDates && source.badgeUnlockDates && typeof source.badgeUnlockDates === "object") {
+                    merged.badgeUnlockDates = { ...source.badgeUnlockDates };
+                }
+                if ((merged.badgesEarned == null) && typeof source.badgesEarned === "number") {
+                    merged.badgesEarned = source.badgesEarned;
+                }
+
+                return merged;
+            }
+
+            function ensureArray(value) {
+                return Array.isArray(value) ? value : [];
+            }
+
             function mergeCloudUserPayload(targetData, incomingData) {
                 const target = {
                     progress: { ...(targetData?.progress || {}) },
@@ -6930,10 +6965,11 @@
                     quizHistory: { ...(targetData?.quizHistory || {}) },
                 };
                 const incoming = incomingData || {};
+                const incomingAchievements = normaliseLegacyAchievements(incoming);
 
                 target.achievements = mergeAchievements(
                     target.achievements || {},
-                    incoming.achievements || {},
+                    incomingAchievements || {},
                 );
                 target.quizHistory = mergeQuizHistory(
                     target.quizHistory || {},
@@ -7121,6 +7157,9 @@
                     if (typeof updateTechniqueStats === "function") {
                         updateTechniqueStats();
                     }
+                    if (typeof checkBadges === "function") {
+                        checkBadges();
+                    }
                     if (typeof updateXPDisplay === "function") {
                         updateXPDisplay();
                     }
@@ -7167,8 +7206,8 @@
                 // Array fields - combine unique values
                 const arrayFields = ["unlockedBadges", "studiedCategories", "earnedBelts"];
                 arrayFields.forEach((field) => {
-                    const localArr = local[field] || [];
-                    const cloudArr = cloud[field] || [];
+                    const localArr = ensureArray(local[field]);
+                    const cloudArr = ensureArray(cloud[field]);
                     merged[field] = [...new Set([...localArr, ...cloudArr])];
                 });
 

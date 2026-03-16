@@ -124,25 +124,9 @@
                 flex-wrap: wrap;
             }
 
-            .next-class-dojo {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-            }
-
             .next-class-label {
                 color: rgba(255, 255, 255, 0.9);
                 font-size: 1rem;
-            }
-
-            .next-class-select {
-                padding: 0.4rem 0.85rem;
-                border-radius: 1rem;
-                border: none;
-                font-size: 1rem;
-                font-weight: 500;
-                cursor: pointer;
-                background: rgba(255, 255, 255, 0.95);
             }
 
             .next-class-info {
@@ -2450,6 +2434,19 @@
                 height: 20px;
             }
 
+            .user-menu-label {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+                font-weight: 600;
+            }
+
+            .user-settings-icon {
+                width: 16px !important;
+                height: 16px !important;
+                opacity: 0.9;
+            }
+
             /* Mobile user menu - position below header text */
             @media screen and (max-width: 1400px) {
                 .user-menu {
@@ -3587,17 +3584,6 @@
         <!-- Next Class Widget -->
         <div id="next-class-widget" class="next-class-widget">
             <div class="container next-class-container">
-                <div class="next-class-dojo">
-                    <span class="next-class-label">My dojo:</span>
-                    <select
-                        id="home-dojo-select"
-                        onchange="setHomeDojo(this.value)"
-                        class="next-class-select"
-                    >
-                        <option value="swindon">Swindon</option>
-                        <option value="mevagissey">Mevagissey</option>
-                    </select>
-                </div>
                 <div class="next-class-info">
                     <span class="next-class-title">Next class:</span>
                     <span id="next-class-display" class="next-class-value">Loading...</span>
@@ -3647,7 +3633,7 @@
                                 border-radius: 4px;
                             "
                         >
-                            v1.5.1
+                            v1.5.2
                         </p>
                     </div>
 
@@ -3718,7 +3704,23 @@
                                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                 <circle cx="12" cy="7" r="4"></circle>
                             </svg>
-                            <span id="user-display-name">User</span>
+                            <span class="user-menu-label">
+                                <span id="user-display-name">User</span>
+                                <svg
+                                    class="user-settings-icon"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    aria-hidden="true"
+                                >
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                    <path
+                                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 8.92 4.6H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.36.63.56 1.35.6 2.08.02.64-.19 1.26-.6 1.92z"
+                                    ></path>
+                                </svg>
+                            </span>
                             <span class="sync-indicator" id="sync-indicator" style="display: none">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -12976,7 +12978,14 @@
 
             function setHomeDojo(dojo) {
                 localStorage.setItem("homeDojo", dojo);
-                document.getElementById("home-dojo-select").value = dojo;
+                const homeDojoSelect = document.getElementById("home-dojo-select");
+                if (homeDojoSelect) {
+                    homeDojoSelect.value = dojo;
+                }
+                const profileDojoSelect = document.getElementById("profile-dojo-select");
+                if (profileDojoSelect) {
+                    profileDojoSelect.value = dojo;
+                }
                 // Also update calendar filter to match
                 filterCalendar(dojo);
                 fetchNextClass(dojo);
@@ -13012,7 +13021,7 @@
                             if (!icsData || icsData.length < 100) {
                                 throw new Error("Invalid response");
                             }
-                            const nextEvent = parseNextEvent(icsData);
+                            const nextEvent = parseNextEvent(icsData, dojo);
                             if (nextEvent) {
                                 display.textContent = nextEvent;
                             } else {
@@ -13028,14 +13037,23 @@
                 tryProxy(0);
             }
 
-            function parseNextEvent(icsData) {
+            function getNextClassLocation(dojo, rawLocation) {
+                if (dojo === "mevagissey") return "Mevagissey";
+                if (/ellendune community centre/i.test(rawLocation || "")) {
+                    return "Wroughton";
+                }
+                return "Winterbourne";
+            }
+
+            function parseNextEvent(icsData, dojo) {
                 const now = new Date();
                 const events = [];
                 const lookAheadDays = 14; // Look 2 weeks ahead for recurring events
                 const maxDate = new Date(now.getTime() + lookAheadDays * 24 * 60 * 60 * 1000);
+                const unfoldedIcsData = icsData.replace(/\r?\n[ \t]/g, "");
 
                 // Split into events
-                const eventBlocks = icsData.split("BEGIN:VEVENT");
+                const eventBlocks = unfoldedIcsData.split("BEGIN:VEVENT");
 
                 for (let i = 1; i < eventBlocks.length; i++) {
                     const block = eventBlocks[i];
@@ -13072,6 +13090,14 @@
                     // Extract summary
                     const summaryMatch = block.match(/SUMMARY:(.+?)(?:\r?\n|$)/);
                     const summary = summaryMatch ? summaryMatch[1].trim() : "Class";
+                    const locationMatch = block.match(/LOCATION:(.+?)(?:\r?\n|$)/);
+                    const rawLocation = locationMatch
+                        ? locationMatch[1]
+                              .replace(/\\,/g, ",")
+                              .replace(/\\n/g, " ")
+                              .trim()
+                        : "";
+                    const locationLabel = getNextClassLocation(dojo, rawLocation);
 
                     // Skip closure/cancelled events
                     const lowerSummary = summary.toLowerCase();
@@ -13123,7 +13149,11 @@
                                 checkDate.setHours(eventHour, eventMinute, 0, 0);
 
                                 if (targetDays.includes(checkDate.getDay()) && checkDate > now) {
-                                    events.push({ date: new Date(checkDate), summary: summary });
+                                    events.push({
+                                        date: new Date(checkDate),
+                                        summary: summary,
+                                        locationLabel: locationLabel,
+                                    });
                                     break; // Only need the next occurrence
                                 }
                             }
@@ -13131,7 +13161,11 @@
                     } else {
                         // Non-recurring event - add if in future
                         if (eventDate > now) {
-                            events.push({ date: eventDate, summary: summary });
+                            events.push({
+                                date: eventDate,
+                                summary: summary,
+                                locationLabel: locationLabel,
+                            });
                         }
                     }
                 }
@@ -13181,15 +13215,21 @@
                 if (timeStr) {
                     result += " at " + timeStr;
                 }
+                if (next.locationLabel) {
+                    result += " - " + next.locationLabel;
+                }
                 result += " (" + relativeStr + ")";
 
                 return result;
             }
 
-            // Initialize home dojo on page load
+                // Initialize home dojo on page load
             document.addEventListener("DOMContentLoaded", function () {
                 const savedDojo = localStorage.getItem("homeDojo") || "swindon";
-                document.getElementById("home-dojo-select").value = savedDojo;
+                const profileDojoSelect = document.getElementById("profile-dojo-select");
+                if (profileDojoSelect) {
+                    profileDojoSelect.value = savedDojo;
+                }
                 fetchNextClass(savedDojo);
 
                 // Auto-refresh next class when page becomes visible or at midnight
@@ -13748,7 +13788,7 @@
             if ("serviceWorker" in navigator) {
                 // Create service worker code as a blob
                 const swCode = `
-                    const CACHE_NAME = 'hakuba-karate-v1-5-1';
+                    const CACHE_NAME = 'hakuba-karate-v1-5-2';
                     const ASSETS_TO_CACHE = [
                         './',
                         './index.html',

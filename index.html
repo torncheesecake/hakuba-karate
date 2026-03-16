@@ -3735,7 +3735,7 @@
                                 border-radius: 4px;
                             "
                         >
-                            v1.5.3
+                            v1.5.4
                         </p>
                     </div>
 
@@ -13217,6 +13217,25 @@
                 return "Winterbourne";
             }
 
+            function normaliseIcalDateToken(value) {
+                return String(value || "")
+                    .trim()
+                    .replace(/Z$/, "")
+                    .replace(/[^0-9T]/g, "");
+            }
+
+            function buildIcalLocalDateTimeKey(date) {
+                return (
+                    date.getFullYear() +
+                    String(date.getMonth() + 1).padStart(2, "0") +
+                    String(date.getDate()).padStart(2, "0") +
+                    "T" +
+                    String(date.getHours()).padStart(2, "0") +
+                    String(date.getMinutes()).padStart(2, "0") +
+                    String(date.getSeconds()).padStart(2, "0")
+                );
+            }
+
             function parseNextEvent(icsData, dojo) {
                 const now = new Date();
                 const events = [];
@@ -13286,6 +13305,13 @@
                     const rruleMatch = block.match(/RRULE:(.+?)(?:\r?\n|$)/);
                     if (rruleMatch) {
                         const rrule = rruleMatch[1];
+                        const exdateKeys = Array.from(block.matchAll(/EXDATE[^:]*:([^\r\n]+)/g)).flatMap(
+                            (match) =>
+                                match[1]
+                                    .split(",")
+                                    .map((token) => normaliseIcalDateToken(token))
+                                    .filter(Boolean),
+                        );
                         // Handle weekly recurring events
                         if (rrule.includes("FREQ=WEEKLY")) {
                             // Extract BYDAY if present (e.g., BYDAY=SA for Saturday)
@@ -13319,12 +13345,18 @@
                                 const checkDate = new Date(now);
                                 checkDate.setDate(checkDate.getDate() + dayOffset);
                                 checkDate.setHours(eventHour, eventMinute, 0, 0);
+                                const occurrenceKey = buildIcalLocalDateTimeKey(checkDate);
 
-                                if (targetDays.includes(checkDate.getDay()) && checkDate > now) {
+                                if (
+                                    targetDays.includes(checkDate.getDay()) &&
+                                    checkDate > now &&
+                                    !exdateKeys.includes(occurrenceKey)
+                                ) {
                                     events.push({
                                         date: new Date(checkDate),
                                         summary: summary,
                                         locationLabel: locationLabel,
+                                        recurring: true,
                                     });
                                     break; // Only need the next occurrence
                                 }
@@ -13337,13 +13369,18 @@
                                 date: eventDate,
                                 summary: summary,
                                 locationLabel: locationLabel,
+                                recurring: false,
                             });
                         }
                     }
                 }
 
                 // Sort by date and get the earliest
-                events.sort((a, b) => a.date - b.date);
+                events.sort((a, b) => {
+                    const timeDifference = a.date - b.date;
+                    if (timeDifference !== 0) return timeDifference;
+                    return Number(a.recurring) - Number(b.recurring);
+                });
 
                 if (events.length === 0) return null;
 
@@ -13960,7 +13997,7 @@
             if ("serviceWorker" in navigator) {
                 // Create service worker code as a blob
                 const swCode = `
-                    const CACHE_NAME = 'hakuba-karate-v1-5-3';
+                    const CACHE_NAME = 'hakuba-karate-v1-5-4';
                     const ASSETS_TO_CACHE = [
                         './',
                         './index.html',

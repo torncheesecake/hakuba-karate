@@ -2515,12 +2515,6 @@
                 margin-top: 0.15rem;
             }
 
-            .user-settings-icon {
-                width: 16px !important;
-                height: 16px !important;
-                opacity: 0.88;
-            }
-
             .user-menu-btn.profile-chip .sync-indicator {
                 margin-left: auto;
             }
@@ -3735,7 +3729,7 @@
                                 border-radius: 4px;
                             "
                         >
-                            v1.5.4
+                            v1.5.5
                         </p>
                     </div>
 
@@ -3802,20 +3796,6 @@
                             <span class="user-menu-copy">
                                 <span class="user-menu-label">
                                     <span class="user-menu-name" id="user-display-name">User</span>
-                                    <svg
-                                        class="user-settings-icon"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="2"
-                                        aria-hidden="true"
-                                    >
-                                        <circle cx="12" cy="12" r="3"></circle>
-                                        <path
-                                            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 8.92 4.6H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.36.63.56 1.35.6 2.08.02.64-.19 1.26-.6 1.92z"
-                                        ></path>
-                                    </svg>
                                 </span>
                                 <span class="user-menu-subtitle">Profile & Settings</span>
                             </span>
@@ -13997,7 +13977,7 @@
             if ("serviceWorker" in navigator) {
                 // Create service worker code as a blob
                 const swCode = `
-                    const CACHE_NAME = 'hakuba-karate-v1-5-4';
+                    const CACHE_NAME = 'hakuba-karate-v1-5-5';
                     const ASSETS_TO_CACHE = [
                         './',
                         './index.html',

@@ -2434,17 +2434,95 @@
                 height: 20px;
             }
 
+            .user-menu-btn.profile-chip {
+                gap: 0.8rem;
+                padding: 0.45rem 0.7rem 0.45rem 0.45rem;
+                border-radius: 999px;
+                background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.12));
+                box-shadow: 0 10px 28px rgba(7, 20, 54, 0.18);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+            }
+
+            .user-menu-btn.profile-chip:hover {
+                background: linear-gradient(135deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.16));
+                transform: translateY(-1px);
+                box-shadow: 0 14px 32px rgba(7, 20, 54, 0.24);
+            }
+
+            .user-avatar-badge {
+                width: 42px;
+                height: 42px;
+                border-radius: 50%;
+                border: 2px solid rgba(255, 255, 255, 0.42);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                position: relative;
+                overflow: hidden;
+                background:
+                    radial-gradient(circle at 24% 28%, rgba(255, 255, 255, 0.5), transparent 28%),
+                    radial-gradient(circle at 76% 34%, rgba(255, 255, 255, 0.3), transparent 24%),
+                    linear-gradient(145deg, #38bdf8, #1d4ed8);
+                box-shadow: 0 10px 24px rgba(8, 47, 73, 0.3);
+            }
+
+            .user-avatar-badge::after {
+                content: "";
+                position: absolute;
+                inset: 3px;
+                border-radius: 50%;
+                border: 1px solid rgba(255, 255, 255, 0.22);
+            }
+
+            .user-avatar-letter {
+                position: relative;
+                z-index: 1;
+                font-size: 1rem;
+                font-weight: 800;
+                color: white;
+                text-shadow: 0 1px 8px rgba(15, 23, 42, 0.35);
+            }
+
+            .user-menu-copy {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                min-width: 0;
+            }
+
             .user-menu-label {
                 display: inline-flex;
                 align-items: center;
                 gap: 0.4rem;
-                font-weight: 600;
+                font-weight: 700;
+                line-height: 1.1;
+            }
+
+            .user-menu-name {
+                max-width: 150px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .user-menu-subtitle {
+                font-size: 0.72rem;
+                letter-spacing: 0.04em;
+                text-transform: uppercase;
+                color: rgba(255, 255, 255, 0.74);
+                margin-top: 0.15rem;
             }
 
             .user-settings-icon {
                 width: 16px !important;
                 height: 16px !important;
-                opacity: 0.9;
+                opacity: 0.88;
+            }
+
+            .user-menu-btn.profile-chip .sync-indicator {
+                margin-left: auto;
             }
 
             /* Mobile user menu - position below header text */
@@ -2457,6 +2535,10 @@
                 .user-menu-btn {
                     padding: 0.5rem 1.25rem;
                     font-size: 0.875rem;
+                }
+
+                .user-menu-btn.profile-chip {
+                    padding: 0.45rem 0.65rem 0.45rem 0.45rem;
                 }
 
                 #member-count-badge {
@@ -2473,6 +2555,16 @@
 
                 .user-menu-dropdown.show {
                     transform: translateX(-50%) translateY(0);
+                }
+            }
+
+            @media screen and (max-width: 640px) {
+                .user-menu-subtitle {
+                    display: none;
+                }
+
+                .user-menu-name {
+                    max-width: 104px;
                 }
             }
 
@@ -2653,6 +2745,16 @@
                 font-size: 1.5rem;
                 font-weight: 700;
                 margin: 0 auto 0.75rem;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .profile-avatar::after {
+                content: "";
+                position: absolute;
+                inset: 4px;
+                border-radius: 50%;
+                border: 1px solid rgba(255, 255, 255, 0.25);
             }
 
             .profile-user-name {
@@ -3633,7 +3735,7 @@
                                 border-radius: 4px;
                             "
                         >
-                            v1.5.2
+                            v1.5.3
                         </p>
                     </div>
 
@@ -3689,37 +3791,33 @@
 
                         <!-- Logged in state (hidden by default) -->
                         <button
-                            class="user-menu-btn"
+                            class="user-menu-btn profile-chip"
                             id="user-menu-btn"
                             style="display: none"
                             onclick="toggleUserMenu()"
                         >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                            >
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="12" cy="7" r="4"></circle>
-                            </svg>
-                            <span class="user-menu-label">
-                                <span id="user-display-name">User</span>
-                                <svg
-                                    class="user-settings-icon"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="2"
-                                    aria-hidden="true"
-                                >
-                                    <circle cx="12" cy="12" r="3"></circle>
-                                    <path
-                                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 8.92 4.6H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.36.63.56 1.35.6 2.08.02.64-.19 1.26-.6 1.92z"
-                                    ></path>
-                                </svg>
+                            <span class="user-avatar-badge" id="user-menu-avatar" aria-hidden="true">
+                                <span class="user-avatar-letter" data-avatar-letter id="user-menu-avatar-letter">U</span>
+                            </span>
+                            <span class="user-menu-copy">
+                                <span class="user-menu-label">
+                                    <span class="user-menu-name" id="user-display-name">User</span>
+                                    <svg
+                                        class="user-settings-icon"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        aria-hidden="true"
+                                    >
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <path
+                                            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 8.92 4.6H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.36.63.56 1.35.6 2.08.02.64-.19 1.26-.6 1.92z"
+                                        ></path>
+                                    </svg>
+                                </span>
+                                <span class="user-menu-subtitle">Profile & Settings</span>
                             </span>
                             <span class="sync-indicator" id="sync-indicator" style="display: none">
                                 <svg
@@ -6453,14 +6551,80 @@
                     // User is logged in
                     signInBtn.style.display = "none";
                     userMenuBtn.style.display = "flex";
-                    const displayName = currentUser.email.split("@")[0];
+                    const displayName = getUserDisplayName(currentUser);
                     userDisplayName.textContent = displayName;
                     userEmailDisplay.textContent = currentUser.email;
+                    applyGeneratedAvatar(
+                        document.getElementById("user-menu-avatar"),
+                        displayName,
+                        currentUser.email,
+                    );
                 } else {
                     // User is logged out
                     signInBtn.style.display = "flex";
                     userMenuBtn.style.display = "none";
                 }
+            }
+
+            function getUserDisplayName(user) {
+                if (!user || !user.email) return "Guest";
+                return user.email.split("@")[0];
+            }
+
+            function hashString(value) {
+                let hash = 0;
+                for (let i = 0; i < value.length; i++) {
+                    hash = (hash * 31 + value.charCodeAt(i)) >>> 0;
+                }
+                return hash;
+            }
+
+            function getGeneratedAvatarStyle(seedValue) {
+                const hash = hashString(seedValue || "guest");
+                const hueA = hash % 360;
+                const hueB = (hueA + 42 + (hash % 70)) % 360;
+                const hueC = (hueA + 160) % 360;
+                const xOne = 18 + (hash % 24);
+                const yOne = 20 + ((hash >> 3) % 24);
+                const xTwo = 64 + ((hash >> 6) % 18);
+                const yTwo = 28 + ((hash >> 9) % 24);
+
+                return {
+                    background:
+                        "radial-gradient(circle at " +
+                        xOne +
+                        "% " +
+                        yOne +
+                        "%, hsla(" +
+                        hueC +
+                        ", 92%, 82%, 0.9), transparent 26%), " +
+                        "radial-gradient(circle at " +
+                        xTwo +
+                        "% " +
+                        yTwo +
+                        "%, hsla(" +
+                        hueB +
+                        ", 86%, 74%, 0.82), transparent 24%), " +
+                        "linear-gradient(145deg, hsl(" +
+                        hueA +
+                        ", 72%, 54%), hsl(" +
+                        hueB +
+                        ", 68%, 34%))",
+                    borderColor: "hsla(" + hueC + ", 92%, 92%, 0.55)",
+                    shadowColor: "hsla(" + hueA + ", 75%, 18%, 0.34)",
+                };
+            }
+
+            function applyGeneratedAvatar(target, label, seedValue) {
+                if (!target) return;
+
+                const avatarStyle = getGeneratedAvatarStyle(seedValue);
+                target.style.background = avatarStyle.background;
+                target.style.borderColor = avatarStyle.borderColor;
+                target.style.boxShadow = "0 10px 24px " + avatarStyle.shadowColor;
+
+                const letterTarget = target.querySelector("[data-avatar-letter]") || target;
+                letterTarget.textContent = (label || "G").charAt(0).toUpperCase();
             }
 
             // Fetch and display member count
@@ -6660,14 +6824,22 @@
 
                 // User info
                 if (currentUser) {
-                    const name = currentUser.email.split("@")[0];
-                    document.getElementById("profile-avatar").textContent = name.charAt(0).toUpperCase();
+                    const name = getUserDisplayName(currentUser);
+                    applyGeneratedAvatar(
+                        document.getElementById("profile-avatar"),
+                        name,
+                        currentUser.email,
+                    );
                     document.getElementById("profile-user-name").textContent = name;
                     document.getElementById("profile-user-email").textContent = currentUser.email;
                     document.getElementById("profile-account-section").style.display = "";
                     document.getElementById("profile-guest-section").style.display = "none";
                 } else {
-                    document.getElementById("profile-avatar").textContent = "G";
+                    applyGeneratedAvatar(
+                        document.getElementById("profile-avatar"),
+                        "Guest",
+                        "guest",
+                    );
                     document.getElementById("profile-user-name").textContent = "Guest";
                     document.getElementById("profile-user-email").textContent = "Sign in to sync progress";
                     document.getElementById("profile-account-section").style.display = "none";
@@ -13788,7 +13960,7 @@
             if ("serviceWorker" in navigator) {
                 // Create service worker code as a blob
                 const swCode = `
-                    const CACHE_NAME = 'hakuba-karate-v1-5-2';
+                    const CACHE_NAME = 'hakuba-karate-v1-5-3';
                     const ASSETS_TO_CACHE = [
                         './',
                         './index.html',

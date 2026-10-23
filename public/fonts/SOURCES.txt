@@ -1,0 +1,20 @@
+Official Google Fonts distribution, downloaded 18 October 2026.
+Normal style, Latin subset. Shared variable WOFF2 resources for the requested weights.
+
+Oswald 500 and 600:
+https://fonts.gstatic.com/s/oswald/v57/TK3IWkUHHAIjg75cFRf3bXL8LICs1_Fv40pKlN4NNSeSASz7FmlWHYjMdZwl.woff2
+Licence: https://raw.githubusercontent.com/google/fonts/main/ofl/oswald/OFL.txt
+
+Source Sans 3 400, 600 and 700:
+https://fonts.gstatic.com/s/sourcesans3/v20/nwpStKy2OAdR1K-IwhWudF-R3w8aZejf5Hc.woff2
+Licence: https://raw.githubusercontent.com/google/fonts/main/ofl/sourcesans3/OFL.txt
+
+CSS distribution:
+https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Source+Sans+3:wght@400;600;700&display=swap
+
+Merriweather normal 400, 700 and 900 (shared variable resource), and italic 400:
+Normal: https://fonts.gstatic.com/s/merriweather/v33/u-4e0qyriQwlOrhSvowK_l5UcA6zuSYEqOzpPe3HOZJ5eX1WtLaQwmYiSeqqJ-mXq1Gi.woff2
+Italic: https://fonts.gstatic.com/s/merriweather/v33/u-4B0qyriQwlOrhSvowK_l5-eTxCVx0ZbwLvKH2Gk9hLmp0v5yA-xXPqCzLvPee1XYk_XSf-FmTCUG33AvH4ZL_Ean0.woff2
+Licence: https://raw.githubusercontent.com/google/fonts/main/ofl/merriweather/OFL.txt
+CSS: https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&display=swap
+Downloaded 18 October 2026. Latin subset, normal width, font-display swap.

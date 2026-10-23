@@ -1,0 +1,62 @@
+@use './mixins' as m;
+
+// Refine the existing identity rather than introducing another page theme.
+.hakuba-home {
+  .hakuba-hero {
+    &__inner { min-height: 650px; }
+    &__copy { padding-top: 2.5rem; }
+    &__local { max-width: 38ch; margin: 0 0 1rem; font-size: 1.35rem !important; line-height: 1.4; font-weight: 600; letter-spacing: 0; color: #fff !important; }
+    &__welcome { font-size: 1.05rem !important; line-height: 1.55; margin-bottom: 1.5rem; color: #d6e6f7 !important; }
+    &__note { font-size: 1rem; }
+    &::before { opacity: .065; }
+    h1 { margin-bottom: 1.5rem; }
+    @media (max-width: 699px) {
+      &__inner { min-height: 0; display: block; padding-block: 1rem 4rem; }
+      &__rail { font-size: .62rem; gap: .4rem 1rem; }
+      &__copy { padding-top: 3.25rem; }
+      &__image img { object-position: 92% 55%; }
+      &::before { width: 180px; inset: 3.5rem 0 auto auto; opacity: .045; }
+      &::after { background: linear-gradient(90deg, #071b32db, #071b3285), linear-gradient(0deg, #071b32f5, transparent 80%); }
+      h1 { font-size: clamp(3.9rem, 19vw, 6.5rem); }
+      &__local { font-size: 1.14rem !important; }
+      &__welcome { font-size: 1rem !important; }
+      &__note { margin-top: 1.5rem; font-size: .9rem; }
+      figcaption { font-size: .6rem; }
+    }
+  }
+  .dojo-start {
+    margin-top: 0;
+    a > strong { font-size: 1.5rem; line-height: 1.25; margin-block: .35rem; }
+    a small { color: #d3e3f7; font-size: .85rem; line-height: 1.4; }
+    @include m.respond(md) {
+      &__inner { grid-template-columns: .85fr 1fr 1.1fr 1fr; }
+      a { padding-right: 2rem; }
+      a > span { font-size: .62rem; letter-spacing: .07em; }
+    }
+  }
+  .dojo-teachers {
+    li { align-items: flex-start; }
+    strong { font-size: 1.5rem; }
+    p { margin: .4rem 0 0; font-size: .9rem; line-height: 1.5; max-width: 34ch; color: #d3e3f7; }
+    &__grade { margin-top: .25rem; }
+  }
+}
+
+.training-reasons {
+  display: grid;
+  gap: 2rem 4rem;
+  border-top: 1px solid var(--line);
+  &__intro p { max-width: 35ch; }
+  &__list article { padding-block: 1.5rem; border-top: 1px solid var(--line); }
+  &__list article:first-child { border-top: 3px solid #073f78; }
+  &__list h3 { margin: 0 0 .75rem; }
+  &__list p { margin: 0 0 .75rem; max-width: 57ch; }
+  &__list .editorial-link { display: inline-flex; align-items: center; gap: .75rem; min-height: 44px; }
+  &__intro figure { margin: 2rem 0 0; }
+  &__intro img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 40% center; }
+  &__intro figcaption { margin-top: .65rem; font-size: .8rem; color: var(--muted); }
+  @include m.respond(md) {
+    grid-template-columns: 1fr 1.5fr;
+    &__intro { position: sticky; top: 7rem; align-self: start; }
+  }
+}

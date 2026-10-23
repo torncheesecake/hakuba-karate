@@ -1,0 +1,24 @@
+@use './mixins' as m;
+
+.training-focus {
+  border-top: 1px solid var(--line);
+  padding-top: 2rem;
+  &__heading { display: grid; gap: .75rem 3rem; }
+  &__heading h2 { margin-bottom: .5rem; }
+  &__heading > p { margin: 0; color: var(--muted); max-width: 48ch; }
+  &__list { display: grid; gap: 0; margin: 2rem 0 0; }
+  &__list > div { border-top: 2px solid #073f78; padding: 1.5rem 0; }
+  dt { color: var(--text); font: 500 1.65rem / 1.2 'Oswald', sans-serif; }
+  dt span { display: block; margin-bottom: .9rem; color: #073f78; font: 600 .8rem / 1.4 'Source Sans 3', sans-serif; letter-spacing: .1em; }
+  dd { margin: 1rem 0 0; line-height: 1.65; }
+  @include m.respond(md) {
+    &__heading { grid-template-columns: 1fr 1fr; align-items: end; }
+    &__list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
+  }
+}
+
+.editorial-page {
+  :is(#women-starting-karate, #confidence-and-bullying) { scroll-margin-top: 7rem; }
+  .faq-item summary { min-height: 44px; padding-block: .4rem; }
+  .faq-item summary:focus-visible { outline: 3px solid #073f78; outline-offset: 4px; }
+}

@@ -1,0 +1,2893 @@
+#hakuba-site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid #31465e;
+  background: #071b32;
+  color: #fff;
+  font: 400 16px/1.65 "Source Sans 3", sans-serif;
+  text-align: left;
+  backdrop-filter: none;
+}
+#hakuba-site-header, #hakuba-site-header *, #hakuba-site-header *::before, #hakuba-site-header *::after {
+  box-sizing: border-box;
+}
+#hakuba-site-header .container.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  width: min(1120px, 92vw);
+  max-width: none;
+  margin: 0 auto;
+  padding: 13.6px 0;
+}
+#hakuba-site-header .site-header__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12.8px;
+}
+#hakuba-site-header .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12.8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font: 700 18.4px/1.65 "Source Sans 3", sans-serif;
+  letter-spacing: normal;
+  text-decoration: none;
+  text-transform: none;
+}
+#hakuba-site-header .brand__logo {
+  display: block;
+  flex: 0 0 54px;
+  width: 54px;
+  height: 54px;
+  max-width: none;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  object-fit: contain;
+}
+#hakuba-site-header .brand small {
+  display: block;
+  color: #aeb7b9;
+  font: 700 9.6px/1.65 "Source Sans 3", sans-serif;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+#hakuba-site-header .nav-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  margin: 0;
+  padding: 6.4px 11.2px;
+  border: 1px solid #6c7579;
+  border-radius: 0;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  letter-spacing: normal;
+  text-transform: none;
+  box-shadow: none;
+  cursor: pointer;
+}
+#hakuba-site-header .nav-toggle svg {
+  display: block;
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+}
+#hakuba-site-header nav#main-nav {
+  position: static;
+  inset: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 17.6px;
+  width: auto;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+#hakuba-site-header nav#main-nav a {
+  display: block;
+  margin: 0;
+  padding: 8px 0;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: #fff;
+  font: 400 14.4px/1.65 "Source Sans 3", sans-serif;
+  letter-spacing: normal;
+  text-decoration: none;
+  text-transform: none;
+  box-shadow: none;
+}
+#hakuba-site-header nav#main-nav a.active {
+  border-bottom-color: #a7c9ef;
+}
+#hakuba-site-header nav#main-nav a.public-nav-trial {
+  padding: 8px 13.6px;
+  background: #073f78;
+}
+#hakuba-site-header a:focus-visible, #hakuba-site-header .nav-toggle:focus-visible {
+  outline: 2px solid #a7c9ef;
+  outline-offset: 4px;
+}
+
+.admin-bar #hakuba-site-header {
+  top: 32px;
+}
+
+@media (max-width: 979px) {
+  #hakuba-site-header .container.site-header__inner {
+    display: block;
+  }
+  #hakuba-site-header .nav-toggle:not([hidden]) {
+    display: flex;
+  }
+  #hakuba-site-header nav#main-nav {
+    display: block;
+    margin-top: 16px;
+  }
+  #hakuba-site-header nav#main-nav a {
+    min-height: 44px;
+    border-top: 1px solid #31465e;
+  }
+  html.hakuba-js #hakuba-site-header nav#main-nav:not(.open) {
+    display: none;
+  }
+}
+@media (max-width: 782px) {
+  .admin-bar #hakuba-site-header {
+    top: 46px;
+  }
+}
+#hakuba-site-header .container.site-header__inner {
+  gap: 16px;
+}
+#hakuba-site-header .brand {
+  white-space: nowrap;
+}
+#hakuba-site-header nav#main-nav {
+  gap: 12.8px;
+  margin-left: auto;
+}
+#hakuba-site-header #member-account-slot {
+  flex-shrink: 0;
+}
+#hakuba-site-header .site-account {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+}
+#hakuba-site-header .site-account summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid #52708b;
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+  list-style: none;
+  cursor: pointer;
+}
+#hakuba-site-header .site-account summary::-webkit-details-marker {
+  display: none;
+}
+#hakuba-site-header .site-account summary::after {
+  content: none;
+}
+#hakuba-site-header .site-account summary svg {
+  display: block;
+}
+#hakuba-site-header .site-account summary:focus-visible {
+  outline: 2px solid #a7c9ef;
+  outline-offset: 4px;
+}
+#hakuba-site-header .site-account__panel {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 260px;
+  max-width: 90vw;
+  padding: 12px;
+  border: 1px solid #31465e;
+  border-radius: 12px;
+  background: #071b32;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+  text-align: left;
+}
+#hakuba-site-header .site-account__panel a, #hakuba-site-header .site-account__panel button {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  margin: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #fff;
+  font: 400 15px/1.5 "Source Sans 3", sans-serif;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+#hakuba-site-header .site-account__panel a:hover, #hakuba-site-header .site-account__panel button:hover {
+  background: #153753;
+}
+#hakuba-site-header .site-account__panel a:focus-visible, #hakuba-site-header .site-account__panel button:focus-visible {
+  outline: 2px solid #a7c9ef;
+}
+#hakuba-site-header .site-account__name {
+  margin: 0 0 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid #31465e;
+  font: 600 15px/1.5 "Source Sans 3", sans-serif;
+  color: #a7c9ef;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 979px) {
+  #hakuba-site-header .container.site-header__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 8px;
+  }
+  #hakuba-site-header .site-header__bar {
+    display: contents;
+  }
+  #hakuba-site-header .brand {
+    grid-column: 1;
+    grid-row: 1;
+    gap: 8px;
+    font-size: 16px;
+  }
+  #hakuba-site-header .brand__logo {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+  }
+  #hakuba-site-header .brand small {
+    font-size: 7.2px;
+  }
+  #hakuba-site-header .nav-toggle {
+    grid-column: 2;
+    grid-row: 1;
+    padding-inline: 8px;
+  }
+  #hakuba-site-header #member-account-slot {
+    grid-column: 3;
+    grid-row: 1;
+  }
+  #hakuba-site-header nav#main-nav {
+    grid-column: 1/-1;
+    grid-row: 2;
+    width: 100%;
+    margin: 0;
+  }
+}
+body.wp-hosted {
+  --card-bg: #0d2946;
+  --border-color: #34516f;
+  --border-radius: 3px;
+  background: #071b32;
+  color: #f4f7fb;
+  font-family: "Source Sans 3", sans-serif;
+  font-size: 18px;
+  line-height: 1.65;
+}
+body.wp-hosted h1, body.wp-hosted h2, body.wp-hosted h3, body.wp-hosted h4, body.wp-hosted h5, body.wp-hosted h6 {
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+}
+body.wp-hosted button, body.wp-hosted input, body.wp-hosted select, body.wp-hosted textarea {
+  font-family: "Source Sans 3", sans-serif;
+}
+body.wp-hosted button, body.wp-hosted select, body.wp-hosted input:not([type=checkbox]):not([type=radio]):not([type=range]) {
+  min-height: 44px;
+}
+body.wp-hosted button {
+  touch-action: manipulation;
+}
+body.wp-hosted :is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid #8fc7ff;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px #071b32;
+}
+body.wp-hosted .member-skip {
+  position: absolute;
+  z-index: 10001;
+  top: 0.5rem;
+  left: 0.5rem;
+  transform: translateY(-160%);
+  background: #e8eff6;
+  color: #071b32;
+  padding: 0.65rem 1rem;
+}
+body.wp-hosted .member-skip:focus {
+  transform: translateY(0);
+}
+body.wp-hosted .next-class-widget {
+  background: #073f78;
+  border-bottom-color: #34516f;
+  font-size: 0.9rem;
+}
+body.wp-hosted .member-toolbar {
+  background: #071b32;
+  color: #f4f7fb;
+  border-bottom: 1px solid #34516f;
+  padding: 1.4rem 0;
+}
+body.wp-hosted .member-toolbar .container {
+  max-width: 1440px;
+}
+body.wp-hosted .header-content {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 2rem;
+  text-align: left;
+}
+body.wp-hosted .member-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+  max-width: 100%;
+  margin-right: auto;
+  color: #f4f7fb;
+  text-decoration: none;
+}
+body.wp-hosted .member-brand img {
+  display: block;
+  flex: 0 0 auto;
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+body.wp-hosted .member-brand__name {
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 700;
+  display: block;
+  font-size: clamp(1.3rem, 2.5vw, 1.85rem);
+  line-height: 1.2;
+}
+body.wp-hosted .member-brand__strap {
+  display: block;
+  margin-top: 0.35rem;
+  color: #bacbde;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+body.wp-hosted .member-site-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: #f4f7fb;
+  font-size: 0.95rem;
+  gap: 0.4rem;
+  text-underline-offset: 0.3em;
+  text-decoration-thickness: 1px;
+}
+body.wp-hosted .member-site-link:hover {
+  color: #b8d9fb;
+}
+body.wp-hosted .user-menu {
+  margin: 0;
+}
+body.wp-hosted .user-menu-btn,
+body.wp-hosted .user-menu-btn.profile-chip {
+  background: #0d2946;
+  border: 1px solid #34516f;
+  border-radius: 3px;
+  color: #f4f7fb;
+  box-shadow: none;
+  padding: 0.5rem 0.8rem;
+}
+body.wp-hosted .user-menu-btn:hover,
+body.wp-hosted .user-menu-btn.profile-chip:hover {
+  background: #073f78;
+  box-shadow: none;
+  transform: none;
+}
+body.wp-hosted .user-menu-name {
+  color: #f4f7fb;
+  font-weight: 600;
+}
+body.wp-hosted .user-avatar-badge {
+  width: 36px;
+  height: 36px;
+}
+body.wp-hosted .user-menu-dropdown {
+  background: #0d2946;
+  border-color: #34516f;
+  border-radius: 3px;
+  box-shadow: none;
+  color: #f4f7fb;
+  left: auto;
+  right: 0;
+  max-width: calc(100vw - 2rem);
+  transform: translateY(-10px);
+}
+body.wp-hosted .user-menu-dropdown.show {
+  transform: translateY(0);
+}
+body.wp-hosted .user-menu-dropdown-item {
+  color: #f4f7fb;
+}
+body.wp-hosted .user-menu-dropdown-item:hover {
+  background: #073f78;
+}
+body.wp-hosted .user-menu-dropdown-item.danger {
+  color: #fca5a5;
+}
+body.wp-hosted .user-email {
+  color: #bacbde;
+  border-color: #34516f;
+  overflow-wrap: anywhere;
+}
+body.wp-hosted .member-tools {
+  background: #071b32;
+  border-bottom-color: #34516f;
+  backdrop-filter: none;
+}
+body.wp-hosted .nav-container {
+  gap: 0.25rem;
+  padding-block: 0.5rem;
+}
+body.wp-hosted .nav-button {
+  border-radius: 0;
+  border-bottom: 2px solid transparent;
+  color: #bacbde;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+body.wp-hosted .nav-button:hover {
+  background: #0d2946;
+  color: #fff;
+  border-bottom-color: #8fc7ff;
+}
+body.wp-hosted .nav-button.active {
+  background: #073f78;
+  color: #fff;
+  border-bottom-color: #8fc7ff;
+  box-shadow: none;
+}
+body.wp-hosted main {
+  background: linear-gradient(180deg, #0b2542, #071b32 42rem);
+  padding-block: 2rem 4rem;
+}
+body.wp-hosted main .container {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 3rem);
+}
+body.wp-hosted main h1, body.wp-hosted main h2, body.wp-hosted main h3, body.wp-hosted main h4, body.wp-hosted main h5, body.wp-hosted main h6 {
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+  line-height: 1.22;
+}
+body.wp-hosted .card {
+  border-radius: 3px;
+}
+body.wp-hosted #home-tab {
+  gap: 1.5rem;
+}
+body.wp-hosted #home-tab .intro-card {
+  background: #e8eff6;
+  color: #071b32;
+  border-top: 4px solid #073f78;
+  border-radius: 0;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  margin: 0 0 0.25rem;
+}
+body.wp-hosted #home-tab .intro-card h1, body.wp-hosted #home-tab .intro-card h2 {
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+  color: #071b32;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.08;
+  margin: 0 0 1rem;
+}
+body.wp-hosted #home-tab .intro-card .member-kicker {
+  color: #073f78;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0 0 0.85rem;
+}
+body.wp-hosted #home-tab .intro-card .intro-description {
+  display: block;
+  color: #3d536a;
+  max-width: 62ch;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+body.wp-hosted .progress-dashboard .dashboard-card {
+  background: #0d2946;
+  border-color: #34516f;
+  border-radius: 3px;
+  box-shadow: none;
+  padding: 1.5rem;
+}
+body.wp-hosted #overall-progress {
+  background: #073f78;
+  border-color: #42678d;
+}
+body.wp-hosted .dashboard-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+}
+body.wp-hosted .grading-set-card, body.wp-hosted .grading-dashboard {
+  background: #0d2946;
+  border-color: #34516f;
+  border-radius: 3px;
+  box-shadow: none;
+}
+body.wp-hosted .training-action-panel {
+  background: #0d2946;
+  border-color: #34516f;
+  border-radius: 3px;
+  box-shadow: none;
+  border-left: 3px solid var(--current-training-color);
+  border-radius: 3px 3px 0 0;
+}
+body.wp-hosted .training-action-title {
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+  font-size: 1.6rem;
+}
+body.wp-hosted .training-action-copy {
+  color: #bacbde;
+}
+body.wp-hosted .progress-summary {
+  background: #0d2946;
+  border-color: #34516f;
+  border-radius: 0 0 3px 3px;
+}
+body.wp-hosted .collapsible-section {
+  background: #0d2946;
+  border-color: #34516f;
+  border-radius: 3px;
+  box-shadow: none;
+  margin-bottom: 1.25rem;
+}
+body.wp-hosted .collapsible-header {
+  background: #123252;
+  min-height: 56px;
+}
+body.wp-hosted .collapsible-header:hover {
+  background: #173e64;
+}
+body.wp-hosted .collapsible-header h3 {
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+  font-size: 1.45rem;
+}
+body.wp-hosted .stance-card, body.wp-hosted .sparring-section, body.wp-hosted .belt-step,
+body.wp-hosted .weak-spots-dashboard, body.wp-hosted .weak-spots-summary-stat {
+  background: #0d2946;
+  border-color: #34516f;
+  border-radius: 3px;
+  box-shadow: none;
+}
+body.wp-hosted .technique-card, body.wp-hosted .count-card, body.wp-hosted .req-chip, body.wp-hosted .learn-btn, body.wp-hosted .change-belt-btn,
+body.wp-hosted .btn-primary, body.wp-hosted .training-action-btn, body.wp-hosted .grading-save-btn, body.wp-hosted .grading-input-new,
+body.wp-hosted .profile-btn, body.wp-hosted .import-mode-btn, body.wp-hosted .level-btn, body.wp-hosted .quiz-option {
+  border-radius: 3px;
+}
+body.wp-hosted .req-chip, body.wp-hosted .learn-btn, body.wp-hosted .member-site-link {
+  min-height: 44px;
+}
+body.wp-hosted .training-action-btn, body.wp-hosted .grading-save-btn, body.wp-hosted .change-belt-btn {
+  font-weight: 600;
+}
+body.wp-hosted .profile-panel, body.wp-hosted .profile-section, body.wp-hosted .grading-calendar-popover {
+  background: #0d2946;
+  border-color: #34516f;
+  border-radius: 3px;
+  box-shadow: none;
+}
+body.wp-hosted .profile-section-title {
+  color: #b8d9fb;
+}
+body.wp-hosted .profile-setting-control select {
+  min-height: 44px;
+}
+body.wp-hosted .grading-calendar-popover {
+  width: min(380px, 100vw - 24px);
+  overflow-x: auto;
+}
+body.wp-hosted .grading-calendar-header {
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+}
+body.wp-hosted .grading-calendar-nav {
+  width: 44px;
+  height: 44px;
+}
+body.wp-hosted .grading-calendar-grid, body.wp-hosted .grading-calendar-weekdays {
+  grid-template-columns: repeat(7, minmax(44px, 1fr));
+}
+body.wp-hosted .grading-calendar-day {
+  min-width: 44px;
+  min-height: 44px;
+}
+@media (min-width: 1401px) {
+  body.wp-hosted .nav-container {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    overflow: visible;
+  }
+  body.wp-hosted .member-tools .container {
+    max-width: 1440px;
+    padding-inline: 3rem;
+  }
+}
+@media (max-width: 1400px) {
+  body.wp-hosted .member-tools {
+    background: #071b32 !important;
+    border-bottom-color: #34516f !important;
+  }
+  body.wp-hosted .nav-container {
+    background: #071b32 !important;
+    box-shadow: -8px 0 28px rgba(2, 13, 30, 0.4) !important;
+    visibility: hidden;
+    overscroll-behavior: contain;
+  }
+  body.wp-hosted .nav-container.active {
+    visibility: visible;
+  }
+  body.wp-hosted .nav-button {
+    border-bottom-color: #34516f !important;
+  }
+  body.wp-hosted .nav-button:hover {
+    background: #0d2946 !important;
+  }
+  body.wp-hosted .nav-button.active {
+    background: #073f78 !important;
+  }
+  body.wp-hosted .nav-close {
+    display: grid !important;
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    place-items: center;
+    min-width: 44px;
+    background: #0d2946;
+    border: 1px solid #34516f;
+    border-radius: 3px;
+    color: #f4f7fb;
+    font-size: 1.5rem;
+  }
+  body.wp-hosted .hamburger {
+    width: 44px;
+    height: 44px;
+    padding: 7px 6px;
+  }
+  body.wp-hosted .hamburger.active {
+    z-index: 0;
+  }
+  body.wp-hosted .hamburger span {
+    height: 3px;
+    border-radius: 0;
+  }
+}
+@media (max-width: 640px) {
+  body.wp-hosted .member-toolbar {
+    padding-block: 1rem;
+  }
+  body.wp-hosted .header-content {
+    gap: 0.75rem 1rem;
+  }
+  body.wp-hosted .member-brand {
+    flex-basis: 100%;
+    gap: 0.75rem;
+  }
+  body.wp-hosted .member-brand img {
+    width: 52px;
+    height: 52px;
+  }
+  body.wp-hosted .member-site-link {
+    margin-right: auto;
+  }
+  body.wp-hosted .user-menu {
+    min-width: 0;
+  }
+  body.wp-hosted .user-menu-name {
+    max-width: 8rem;
+  }
+  body.wp-hosted main {
+    padding-top: 1rem;
+  }
+  body.wp-hosted .progress-dashboard .dashboard-card {
+    padding: 1.25rem;
+  }
+  body.wp-hosted .training-action-panel {
+    padding: 1.25rem;
+  }
+  body.wp-hosted .training-action-buttons {
+    justify-content: flex-start;
+  }
+  body.wp-hosted .training-action-btn {
+    white-space: normal;
+    text-align: center;
+  }
+  body.wp-hosted .collapsible-header {
+    padding: 1rem;
+  }
+  body.wp-hosted .collapsible-content {
+    padding-inline: 1rem;
+  }
+  body.wp-hosted .grading-set-card .grading-save-btn {
+    justify-self: start;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.wp-hosted, body.wp-hosted *, body.wp-hosted *::before, body.wp-hosted *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body.wp-hosted {
+  background: #f3f2ef;
+  color: #071b32;
+}
+body.wp-hosted main {
+  background: #f3f2ef;
+  padding-block: 0 3rem;
+}
+body.wp-hosted main .member-page.container {
+  width: min(1120px, 92vw);
+  max-width: none;
+  padding: 0;
+  margin-inline: auto;
+}
+body.wp-hosted .member-layout {
+  display: grid;
+  gap: 2rem;
+}
+body.wp-hosted .member-content {
+  min-width: 0;
+  padding-top: 1rem;
+}
+body.wp-hosted .member-rail {
+  min-width: 0;
+  background: #e8eff6;
+  padding: 1rem;
+  border-top: 3px solid #073f78;
+  align-self: start;
+}
+body.wp-hosted .member-tools {
+  position: static;
+  top: auto;
+  z-index: auto;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none;
+  backdrop-filter: none;
+  padding: 0;
+  margin: 0;
+}
+body.wp-hosted .member-tools .container {
+  display: block !important;
+  width: 100%;
+  max-width: none;
+  padding: 0 !important;
+  overflow: visible;
+}
+body.wp-hosted .member-tools__heading {
+  margin: 0 0 0.75rem;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-size: 1.4rem;
+  color: #071b32;
+}
+body.wp-hosted .member-tools__heading span {
+  margin-left: 0.5rem;
+  font: 400 0.85rem "Source Sans 3", sans-serif;
+  color: #465b70;
+}
+body.wp-hosted .member-tools .nav-container {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  position: static !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  padding: 0 !important;
+  transform: none !important;
+  visibility: visible !important;
+  overflow: visible !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  gap: 0.15rem;
+}
+body.wp-hosted .member-tools .nav-button {
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  padding: 0.5rem 0.65rem;
+  text-align: left;
+  font-size: 0.95rem !important;
+  line-height: 1.3;
+  color: #465b70 !important;
+  background: transparent;
+  white-space: normal;
+  border: 0 !important;
+  border-left: 3px solid transparent !important;
+}
+body.wp-hosted .member-tools .nav-button:hover {
+  background: #d7e3ef !important;
+}
+body.wp-hosted .member-tools .nav-button.active {
+  background: #073f78 !important;
+  border-left-color: #073f78 !important;
+  color: #fff !important;
+}
+body.wp-hosted .next-class-widget {
+  background: transparent;
+  border: 0;
+  border-top: 1px solid #bdcbd9;
+  color: #465b70;
+  margin: 1rem 0 0;
+  padding: 1rem 0 0;
+}
+body.wp-hosted .next-class-widget .container {
+  width: 100%;
+  max-width: none;
+  padding: 0;
+}
+body.wp-hosted .next-class-widget .next-class-info {
+  display: block;
+  text-align: left;
+}
+body.wp-hosted .next-class-widget .next-class-container {
+  justify-content: flex-start;
+  min-height: 0;
+}
+body.wp-hosted .next-class-widget .next-class-title {
+  display: block;
+  color: #071b32;
+  font-size: 0.9rem;
+}
+body.wp-hosted .next-class-widget .next-class-value {
+  color: #465b70;
+  font-size: 0.9rem;
+}
+body.wp-hosted #home-tab .intro-card {
+  background: transparent;
+  border: 0;
+  margin-top: 0;
+  padding: 0 0 1rem;
+}
+body.wp-hosted #home-tab .intro-card h1 {
+  color: #071b32;
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin: 0 0 0.5rem;
+}
+body.wp-hosted #home-tab .intro-description {
+  margin-top: 0;
+}
+body.wp-hosted .tab-content:not(#home-tab):not(.member-tool-page) > .card {
+  background: #071b32;
+  color: #f4f7fb;
+  padding: clamp(1.25rem, 4vw, 2rem);
+}
+body.wp-hosted .req-chip {
+  background: #e8eff6;
+  border-color: #cbd6e2;
+  color: #071b32;
+}
+@media (min-width: 980px) {
+  body.wp-hosted .member-layout {
+    grid-template-columns: minmax(0, 1fr) 230px;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  body.wp-hosted .member-content {
+    grid-column: 1;
+    grid-row: 1;
+    padding-top: 2.5rem;
+  }
+  body.wp-hosted .member-rail {
+    grid-column: 2;
+    grid-row: 1;
+    padding: 1.25rem 0.75rem;
+    position: static;
+  }
+  body.wp-hosted .member-tools .nav-container {
+    grid-template-columns: 1fr;
+  }
+  body.wp-hosted .member-tools__heading span {
+    display: block;
+    margin: 0.25rem 0 0;
+  }
+  body.wp-hosted .progress-dashboard {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 979px) {
+  body.wp-hosted .member-rail {
+    padding: 0.85rem;
+  }
+}
+
+@media (min-width: 980px) {
+  body.wp-hosted {
+    overflow-x: clip !important;
+  }
+  body.wp-hosted #member-main {
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+  body.wp-hosted .member-rail {
+    position: sticky;
+    top: 83px;
+    max-height: calc(100dvh - 83px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+}
+
+body.wp-hosted #belt-content .req-label {
+  color: #465b70;
+}
+body.wp-hosted #belt-content .req-chip, body.wp-hosted #belt-content .req-chip span {
+  color: #071b32;
+}
+body.wp-hosted #belt-content .req-chip:hover {
+  background: #d7e3ef;
+  border-color: #073f78;
+}
+
+body.wp-hosted .training-action-panel {
+  border-radius: 3px;
+}
+body.wp-hosted .training-action-panel .training-progress {
+  grid-column: 1/-1;
+  min-width: 0;
+}
+body.wp-hosted .training-action-panel .progress-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  margin: 1rem 0 0;
+  padding: 1rem 0 0;
+  background: transparent;
+  border: 0;
+  border-top: 1px solid #34516f;
+  border-radius: 0;
+}
+body.wp-hosted .training-action-panel .training-progress__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.4rem 1rem;
+  width: 100%;
+}
+
+body.wp-hosted .member-content .card, body.wp-hosted .member-content .dashboard-card, body.wp-hosted .member-content .training-action-panel, body.wp-hosted .member-content .collapsible-section,
+body.wp-hosted .member-content .stance-card, body.wp-hosted .member-content .sparring-section, body.wp-hosted .member-content .belt-step,
+body.wp-hosted .member-content .weak-spots-dashboard, body.wp-hosted .member-content .weak-spots-summary-stat {
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgba(7, 27, 50, 0.04);
+}
+body.wp-hosted .member-content .training-action-panel {
+  border-left-width: 4px;
+  padding: clamp(1.3rem, 3vw, 2rem);
+}
+body.wp-hosted .member-content .training-action-panel .progress-summary {
+  margin-top: 0.25rem;
+}
+body.wp-hosted .member-content .training-action-title {
+  font-size: clamp(1.55rem, 2.5vw, 1.85rem);
+}
+body.wp-hosted .member-content .learn-btn, body.wp-hosted .member-content .change-belt-btn, body.wp-hosted .member-content .btn-primary, body.wp-hosted .member-content .training-action-btn,
+body.wp-hosted .member-content .grading-save-btn, body.wp-hosted .member-content .grading-input-new, body.wp-hosted .member-content .level-btn, body.wp-hosted .member-content .quiz-option,
+body.wp-hosted .member-content .req-chip, body.wp-hosted .member-content .count-card, body.wp-hosted .member-content .technique-card {
+  border-radius: 9px;
+}
+body.wp-hosted .member-content .collapsible-header {
+  border-radius: 16px 16px 0 0;
+}
+body.wp-hosted .member-content .training-action-buttons {
+  gap: 0.65rem;
+}
+body.wp-hosted .member-rail {
+  background: #e8eff5;
+  border-top-width: 2px;
+  border-radius: 0 0 16px 16px;
+}
+body.wp-hosted .member-rail .next-class-widget {
+  padding-top: 1.1rem;
+}
+body.wp-hosted .member-tools .nav-container {
+  gap: 0.2rem;
+}
+body.wp-hosted .member-tools .nav-button {
+  display: flex !important;
+  align-items: center;
+  gap: 0.65rem;
+}
+body.wp-hosted .member-tools .member-tool-icon {
+  display: block;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  color: inherit;
+}
+body.wp-hosted .member-tools .nav-button > span {
+  color: inherit;
+  min-width: 0;
+}
+body.wp-hosted .member-tools .nav-button {
+  border-radius: 9px;
+  border-left: 0 !important;
+  transition: background-color 0.15s ease;
+}
+body.wp-hosted .member-tools .nav-button.active {
+  background: #d2e2f2 !important;
+  color: #073f78 !important;
+}
+body.wp-hosted .member-tools__heading {
+  margin-bottom: 1rem;
+}
+body.wp-hosted #hakuba-site-header .user-menu-btn.profile-chip {
+  border-radius: 50%;
+}
+body.wp-hosted #hakuba-site-header .user-menu-dropdown {
+  border-radius: 12px;
+  overflow: hidden;
+}
+body.wp-hosted #home-tab .intro-card {
+  box-shadow: none;
+}
+body.wp-hosted #home-tab .grading-set-card {
+  background: #e8eff5;
+  border-color: #d6e0e9;
+  color: #071b32;
+}
+body.wp-hosted #home-tab .grading-set-card .dashboard-title, body.wp-hosted #home-tab .grading-set-card .grading-prompt, body.wp-hosted #home-tab .grading-set-card .grading-date-text,
+body.wp-hosted #home-tab .grading-set-card .grading-motivation {
+  color: #40566e;
+}
+body.wp-hosted #home-tab .grading-set-card .grading-input-new {
+  background: #fafbfd;
+  border-color: #a8bacb;
+  color: #071b32;
+}
+body.wp-hosted #home-tab .grading-set-card .grading-input-new::placeholder {
+  color: #52677c;
+  opacity: 1;
+}
+body.wp-hosted #home-tab .grading-set-card .grading-save-btn {
+  background: #073f78;
+  color: #fff;
+  border-color: #073f78;
+}
+body.wp-hosted #home-tab .grading-set-card .grading-prompt {
+  text-align: left;
+}
+body.wp-hosted .member-content #stances-tab > .card {
+  background: #fafbfd;
+  color: #071b32;
+  border-color: #cbd7e3;
+}
+body.wp-hosted #stances-tab > .card > .info-box {
+  margin-top: 1.5rem;
+}
+body.wp-hosted #stances-tab > .card > h2, body.wp-hosted #stances-tab > .card > p {
+  color: #071b32;
+}
+body.wp-hosted #stances-tab .stance-card {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #cbd7e3;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 1.75rem 0;
+  margin: 0;
+}
+body.wp-hosted #stances-tab .stance-card h5 {
+  color: #071b32;
+}
+body.wp-hosted #stances-tab .stance-card .stance-japanese {
+  color: #073f78;
+}
+body.wp-hosted #stances-tab .stance-card .stance-description {
+  color: #40566e;
+}
+body.wp-hosted #stances-tab .stance-card .stance-usage {
+  color: #40566e;
+  border-color: #cbd7e3;
+}
+body.wp-hosted #stances-tab .stance-card:last-child {
+  border-bottom: 0;
+}
+body.wp-hosted #belt-content > .card {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+body.wp-hosted #belt-content .collapsible-section {
+  background: #fafbfd;
+  border-color: #cbd7e3;
+  margin-bottom: 1.5rem;
+}
+body.wp-hosted #belt-content .collapsible-header {
+  background: #e8eff5;
+  padding: 1.25rem 1.5rem;
+}
+body.wp-hosted #belt-content .collapsible-header h3, body.wp-hosted #belt-content .collapsible-header span {
+  color: #071b32;
+}
+body.wp-hosted #belt-content .collapsible-header:hover {
+  background: #dce7f1;
+}
+body.wp-hosted #belt-content .collapsible-content {
+  padding: 0.5rem 1.5rem 1.5rem;
+  color: #071b32;
+}
+body.wp-hosted #belt-content .collapsible-content > :is(h4, p), body.wp-hosted #belt-content .kata-videos > h4, body.wp-hosted #belt-content .kata-steps > h4 {
+  color: #071b32;
+}
+body.wp-hosted #belt-content .technique-grid {
+  gap: 0 1.75rem;
+  margin-block: 0.25rem;
+}
+body.wp-hosted #belt-content .technique-card {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #cbd7e3;
+  border-radius: 0;
+  padding: 1.5rem 0;
+  box-shadow: none;
+}
+body.wp-hosted #belt-content .technique-card:hover {
+  background: transparent;
+  border-color: #9fb6ca;
+  box-shadow: none;
+}
+body.wp-hosted #belt-content .technique-card .japanese, body.wp-hosted #belt-content .technique-card h5 {
+  color: #071b32;
+  font-size: 1.15rem;
+}
+body.wp-hosted #belt-content .technique-card .english, body.wp-hosted #belt-content .technique-card .stance-info {
+  color: #40566e;
+}
+body.wp-hosted #belt-content .technique-card .stance-info a {
+  color: #073f78;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+body.wp-hosted #belt-content .technique-card .learn-btn {
+  background: #e8eff5;
+  color: #073f78;
+  border: 1px solid #b5c9dc;
+}
+body.wp-hosted #belt-content .technique-card.learned {
+  background: #e5f3ec;
+  padding-inline: 1rem;
+  border-color: #9cc4ac;
+  border-radius: 9px;
+}
+body.wp-hosted #belt-content .technique-card .learn-btn.learned {
+  background: #d3eadc;
+  color: #185334;
+  border-color: #87b49a;
+}
+body.wp-hosted #belt-content .sparring-section {
+  background: transparent;
+  box-shadow: none;
+  border: 0;
+  padding-inline: 0;
+}
+body.wp-hosted #belt-content .sparring-section :is(h3, h4, h5, li, p, span) {
+  color: #071b32;
+}
+body.wp-hosted #belt-content .sparring-section a {
+  color: #073f78;
+}
+@media (max-width: 640px) {
+  body.wp-hosted #belt-content .collapsible-header {
+    padding: 1.1rem;
+  }
+  body.wp-hosted #belt-content .collapsible-content {
+    padding: 0.25rem 1.1rem 1.1rem;
+  }
+  body.wp-hosted .member-content .training-action-buttons {
+    flex-wrap: wrap;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.wp-hosted .member-tools .nav-button {
+    transition: none;
+  }
+}
+
+body.wp-hosted .journey-belt-picker {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem 1rem;
+  margin-block: 1.25rem;
+  color: #f4f7fb;
+}
+body.wp-hosted .journey-belt-picker label {
+  font-weight: 600;
+  font-size: 1rem;
+}
+body.wp-hosted .journey-belt-picker output {
+  font-size: 0.95rem;
+}
+body.wp-hosted .journey-belt-picker input[type=range] {
+  grid-column: 1/-1;
+  appearance: none;
+  width: 100%;
+  height: 44px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  accent-color: #fff;
+}
+body.wp-hosted .journey-belt-picker input[type=range]::-webkit-slider-runnable-track {
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(to right, #dc2626, #fbbf24 9%, #f97316 18%, #059669 27%, #2563eb 36%, #7c3aed 45%, #92400e 55%, #78350f 64%, #451a03 73%, #1f2937 82%, #111827 91%, #000);
+}
+body.wp-hosted .journey-belt-picker input[type=range]::-moz-range-track {
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(to right, #dc2626, #fbbf24 9%, #f97316 18%, #059669 27%, #2563eb 36%, #7c3aed 45%, #92400e 55%, #78350f 64%, #451a03 73%, #1f2937 82%, #111827 91%, #000);
+}
+body.wp-hosted .journey-belt-picker input[type=range]::-webkit-slider-thumb {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  margin-top: -7px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #073f78;
+  box-shadow: 0 0 0 2px #b9d7f4;
+}
+body.wp-hosted .journey-belt-picker input[type=range]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #073f78;
+  box-shadow: 0 0 0 2px #b9d7f4;
+}
+body.wp-hosted .journey-belt-picker .journey-belt-ends {
+  grid-column: 1/-1;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #c7d8e9;
+  margin-top: -0.5rem;
+}
+body.wp-hosted .journey-belt-picker #journey-belt-help {
+  grid-column: 1/-1;
+  color: #d4e3f2;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 0.25rem 0 0;
+}
+@media (max-width: 640px) {
+  body.wp-hosted .journey-belt-picker {
+    grid-template-columns: 1fr;
+  }
+  body.wp-hosted .journey-belt-picker output {
+    grid-column: 1;
+  }
+}
+
+body.wp-hosted .grading-pass-status {
+  background: #e5f3ec;
+  color: #185334;
+  border-left: 3px solid #478562;
+  border-radius: 9px;
+  padding: 0.9rem 1.1rem;
+  margin: 0 0 1rem;
+}
+body.wp-hosted .grading-pass-status[hidden] {
+  display: none;
+}
+body.wp-hosted #belt-content .grading-next-btn {
+  margin-top: 1rem;
+  background: #073f78;
+  color: #fff;
+  border-color: #073f78;
+}
+
+body.wp-hosted .member-grading {
+  margin: 1rem 0 0;
+  padding: 0.5rem 0 0;
+  border: 0;
+  border-top: 1px solid #bdcbd9;
+  background: transparent;
+  color: #071b32;
+}
+body.wp-hosted .member-grading > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.4rem 0;
+  font: 700 0.95rem/1.4 "Source Sans 3", sans-serif;
+  color: #071b32;
+  list-style: none;
+  cursor: pointer;
+}
+body.wp-hosted .member-grading > summary::-webkit-details-marker {
+  display: none;
+}
+body.wp-hosted .member-grading > summary::after {
+  content: none;
+}
+body.wp-hosted .member-grading > summary:focus-visible {
+  outline: 2px solid #073f78;
+  outline-offset: 3px;
+}
+body.wp-hosted .member-grading > summary svg {
+  flex: 0 0 16px;
+}
+body.wp-hosted .member-grading[open] > summary svg {
+  transform: rotate(180deg);
+}
+body.wp-hosted .member-grading__content {
+  padding-top: 0.5rem;
+}
+body.wp-hosted .member-grading .dashboard-card {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #071b32;
+}
+body.wp-hosted .member-grading .dashboard-card::before, body.wp-hosted .member-grading .dashboard-card::after {
+  content: none;
+}
+body.wp-hosted .member-grading .dashboard-header {
+  display: none;
+}
+body.wp-hosted .member-grading .grading-content {
+  display: block;
+}
+body.wp-hosted .member-grading .grading-ring {
+  width: auto;
+  height: auto;
+  margin: 0 0 0.5rem;
+  padding-right: 44px;
+}
+body.wp-hosted .member-grading .grading-ring svg {
+  display: none;
+}
+body.wp-hosted .member-grading .grading-ring-text {
+  position: static;
+  transform: none;
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+}
+body.wp-hosted .member-grading .grading-ring-days, body.wp-hosted .member-grading .grading-ring-label {
+  color: #071b32;
+  font-size: 1rem;
+  text-shadow: none;
+}
+body.wp-hosted .member-grading .grading-info, body.wp-hosted .member-grading .grading-date-text, body.wp-hosted .member-grading .grading-prompt, body.wp-hosted .member-grading .grading-motivation {
+  color: #40566e;
+  text-align: left;
+  font-size: 0.9rem;
+}
+body.wp-hosted .member-grading .grading-motivation {
+  padding: 0;
+  background: transparent;
+  margin-top: 0.5rem;
+}
+body.wp-hosted .member-grading .grading-date-controls {
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+  gap: 0.5rem;
+}
+body.wp-hosted .member-grading .grading-input-new {
+  min-width: 0;
+  width: 100%;
+  background: #fafbfd;
+  border-color: #a8bacb;
+  color: #071b32;
+  font-size: 16px;
+}
+body.wp-hosted .member-grading .grading-input-new::placeholder {
+  color: #52677c;
+  opacity: 1;
+}
+body.wp-hosted .member-grading .grading-save-btn {
+  min-height: 44px;
+  width: 100%;
+  background: #073f78;
+  color: #fff;
+  border-color: #073f78;
+}
+body.wp-hosted .member-grading .grading-x-btn {
+  top: 0;
+  right: 0;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  color: #071b32;
+}
+
+body.wp-hosted .progress-dashboard {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.member-maker-credit {
+  margin-top: 1.25rem;
+  font-size: 0.875rem;
+}
+.member-maker-credit a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 44px;
+  color: #c7d2df;
+  text-decoration: none;
+}
+.member-maker-credit a:hover strong {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.member-maker-credit a:focus-visible {
+  outline: 2px solid #a7c9ef;
+  outline-offset: 5px;
+  border-radius: 4px;
+}
+.member-maker-credit strong {
+  color: #fff;
+  font-weight: 600;
+}
+.member-maker-credit__mark {
+  display: block;
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+}
+
+body.wp-hosted {
+  overflow-x: clip !important;
+}
+body.wp-hosted #member-main {
+  overflow-x: clip;
+  overflow-y: visible;
+}
+body.wp-hosted .member-content {
+  padding-top: 1.75rem;
+}
+body.wp-hosted #home-tab .intro-card {
+  margin-bottom: 0;
+  padding-bottom: 0.25rem;
+}
+body.wp-hosted #home-tab .intro-description {
+  max-width: 54ch;
+}
+body.wp-hosted .progress-dashboard {
+  margin-block: 0.75rem 1.25rem;
+}
+body.wp-hosted #overall-progress {
+  padding: 1.25rem 1.5rem;
+}
+body.wp-hosted .journey-belt-picker {
+  margin-top: 0.75rem;
+}
+body.wp-hosted .journey-belt-picker label {
+  font-size: 0.9rem;
+}
+body.wp-hosted #journey-belt-help {
+  max-width: 70ch;
+}
+body.wp-hosted .training-action-panel {
+  margin-bottom: 1.5rem;
+}
+body.wp-hosted .tab-content {
+  scroll-margin-top: 100px;
+}
+body.wp-hosted .collapsible-header:focus-visible, body.wp-hosted .study-mode-card:focus-visible,
+body.wp-hosted .member-content button:focus-visible, body.wp-hosted .member-content input:focus-visible,
+body.wp-hosted .member-content select:focus-visible, body.wp-hosted .member-content summary:focus-visible {
+  outline: 3px solid #639aca;
+  outline-offset: 4px;
+}
+body.wp-hosted .collapsible-header {
+  cursor: pointer;
+}
+body.wp-hosted .collapsible-section.collapsed > .collapsible-content {
+  display: none;
+}
+body.wp-hosted .search-result-clickable:focus-visible {
+  outline: 3px solid #a7c9ef;
+  outline-offset: 3px;
+}
+body.wp-hosted .member-tools-return {
+  display: none;
+}
+body.wp-hosted .member-tools {
+  scroll-margin-top: 85px;
+}
+body.wp-hosted #quiz-start {
+  padding: 1.25rem !important;
+  text-align: left;
+  border-radius: 12px;
+}
+body.wp-hosted #quiz-start .quiz-setup {
+  max-width: none;
+  margin: 0;
+}
+body.wp-hosted #quiz-start .quiz-setup > label {
+  text-align: left !important;
+  font-size: 1.1rem !important;
+  margin-bottom: 0.35rem !important;
+}
+body.wp-hosted #quiz-start .quiz-setup > p {
+  text-align: left !important;
+  font-size: 0.95rem !important;
+  margin-bottom: 1.25rem !important;
+}
+body.wp-hosted #quiz-start .quiz-setup > div {
+  margin-bottom: 0.8rem !important;
+}
+body.wp-hosted #quiz-start #selected-belt-display {
+  text-align: left !important;
+}
+body.wp-hosted #quiz-start #belt-badge {
+  padding: 0.6rem 1rem !important;
+  font-size: 1.1rem !important;
+  box-shadow: none !important;
+  border-radius: 8px !important;
+}
+body.wp-hosted #quiz-start #included-belts, body.wp-hosted #quiz-start #question-count {
+  text-align: left !important;
+  font-size: 0.9rem !important;
+}
+body.wp-hosted #quiz-start #question-count {
+  color: #8fd5b2 !important;
+}
+body.wp-hosted #quiz-start > div:not(.quiz-setup):not(.weak-spots-dashboard) {
+  justify-content: flex-start !important;
+}
+body.wp-hosted #quiz-start .btn-primary {
+  min-height: 44px;
+  padding: 0.75rem 1.1rem;
+  margin: 0.5rem 0 0;
+}
+body.wp-hosted #quiz-start #daily-challenge-btn {
+  background: #23496d !important;
+  color: #fff !important;
+}
+body.wp-hosted .quiz-shortcuts {
+  border: 0;
+  border-top: 1px solid #34516f;
+  background: transparent;
+  padding: 0.5rem 0;
+  margin: 1rem 0;
+  color: #bacbde;
+}
+body.wp-hosted .quiz-shortcuts summary {
+  min-height: 44px;
+  padding-block: 0.65rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+body.wp-hosted .quiz-shortcuts p {
+  margin: 0.4rem 0;
+  font-size: 0.9rem;
+}
+body.wp-hosted .quiz-shortcuts kbd {
+  font-family: inherit;
+  color: #fff;
+}
+body.wp-hosted .study-mode-selector {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 1rem !important;
+}
+body.wp-hosted .study-choice-icon {
+  display: block;
+  margin-bottom: 1rem;
+  color: #a7c9ef;
+}
+body.wp-hosted .study-mode-card {
+  padding: 1.5rem !important;
+  text-align: left !important;
+  border-radius: 12px !important;
+  background: #153753 !important;
+  border-color: #34516f !important;
+}
+body.wp-hosted .study-mode-card > div:first-child {
+  font-size: 1.6rem !important;
+  margin-bottom: 0.8rem !important;
+}
+body.wp-hosted .study-mode-card h3 {
+  font-size: 1.5rem;
+}
+body.wp-hosted .study-mode-card p {
+  line-height: 1.6;
+}
+body.wp-hosted .study-mode-card:hover {
+  border-color: #a7c9ef !important;
+}
+body.wp-hosted #search-input {
+  background: #fafbfd;
+  color: #071b32;
+  border-color: #9bb4cb !important;
+}
+body.wp-hosted #search-input::placeholder {
+  color: #52677c;
+  opacity: 1;
+}
+body.wp-hosted #search-results-count, body.wp-hosted #search-results .search-empty {
+  color: #bacbde !important;
+}
+body.wp-hosted #search-results .search-empty {
+  font-size: 1rem;
+  max-width: 54ch;
+}
+@media (max-width: 979px) {
+  body.wp-hosted .member-tools-return {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 44px;
+    padding: 0.5rem 0;
+    margin: 0 0 0.5rem;
+    border: 0;
+    background: transparent;
+    color: #073f78;
+    font: 600 0.9rem/1.4 "Source Sans 3", sans-serif;
+    cursor: pointer;
+  }
+  body.wp-hosted .member-tools-return::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-top: 2px solid currentColor;
+    border-left: 2px solid currentColor;
+    transform: rotate(45deg);
+  }
+  body.wp-hosted .member-layout {
+    gap: 1rem;
+  }
+  body.wp-hosted .member-rail {
+    padding: 0.75rem;
+  }
+  body.wp-hosted .member-tools__heading {
+    margin-bottom: 0.6rem;
+    font-size: 1.15rem;
+  }
+  body.wp-hosted .member-tools .nav-container {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.2rem;
+  }
+  body.wp-hosted .member-tools .nav-button {
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 0.5rem 0.2rem;
+    min-height: 64px;
+    text-align: center;
+    font-size: 0.85rem !important;
+    line-height: 1.2;
+  }
+  body.wp-hosted .member-rail .next-class-widget {
+    margin-top: 0.65rem;
+    padding-top: 0.65rem;
+  }
+  body.wp-hosted .member-grading {
+    margin-top: 0.5rem;
+    padding-top: 0.25rem;
+  }
+  body.wp-hosted .member-content {
+    padding-top: 0.5rem;
+  }
+  body.wp-hosted #overall-progress {
+    padding: 1.1rem;
+  }
+  body.wp-hosted .study-mode-selector {
+    grid-template-columns: 1fr !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.wp-hosted .tab-content {
+    scroll-behavior: auto;
+  }
+}
+
+body.wp-hosted .member-tools .nav-button[data-tab=home] {
+  margin-bottom: 0.35rem;
+}
+body.wp-hosted .member-syllabus-heading .member-kicker {
+  color: #073f78;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+body.wp-hosted .member-syllabus-heading {
+  margin-bottom: 1.5rem;
+}
+body.wp-hosted .member-syllabus-heading h1 {
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+  margin: 0.5rem 0 1rem;
+  color: #071b32;
+}
+body.wp-hosted .member-syllabus-heading p {
+  max-width: 58ch;
+  color: #40566e;
+}
+body.wp-hosted .member-syllabus-heading label {
+  display: block;
+  margin: 1.5rem 0 0.5rem;
+  font-weight: 600;
+  color: #071b32;
+}
+body.wp-hosted .member-syllabus-heading select {
+  width: min(100%, 360px);
+  min-height: 48px;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid #9bb4cb;
+  border-radius: 8px;
+  background: #fafbfd;
+  color: #071b32;
+  font: 400 1rem "Source Sans 3", sans-serif;
+}
+body.wp-hosted .member-home-links {
+  margin-top: 2rem;
+  border-top: 1px solid #bdcede;
+}
+body.wp-hosted .member-home-links button {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1.1rem 0;
+  width: 100%;
+  min-height: 64px;
+  text-align: left;
+  color: #071b32;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #bdcede;
+  font: 400 1rem/1.5 "Source Sans 3", sans-serif;
+  cursor: pointer;
+}
+body.wp-hosted .member-home-links button strong {
+  font-weight: 600;
+}
+body.wp-hosted .member-home-links button > span {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.95rem;
+  color: #40566e;
+}
+body.wp-hosted .member-home-links button:hover strong {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+@media (max-width: 979px) {
+  body.wp-hosted .member-tools .nav-button:is([data-tab=home], [data-tab=search]) {
+    grid-column: 1/-1;
+    flex-direction: row;
+    min-height: 44px;
+    justify-content: flex-start;
+    padding-inline: 0.75rem;
+    border-bottom: 1px solid #cbd7e3 !important;
+    border-radius: 8px;
+  }
+}
+
+body.wp-hosted .member-badge-toast {
+  position: fixed;
+  inset: auto 1.25rem 1.25rem auto;
+  z-index: 10000;
+  box-sizing: border-box;
+  width: 320px;
+  max-width: calc(100% - 2rem);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, #1e5ba8 0%, #7c3aed 100%);
+  color: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  white-space: normal;
+  overflow-wrap: anywhere;
+  animation: slideIn 0.5s ease, slideOut 0.5s ease 3.5s forwards;
+}
+body.wp-hosted .member-badge-toast > div:first-child {
+  flex: 0 0 auto;
+}
+body.wp-hosted .member-badge-toast > div:last-child {
+  min-width: 0;
+}
+@media (max-width: 640px) {
+  body.wp-hosted .member-badge-toast {
+    inset: auto 1rem 1rem;
+    width: auto;
+  }
+}
+body.wp-hosted .member-content .member-tool-page > .card {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+  color: #071b32;
+}
+body.wp-hosted #home-tab .member-home-learning {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 2rem;
+  padding-block: 1.75rem;
+  border-block: 1px solid #cbd7e3;
+  margin-block: 1.5rem;
+}
+body.wp-hosted #home-tab .member-home-learning section {
+  min-width: 0;
+}
+body.wp-hosted #home-tab .member-home-learning h2 {
+  margin: 0 0 0.8rem;
+  color: #071b32;
+  font: 500 clamp(1.4rem, 2.5vw, 1.8rem)/1.2 "Oswald", sans-serif;
+}
+body.wp-hosted #home-tab .member-home-learning p {
+  color: #40566e;
+  line-height: 1.65;
+  margin: 0 0 1rem;
+  overflow-wrap: anywhere;
+}
+body.wp-hosted #home-tab .member-home-learning .member-kicker {
+  color: #073f78;
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  margin-bottom: 0.65rem;
+}
+body.wp-hosted #home-tab #home-review-syllabus {
+  font-size: 0.9rem;
+}
+body.wp-hosted #home-tab .member-home-review__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+}
+body.wp-hosted #home-tab .member-home-learning a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: #073f78;
+  text-underline-offset: 0.2em;
+  font-weight: 600;
+}
+body.wp-hosted #home-tab .member-home-learning .training-action-btn.primary {
+  background: #073f78;
+  color: #fff;
+  border-color: #073f78;
+  border-radius: 9px;
+  font-family: "Source Sans 3", sans-serif;
+}
+body.wp-hosted #home-tab .member-home-learning button {
+  min-height: 44px;
+  white-space: normal;
+}
+body.wp-hosted #home-tab .member-home-learning :is(a, button):focus-visible {
+  outline: 2px solid #073f78;
+  outline-offset: 4px;
+}
+@media (max-width: 640px) {
+  body.wp-hosted #home-tab .member-home-learning {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+}
+body.wp-hosted .member-tool-heading {
+  position: relative;
+  margin-bottom: 2rem;
+  padding-right: 3.25rem;
+}
+body.wp-hosted .member-tool-heading .member-kicker {
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #073f78;
+  margin: 0 0 0.65rem;
+}
+body.wp-hosted .member-tool-heading h1 {
+  font: 500 clamp(2.15rem, 4vw, 3rem)/1.12 "Oswald", sans-serif;
+  color: #071b32;
+  margin: 0 0 0.9rem;
+  text-wrap: balance;
+}
+body.wp-hosted .member-tool-heading > p:last-child {
+  max-width: 60ch;
+  color: #40566e;
+  line-height: 1.7;
+  margin: 0;
+}
+body.wp-hosted .member-tool-heading__icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  color: #073f78;
+  background: #e2ebf4;
+  border-radius: 50%;
+}
+body.wp-hosted .member-tool-heading__icon svg {
+  width: 22px;
+  height: 22px;
+  color: #073f78;
+  stroke: currentColor;
+}
+body.wp-hosted .member-tool-page .info-box, body.wp-hosted .member-tool-page .note-box {
+  padding: 1rem 1.2rem;
+  margin-block: 1.5rem;
+  border: 0;
+  border-left: 3px solid #8aafd0;
+  background: #e8eff5;
+  color: #40566e;
+  border-radius: 0 9px 9px 0;
+  line-height: 1.7;
+}
+body.wp-hosted .member-tool-page > .card > .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  background: #073f78;
+  color: #fff;
+}
+body.wp-hosted .member-practice-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 48px;
+  padding-block: 0.5rem;
+  margin: 1rem 0;
+  color: #40566e !important;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+body.wp-hosted .member-practice-toggle input {
+  width: 20px;
+  height: 20px;
+  accent-color: #073f78;
+  flex: 0 0 20px;
+}
+body.wp-hosted .member-content #stances-tab.member-tool-page > .card {
+  background: transparent;
+}
+body.wp-hosted .member-content #stances-tab.member-tool-page .stance-group-jumps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-block: 1.5rem 2rem;
+}
+body.wp-hosted .member-content #stances-tab.member-tool-page .stance-group-jumps button {
+  min-height: 44px;
+  max-width: 100%;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid #afc3d5;
+  border-radius: 7px;
+  background: #f4f7fa;
+  color: #073f78;
+  font: 600 0.9rem/1.4 "Source Sans 3", sans-serif;
+  white-space: normal;
+  text-align: left;
+  cursor: pointer;
+}
+body.wp-hosted .member-content #stances-tab.member-tool-page .stance-group-jumps button:hover {
+  background: #e2ebf4;
+}
+body.wp-hosted .member-content #stances-tab.member-tool-page .stance-group-jumps button:focus-visible, body.wp-hosted .member-content #stances-tab.member-tool-page .stance-group-heading h2:focus-visible {
+  outline: 2px solid #073f78;
+  outline-offset: 4px;
+}
+body.wp-hosted .member-content #stances-tab.member-tool-page .stance-group {
+  margin-top: 2rem;
+}
+body.wp-hosted .member-content #stances-tab.member-tool-page .stance-group-heading {
+  border-top: 2px solid #adc1d3;
+  padding-top: 1.25rem;
+}
+body.wp-hosted .member-content #stances-tab.member-tool-page .stance-group-heading h2 {
+  scroll-margin-top: 110px;
+  margin: 0 0 0.6rem;
+  color: #071b32;
+  font: 500 clamp(1.65rem, 3vw, 2.1rem)/1.2 "Oswald", sans-serif;
+}
+body.wp-hosted .member-content #stances-tab.member-tool-page .stance-group-heading p, body.wp-hosted .member-content #stances-tab.member-tool-page .stance-source-note {
+  color: #40566e;
+  line-height: 1.7;
+  max-width: 65ch;
+  margin: 0;
+}
+body.wp-hosted .member-content #stances-tab.member-tool-page .stance-source-note {
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+body.wp-hosted .member-content #stances-tab.member-tool-page .stance-source-note a {
+  color: #073f78;
+  text-underline-offset: 0.2em;
+}
+body.wp-hosted .member-content #stances-tab.member-tool-page .stance-card {
+  display: grid;
+  grid-template-columns: minmax(190px, 0.8fr) minmax(0, 1.4fr);
+  gap: 1rem 2.5rem;
+  padding-block: 1.5rem;
+  min-width: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow-wrap: anywhere;
+}
+body.wp-hosted .member-content #stances-tab.member-tool-page .stance-reference-heading :is(h2, h3) {
+  font: 500 clamp(1.5rem, 2.5vw, 1.9rem)/1.15 "Oswald", sans-serif;
+  margin: 0.5rem 0 0.75rem;
+  color: #071b32;
+}
+body.wp-hosted .member-content #stances-tab.member-tool-page .stance-reference-number {
+  color: #6283a1;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+body.wp-hosted .member-content #stances-tab.member-tool-page .stance-japanese {
+  color: #073f78;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+body.wp-hosted .member-content #stances-tab.member-tool-page .stance-description {
+  margin: 0;
+}
+body.wp-hosted .member-content #stances-tab.member-tool-page .stance-description p {
+  margin: 0 0 1rem;
+  line-height: 1.75;
+  color: #40566e;
+}
+body.wp-hosted .member-content #stances-tab.member-tool-page .stance-description strong {
+  color: #071b32;
+}
+body.wp-hosted .member-content #stances-tab.member-tool-page .stance-usage {
+  margin: 0;
+  padding-top: 0.9rem;
+  font-size: 0.9rem;
+  color: #40566e;
+  border-top: 1px solid #d7e1eb;
+  font-style: normal;
+}
+body.wp-hosted .member-content #stances-tab.member-tool-page .info-box {
+  margin-top: 2rem;
+}
+@media (max-width: 640px) {
+  body.wp-hosted .member-content #stances-tab.member-tool-page .stance-card {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+    padding-block: 1.5rem;
+  }
+}
+body.wp-hosted #counting-tab .counting-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 2rem;
+  margin: 0;
+  background: transparent;
+}
+body.wp-hosted #counting-tab .count-card {
+  display: grid;
+  grid-template-columns: 3.3rem 1fr;
+  gap: 0.25rem 1rem;
+  align-items: center;
+  border: 0;
+  border-bottom: 1px solid #cbd7e3;
+  border-radius: 0;
+  background: transparent;
+  padding: 1.2rem 0;
+  min-height: 100px;
+  text-align: left;
+  box-shadow: none;
+}
+body.wp-hosted #counting-tab .count-kanji {
+  grid-row: span 2;
+  font-size: 2.6rem;
+  color: #073f78;
+  line-height: 1;
+  margin: 0;
+}
+body.wp-hosted #counting-tab .count-japanese {
+  color: #071b32;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  margin: 0;
+}
+body.wp-hosted #counting-tab .count-number {
+  color: #40566e;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0;
+}
+body.wp-hosted #counting-tab:has(#counting-recall:checked) .count-japanese {
+  visibility: hidden;
+}
+body.wp-hosted #belt-tying-tab .belt-tying-steps {
+  list-style: none;
+  counter-reset: belt-step;
+  padding: 0;
+  margin-block: 2rem;
+}
+body.wp-hosted #belt-tying-tab .belt-step {
+  counter-increment: belt-step;
+  position: relative;
+  display: block;
+  padding: 0.2rem 0 1.75rem 3.75rem;
+  margin: 0 0 0 1.1rem;
+  border: 0;
+  border-left: 1px solid #adc1d3;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+}
+body.wp-hosted #belt-tying-tab .belt-step::before {
+  content: counter(belt-step);
+  position: absolute;
+  top: 0;
+  left: -1.1rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #073f78;
+  color: #fff;
+  font-weight: 600;
+}
+body.wp-hosted #belt-tying-tab .belt-step:last-child {
+  border-left-color: transparent;
+  padding-bottom: 0.5rem;
+}
+body.wp-hosted #belt-tying-tab .belt-step-number {
+  color: #071b32;
+  font-size: 1.15rem;
+  margin-bottom: 0.45rem;
+}
+body.wp-hosted #belt-tying-tab .belt-step-text {
+  color: #40566e;
+  max-width: 58ch;
+  line-height: 1.75;
+}
+body.wp-hosted #belt-tying-tab > .card > h3 {
+  color: #071b32;
+}
+body.wp-hosted .member-category-jumps, body.wp-hosted .member-search-examples, body.wp-hosted .member-filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-block: 1.5rem;
+}
+body.wp-hosted .member-category-jumps button, body.wp-hosted .member-search-examples button, body.wp-hosted .member-filter-group button {
+  min-height: 44px;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid #afc3d5;
+  border-radius: 7px;
+  color: #073f78;
+  background: #f4f7fa;
+  font: 600 0.9rem/1.4 "Source Sans 3", sans-serif;
+  cursor: pointer;
+}
+body.wp-hosted .member-category-jumps button:hover, body.wp-hosted .member-search-examples button:hover, body.wp-hosted .member-filter-group button:hover {
+  background: #e2ebf4;
+}
+body.wp-hosted .member-search-examples {
+  align-items: center;
+}
+body.wp-hosted .member-search-examples > span {
+  color: #40566e;
+  font-size: 0.9rem;
+}
+body.wp-hosted .member-filter-group button[aria-pressed=true] {
+  background: #073f78;
+  color: #fff;
+  border-color: #073f78;
+}
+body.wp-hosted .member-filter-group button[aria-pressed=true]:hover {
+  background: #073f78;
+}
+body.wp-hosted .member-filter-status {
+  margin-block: -0.5rem 1rem;
+  color: #40566e !important;
+  font-size: 0.9rem;
+}
+body.wp-hosted #terminology-tab h2, body.wp-hosted #terminology-tab h3, body.wp-hosted #terminology-tab .japanese {
+  color: #071b32;
+}
+body.wp-hosted #terminology-tab .english {
+  color: #40566e;
+}
+body.wp-hosted #terminology-tab h3 {
+  margin-top: 2rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid #cbd7e3;
+  scroll-margin-top: 110px;
+}
+body.wp-hosted #terminology-tab .technique-grid {
+  align-items: start;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 1.5rem;
+}
+body.wp-hosted #terminology-tab .technique-card {
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  display: block;
+  padding: 1rem 0;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #dce4ec;
+  border-radius: 0;
+  box-shadow: none;
+  overflow-wrap: anywhere;
+}
+body.wp-hosted #terminology-tab .member-category-jumps button {
+  max-width: 100%;
+  white-space: normal;
+  text-align: left;
+}
+@media (max-width: 640px) {
+  body.wp-hosted #terminology-tab .technique-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+body.wp-hosted .member-tool-page :is(p, .english, .stance-usage, .belt-step-text) {
+  text-wrap: pretty;
+}
+body.wp-hosted #search-tab #search-results-count, body.wp-hosted #search-tab #search-results .search-empty {
+  color: #40566e !important;
+}
+body.wp-hosted #search-tab .search-result-clickable {
+  background: #fafbfd !important;
+  border: 1px solid #cbd7e3 !important;
+  border-radius: 10px;
+}
+body.wp-hosted #search-tab .search-result-clickable .japanese {
+  color: #071b32 !important;
+}
+body.wp-hosted #search-tab .search-result-clickable .english {
+  color: #40566e !important;
+}
+body.wp-hosted #search-tab .search-result-clickable .search-result-meta {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+body.wp-hosted #search-tab .search-result-clickable .search-result-meta > span {
+  background: #e8eff5 !important;
+  color: #071b32 !important;
+}
+body.wp-hosted #search-tab .search-result-clickable .search-result-meta > span:nth-child(2) {
+  background: #e8eff5 !important;
+  color: #40566e !important;
+}
+body.wp-hosted #search-tab .search-result-clickable .search-result-meta > span:last-child {
+  background: #073f78 !important;
+  color: #fff !important;
+}
+body.wp-hosted #quiz-tab .quiz-header .quiz-score {
+  color: #c4d5e7 !important;
+}
+body.wp-hosted #quiz-tab .quiz-help {
+  border-top: 1px solid #34516f;
+  margin-top: 1rem;
+  color: #c4d5e7;
+}
+body.wp-hosted #quiz-tab .quiz-help summary {
+  min-height: 44px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding-block: 0.65rem;
+  color: #c4d5e7;
+}
+body.wp-hosted #quiz-tab .quiz-help .weak-spots-dashboard {
+  border: 0;
+  box-shadow: none;
+  margin: 0;
+  padding: 1rem 0;
+  background: transparent !important;
+}
+body.wp-hosted #quiz-tab #quiz-learning-summary {
+  margin-top: 0;
+}
+body.wp-hosted #quiz-tab #quiz-complete {
+  scroll-margin-top: 100px;
+}
+body.wp-hosted #quiz-tab .quiz-adaptive-intro {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+  text-align: left;
+}
+body.wp-hosted #quiz-tab .quiz-adaptive-intro > span {
+  border-top: 2px solid #87a9ca;
+  padding-top: 0.6rem;
+  font-size: 0.8rem;
+  color: #c4d5e7 !important;
+  line-height: 1.5;
+}
+body.wp-hosted #quiz-tab .quiz-adaptive-intro strong {
+  display: block;
+  font-size: 0.95rem;
+  color: #fff;
+  margin-bottom: 0.25rem;
+}
+body.wp-hosted #quiz-tab .quiz-learning-summary {
+  color: #c4d5e7 !important;
+  line-height: 1.7;
+  font-size: 0.95rem;
+  text-align: left;
+  margin-block: 1rem 1.5rem;
+}
+body.wp-hosted #quiz-tab .quiz-adaptation {
+  padding: 1rem 1.2rem;
+  border-left: 3px solid #a7c9ef;
+  background: #153753;
+  border-radius: 0 10px 10px 0;
+  margin-bottom: 1.25rem;
+}
+body.wp-hosted #quiz-tab .quiz-adaptation > strong {
+  color: #fff !important;
+  font: 500 1.5rem/1.2 "Oswald", sans-serif;
+}
+body.wp-hosted #quiz-tab .quiz-adaptation > p {
+  color: #c4d5e7 !important;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0.5rem 0 0;
+}
+body.wp-hosted #quiz-tab #quiz-prompt-help {
+  color: #c4d5e7 !important;
+}
+body.wp-hosted #quiz-tab #quiz-question {
+  overflow-wrap: anywhere;
+}
+body.wp-hosted #quiz-tab #category-breakdown {
+  background: #153753 !important;
+  border: 1px solid #34516f;
+}
+body.wp-hosted #quiz-tab #category-breakdown h4 {
+  color: #fff;
+  font-size: 1.3rem;
+  margin: 0 0 1rem;
+}
+body.wp-hosted #quiz-tab #category-breakdown p {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid #34516f;
+  padding-block: 0.75rem;
+  margin: 0;
+}
+body.wp-hosted #quiz-tab #category-breakdown strong, body.wp-hosted #quiz-tab #category-breakdown span {
+  color: #c4d5e7 !important;
+}
+body.wp-hosted #quiz-tab #category-breakdown span {
+  text-align: right;
+}
+@media (max-width: 640px) {
+  body.wp-hosted #quiz-tab .quiz-adaptive-intro {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.65rem;
+  }
+  body.wp-hosted #quiz-tab .quiz-adaptive-intro > span {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  body.wp-hosted #quiz-tab .quiz-adaptive-intro strong {
+    margin: 0;
+  }
+}
+body.wp-hosted #study-tab #flashcard-container > div:first-child, body.wp-hosted #study-tab #focus-container > div:first-child {
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+body.wp-hosted #study-tab #flashcard-container > div:first-child h3, body.wp-hosted #study-tab #focus-container > div:first-child h3, body.wp-hosted #study-tab #focus-header h3 {
+  color: #071b32 !important;
+}
+body.wp-hosted #study-tab #flashcard-container label, body.wp-hosted #study-tab #flashcard-progress, body.wp-hosted #study-tab #focus-category-select > p, body.wp-hosted #study-tab #focus-category-select > h4 {
+  color: #40566e !important;
+}
+body.wp-hosted #study-tab #flashcard-belt {
+  min-height: 48px;
+  color: #071b32;
+}
+body.wp-hosted #study-tab button[onclick="exitStudyMode()"] {
+  min-height: 44px;
+  background: #e8eff5 !important;
+  color: #073f78 !important;
+  border: 1px solid #b3c5d6 !important;
+}
+body.wp-hosted #study-tab #flashcard {
+  background: #153753 !important;
+  box-shadow: none !important;
+}
+body.wp-hosted #study-tab .flashcard-level {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding: 0.25rem;
+}
+body.wp-hosted #study-tab .flashcard-level label {
+  margin-right: 0 !important;
+}
+body.wp-hosted #study-tab #flashcard-term, body.wp-hosted #study-tab #flashcard-term-back, body.wp-hosted #study-tab #flashcard-answer {
+  overflow-wrap: anywhere;
+}
+body.wp-hosted #study-tab #flashcard-answer {
+  color: #fff !important;
+}
+body.wp-hosted #study-tab .flashcard-controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+body.wp-hosted #study-tab .flashcard-controls button {
+  min-height: 48px;
+  background: #e8eff5 !important;
+  color: #073f78 !important;
+  border: 1px solid #b3c5d6 !important;
+  box-shadow: none;
+}
+body.wp-hosted #study-tab .flashcard-controls button:last-child {
+  background: #073f78 !important;
+  color: #fff !important;
+  border-color: #073f78 !important;
+}
+body.wp-hosted #study-tab .keyboard-shortcuts-box {
+  background: #e8eff5 !important;
+  text-align: left !important;
+  box-shadow: none !important;
+}
+body.wp-hosted #study-tab .keyboard-shortcuts-box > div {
+  color: #40566e !important;
+}
+body.wp-hosted #study-tab .keyboard-shortcuts-box strong {
+  color: #071b32 !important;
+}
+body.wp-hosted #study-tab #focus-categories button {
+  background: #153753 !important;
+  border-color: #34516f !important;
+  min-height: 80px;
+  box-shadow: none;
+}
+body.wp-hosted #study-tab #focus-categories {
+  grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr)) !important;
+}
+body.wp-hosted #study-tab .study-mode-card {
+  min-height: 230px;
+  background: #153753 !important;
+  box-shadow: none !important;
+}
+body.wp-hosted #study-tab .study-mode-card h3 {
+  color: #fff !important;
+}
+body.wp-hosted #study-tab .study-mode-card p {
+  color: #c4d5e7 !important;
+}
+body.wp-hosted #belt-content .kata-steps, body.wp-hosted #belt-content .kata-step-content {
+  box-shadow: none !important;
+}
+body.wp-hosted #belt-content > .card > a.btn-primary, body.wp-hosted #belt-content button[onclick^=markBeltEarned] {
+  background: #073f78 !important;
+  color: #fff !important;
+}
+body.wp-hosted #achievements-tab .xp-container {
+  background: #073f78;
+  padding: 1.2rem;
+  border: 0;
+  border-radius: 12px;
+}
+body.wp-hosted #achievements-tab .xp-level, body.wp-hosted #achievements-tab .xp-text {
+  color: #fff;
+}
+body.wp-hosted #achievements-tab #achievements-summary {
+  gap: 2rem !important;
+  margin: 1.25rem 0 !important;
+}
+body.wp-hosted #achievements-tab #achievements-summary > div {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  background: transparent !important;
+  color: #071b32 !important;
+  padding: 0.4rem 0 !important;
+  min-width: 0 !important;
+  text-align: left !important;
+}
+body.wp-hosted #achievements-tab #badges-earned, body.wp-hosted #achievements-tab #badges-total {
+  font-size: 1.8rem !important;
+}
+body.wp-hosted #achievements-tab #achievements-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 0.85rem !important;
+  margin-top: 0.5rem !important;
+}
+body.wp-hosted #achievements-tab .achievement-tiers {
+  list-style: none;
+  padding: 0;
+  margin: 1.75rem 0 1rem;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+body.wp-hosted #achievements-tab .achievement-tiers li {
+  border-top: 3px solid var(--achievement-accent, #073f78);
+  padding-top: 0.6rem;
+}
+body.wp-hosted #achievements-tab .achievement-tiers strong {
+  display: block;
+  color: #071b32;
+  font-size: 0.95rem;
+}
+body.wp-hosted #achievements-tab .achievement-tiers span {
+  color: #40566e;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  display: block;
+  margin-top: 0.25rem;
+}
+body.wp-hosted #achievements-tab .achievement-note {
+  color: #40566e;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  max-width: 78ch;
+}
+body.wp-hosted #achievements-tab .achievement-note[hidden] {
+  display: none;
+}
+body.wp-hosted #achievements-tab .achievement-guide {
+  margin-block: 1rem;
+  color: #40566e;
+  font-size: 0.9rem;
+}
+body.wp-hosted #achievements-tab .achievement-guide summary {
+  cursor: pointer;
+  min-height: 44px;
+  padding-block: 0.5rem;
+  font-weight: 600;
+  color: #073f78;
+}
+body.wp-hosted #achievements-tab .achievement-guide p {
+  margin-top: 0.5rem;
+}
+body.wp-hosted #achievements-tab .member-achievement-filters {
+  border-block: 1px solid #cbd7e3;
+  padding-block: 1rem;
+  margin: 1.5rem 0;
+}
+body.wp-hosted #achievements-tab .member-filter-group {
+  margin: 0 0 1rem;
+}
+body.wp-hosted #achievements-tab .achievement-selects {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+body.wp-hosted #achievements-tab .achievement-selects label {
+  display: grid;
+  gap: 0.4rem;
+  color: #40566e;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+body.wp-hosted #achievements-tab .achievement-selects select {
+  min-width: 0;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #afc3d5;
+  border-radius: 8px;
+  background: #fafbfd;
+  color: #071b32;
+  font-size: 1rem;
+}
+body.wp-hosted #achievements-tab .member-badge {
+  display: flex;
+  flex-direction: column;
+  padding: 1.2rem !important;
+  text-align: left !important;
+  background: #fafbfd !important;
+  border: 1px solid #cbd7e3 !important;
+  border-top: 3px solid var(--achievement-accent, #073f78) !important;
+  border-radius: 12px;
+  opacity: 1 !important;
+  box-shadow: none;
+  min-width: 0;
+}
+body.wp-hosted #achievements-tab .member-badge[hidden] {
+  display: none !important;
+}
+body.wp-hosted #achievements-tab .member-badge[data-earned=true] {
+  background: #f0f6f2 !important;
+}
+body.wp-hosted #achievements-tab .member-badge__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+body.wp-hosted #achievements-tab .member-badge__medal {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--achievement-accent, #073f78);
+  border-radius: 50%;
+  color: var(--achievement-accent, #073f78);
+  background: var(--achievement-tint, #e8eff5);
+  box-shadow: inset 0 0 0 4px #fafbfd;
+  flex: 0 0 56px;
+}
+body.wp-hosted #achievements-tab .member-badge__medal svg {
+  width: 26px;
+  height: 26px;
+  stroke: currentColor;
+}
+body.wp-hosted #achievements-tab .member-badge__tier {
+  color: var(--achievement-accent, #073f78);
+  background: var(--achievement-tint, #e8eff5);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+}
+body.wp-hosted #achievements-tab .member-badge__category {
+  color: #40566e;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  margin: 0 0 0.4rem;
+}
+body.wp-hosted #achievements-tab .member-badge h2 {
+  color: #071b32;
+  font: 500 1.4rem/1.3 "Oswald", sans-serif;
+  margin: 0 0 0.65rem;
+}
+body.wp-hosted #achievements-tab .member-badge__description {
+  color: #40566e;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0 0 1rem;
+}
+body.wp-hosted #achievements-tab .member-badge__progress {
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+body.wp-hosted #achievements-tab .member-badge__progress progress {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 6px;
+  border: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #dce5ed;
+  color: var(--achievement-accent, #073f78);
+}
+body.wp-hosted #achievements-tab .member-badge__progress progress::-webkit-progress-bar {
+  background: #dce5ed;
+}
+body.wp-hosted #achievements-tab .member-badge__progress progress::-webkit-progress-value {
+  background: var(--achievement-accent, #073f78);
+}
+body.wp-hosted #achievements-tab .member-badge__progress progress::-moz-progress-bar {
+  background: var(--achievement-accent, #073f78);
+}
+body.wp-hosted #achievements-tab .member-badge__progress > span {
+  display: block;
+  color: #40566e;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+body.wp-hosted #achievements-tab .member-badge__footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  color: #40566e;
+  font-size: 0.8rem;
+}
+body.wp-hosted #achievements-tab .member-badge__xp {
+  font-weight: 700;
+  color: #071b32;
+}
+body.wp-hosted #achievements-tab .member-badge__status {
+  color: #40566e !important;
+}
+body.wp-hosted #achievements-tab .member-badge[data-earned=true] .member-badge__status {
+  color: #276347 !important;
+  font-weight: 600;
+}
+body.wp-hosted #achievements-tab .member-badge[data-tier=elite] .member-badge__medal {
+  color: #fff;
+  background: #073f78;
+  box-shadow: inset 0 0 0 4px #d0dfef;
+}
+body.wp-hosted #achievements-tab .member-badge__date {
+  font-size: 0.75rem;
+  color: #40566e;
+  margin: 0.5rem 0 0;
+}
+body.wp-hosted #achievements-tab [data-tier=bronze] {
+  --achievement-accent: #80552c;
+  --achievement-tint: #f4e9dc;
+}
+body.wp-hosted #achievements-tab [data-tier=silver] {
+  --achievement-accent: #52677b;
+  --achievement-tint: #e8edf2;
+}
+body.wp-hosted #achievements-tab [data-tier=gold] {
+  --achievement-accent: #80600c;
+  --achievement-tint: #f5edcf;
+}
+body.wp-hosted #achievements-tab [data-tier=platinum] {
+  --achievement-accent: #315c74;
+  --achievement-tint: #e1edf2;
+}
+body.wp-hosted #achievements-tab [data-tier=elite] {
+  --achievement-accent: #073f78;
+  --achievement-tint: #dae7f4;
+}
+@media (max-width: 640px) {
+  body.wp-hosted #achievements-tab .achievement-tiers {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 1rem;
+  }
+}
+@media (max-width: 360px) {
+  body.wp-hosted #achievements-tab .achievement-selects {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+body.wp-hosted #calendar-tab .member-calendar-controls {
+  margin-top: 0 !important;
+}
+body.wp-hosted #calendar-tab .member-calendar-controls > span {
+  color: #071b32 !important;
+}
+body.wp-hosted #calendar-tab .cal-filter-btn {
+  min-height: 44px;
+  border-radius: 8px !important;
+  background: #e8eff5 !important;
+  color: #073f78 !important;
+  border: 1px solid #b3c5d6 !important;
+}
+body.wp-hosted #calendar-tab .cal-filter-btn[aria-pressed=true] {
+  background: #073f78 !important;
+  color: #fff !important;
+}
+body.wp-hosted #calendar-tab #dojo-calendar {
+  display: block;
+  height: 580px !important;
+}
+body.wp-hosted #calendar-tab .card > div:last-child {
+  background: #e8eff5 !important;
+  color: #40566e !important;
+}
+@media (max-width: 1100px) {
+  body.wp-hosted #achievements-tab #achievements-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+@media (max-width: 640px) {
+  body.wp-hosted .member-tool-heading {
+    padding-right: 0;
+  }
+  body.wp-hosted .member-tool-heading__icon {
+    position: static;
+    margin-bottom: 1rem;
+  }
+  body.wp-hosted #counting-tab .counting-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  body.wp-hosted #belt-tying-tab .belt-step {
+    padding-left: 2.5rem;
+  }
+  body.wp-hosted #achievements-tab #achievements-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  body.wp-hosted #calendar-tab #dojo-calendar {
+    height: 520px !important;
+  }
+  body.wp-hosted #study-tab .flashcard-level {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  body.wp-hosted #study-tab #flashcard-belt {
+    width: 100%;
+  }
+  body.wp-hosted #study-tab #flashcard {
+    padding: 2rem 1.25rem !important;
+  }
+  body.wp-hosted #study-tab #flashcard-term, body.wp-hosted #study-tab #flashcard-answer {
+    font-size: clamp(1.6rem, 6vw, 2.2rem) !important;
+  }
+  body.wp-hosted #study-tab .flashcard-controls {
+    gap: 0.5rem;
+  }
+  body.wp-hosted #study-tab .flashcard-controls button {
+    flex: 1;
+    padding-inline: 0.65rem;
+  }
+}

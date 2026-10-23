@@ -1,0 +1,108 @@
+// Focused refinements shared by the member tools, without altering state colours.
+@mixin apply {
+  .member-maker-credit {
+    margin-top: 1.25rem;
+    font-size: .875rem;
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      min-height: 44px;
+      color: #c7d2df;
+      text-decoration: none;
+      &:hover strong { text-decoration: underline; text-underline-offset: .2em; }
+      &:focus-visible { outline: 2px solid #a7c9ef; outline-offset: 5px; border-radius: 4px; }
+    }
+    strong { color: #fff; font-weight: 600; }
+    &__mark { display: block; width: 44px; height: 44px; object-fit: contain; }
+  }
+  body.wp-hosted {
+    & { overflow-x: clip !important; }
+    #member-main { overflow-x: clip; overflow-y: visible; }
+    .member-content { padding-top: 1.75rem; }
+    #home-tab .intro-card { margin-bottom: 0; padding-bottom: .25rem; }
+    #home-tab .intro-description { max-width: 54ch; }
+    .progress-dashboard { margin-block: .75rem 1.25rem; }
+    #overall-progress { padding: 1.25rem 1.5rem; }
+    .journey-belt-picker { margin-top: .75rem; }
+    .journey-belt-picker label { font-size: .9rem; }
+    #journey-belt-help { max-width: 70ch; }
+    .training-action-panel { margin-bottom: 1.5rem; }
+    .tab-content { scroll-margin-top: 100px; }
+    .collapsible-header:focus-visible, .study-mode-card:focus-visible,
+    .member-content button:focus-visible, .member-content input:focus-visible,
+    .member-content select:focus-visible, .member-content summary:focus-visible {
+      outline: 3px solid #639aca; outline-offset: 4px;
+    }
+    .collapsible-header { cursor: pointer; }
+    .collapsible-section.collapsed > .collapsible-content { display: none; }
+    .search-result-clickable:focus-visible { outline: 3px solid #a7c9ef; outline-offset: 3px; }
+    .member-tools-return { display: none; }
+    .member-tools { scroll-margin-top: 85px; }
+
+    // A short setup, rather than an instruction page before the quiz.
+    #quiz-start {
+      padding: 1.25rem !important; text-align: left; border-radius: 12px;
+      .quiz-setup { max-width: none; margin: 0; }
+      .quiz-setup > label { text-align: left !important; font-size: 1.1rem !important; margin-bottom: .35rem !important; }
+      .quiz-setup > p { text-align: left !important; font-size: .95rem !important; margin-bottom: 1.25rem !important; }
+      .quiz-setup > div { margin-bottom: .8rem !important; }
+      #selected-belt-display { text-align: left !important; }
+      #belt-badge { padding: .6rem 1rem !important; font-size: 1.1rem !important; box-shadow: none !important; border-radius: 8px !important; }
+      #included-belts, #question-count { text-align: left !important; font-size: .9rem !important; }
+      #question-count { color: #8fd5b2 !important; }
+      > div:not(.quiz-setup):not(.weak-spots-dashboard) { justify-content: flex-start !important; }
+      .btn-primary { min-height: 44px; padding: .75rem 1.1rem; margin: .5rem 0 0; }
+      #daily-challenge-btn { background: #23496d !important; color: #fff !important; }
+    }
+    .quiz-shortcuts {
+      border: 0; border-top: 1px solid #34516f; background: transparent;
+      padding: .5rem 0; margin: 1rem 0; color: #bacbde;
+      summary { min-height: 44px; padding-block: .65rem; cursor: pointer; font-size: .9rem; }
+      p { margin: .4rem 0; font-size: .9rem; }
+      kbd { font-family: inherit; color: #fff; }
+    }
+
+    .study-mode-selector { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 1rem !important; }
+    .study-choice-icon { display: block; margin-bottom: 1rem; color: #a7c9ef; }
+    .study-mode-card {
+      padding: 1.5rem !important; text-align: left !important; border-radius: 12px !important;
+      background: #153753 !important; border-color: #34516f !important;
+      > div:first-child { font-size: 1.6rem !important; margin-bottom: .8rem !important; }
+      h3 { font-size: 1.5rem; }
+      p { line-height: 1.6; }
+      &:hover { border-color: #a7c9ef !important; }
+    }
+    #search-input { background: #fafbfd; color: #071b32; border-color: #9bb4cb !important; }
+    #search-input::placeholder { color: #52677c; opacity: 1; }
+    #search-results-count, #search-results .search-empty { color: #bacbde !important; }
+    #search-results .search-empty { font-size: 1rem; max-width: 54ch; }
+
+    @media (max-width: 979px) {
+      .member-tools-return {
+        display: inline-flex; align-items: center; gap: .6rem;
+        min-height: 44px; padding: .5rem 0; margin: 0 0 .5rem;
+        border: 0; background: transparent; color: #073f78;
+        font: 600 .9rem / 1.4 'Source Sans 3', sans-serif; cursor: pointer;
+        &::before { content: ''; width: 7px; height: 7px; border-top: 2px solid currentColor; border-left: 2px solid currentColor; transform: rotate(45deg); }
+      }
+      .member-layout { gap: 1rem; }
+      .member-rail { padding: .75rem; }
+      .member-tools__heading { margin-bottom: .6rem; font-size: 1.15rem; }
+      .member-tools .nav-container { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .2rem; }
+      .member-tools .nav-button {
+        flex-direction: column; justify-content: center; gap: .25rem;
+        padding: .5rem .2rem; min-height: 64px; text-align: center;
+        font-size: .85rem !important; line-height: 1.2;
+      }
+      .member-rail .next-class-widget { margin-top: .65rem; padding-top: .65rem; }
+      .member-grading { margin-top: .5rem; padding-top: .25rem; }
+      .member-content { padding-top: .5rem; }
+      #overall-progress { padding: 1.1rem; }
+      .study-mode-selector { grid-template-columns: 1fr !important; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .tab-content { scroll-behavior: auto; }
+    }
+  }
+}

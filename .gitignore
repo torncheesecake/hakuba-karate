@@ -1,0 +1,16 @@
+node_modules
+node_modules.nosync/
+dist/
+.env
+.env.*
+!.env.example
+.DS_Store
+.playwright-cli/
+
+.local/
+
+# Local/generated artefacts are never part of a source-review publication.
+output/
+backups/
+node_modules 2/
+public/images/video-stills/manifest.json

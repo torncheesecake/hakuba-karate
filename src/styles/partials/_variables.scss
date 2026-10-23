@@ -1,0 +1,48 @@
+@use 'sass:map';
+
+$palette: (
+  'bg': #f3f2ef,
+  'surface': #ffffff,
+  'text': #1a1f28,
+  'muted': #4f5968,
+  'line': #d2d7df,
+  'accent': #932327,
+  'accent-dark': #741b1f,
+  'navy': #223047,
+);
+
+$spacing: (
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 0.75rem,
+  4: 1rem,
+  5: 1.5rem,
+  6: 2rem,
+);
+
+$breakpoints: (
+  sm: 700px,
+  md: 860px,
+  lg: 980px,
+);
+
+@function color($name) {
+  @return map.get($palette, $name);
+}
+
+@function space($step) {
+  @return map.get($spacing, $step);
+}
+
+@function bp($name) {
+  @return map.get($breakpoints, $name);
+}
+
+:root {
+  @each $name, $value in $palette {
+    --#{$name}: #{$value};
+  }
+
+  --radius: 0.8rem;
+  --space: clamp(1rem, 2.8vw, 2rem);
+}

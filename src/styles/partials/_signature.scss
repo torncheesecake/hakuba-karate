@@ -1,0 +1,56 @@
+@use './mixins' as m;
+
+// A stitched belt motif ties the public homepage together, without motion.
+.hakuba-home {
+  .hakuba-hero {
+    &::before {
+      content: '';
+      position: absolute;
+      width: clamp(210px, 33vw, 440px);
+      aspect-ratio: 1;
+      inset: 6rem 6% auto auto;
+      background: url('/hakuba-logo.png') center / contain no-repeat;
+      opacity: .1;
+      pointer-events: none;
+    }
+    &__rail { border-bottom-style: dashed; }
+    &__copy { position: relative; }
+    h1 { text-shadow: 0 2px 24px #071b3266; }
+    &__local { font-size: .84rem !important; letter-spacing: .04em; color: #c4dcf8 !important; margin-top: 1.5rem; }
+    &__note { border-left-color: #c4dcf8; }
+  }
+  .dojo-pathway { background: transparent; }
+  .dojo-pathway__copy { border-bottom: 1px solid var(--rule); }
+  .dojo-pathway--adult { background: var(--dojo-navy); }
+  .dojo-pathway--adult .dojo-pathway__copy { border-color: #ffffff33; }
+  .public-invitation {
+    position: relative;
+    overflow: hidden;
+    border-top: 0;
+    &::before { content: ''; position: absolute; inset: 1rem 0 auto; border-top: 1px dashed #ffffff50; pointer-events: none; }
+    &::after { content: ''; position: absolute; inset: auto 0 1rem; border-top: 1px dashed #ffffff50; pointer-events: none; }
+  }
+}
+
+.first-bow {
+  background: #eeeae3;
+  color: var(--dojo-navy);
+  &__inner { display: grid; gap: 3rem; padding-block: clamp(3.5rem, 8vw, 7rem); }
+  h2 { font-size: clamp(3.25rem, 6vw, 5.75rem); line-height: 1.04; letter-spacing: -.025em; }
+  h2 em { display: block; margin-top: .45em; font-family: Georgia, 'Times New Roman', serif; font-size: .68em; font-weight: 400; line-height: 1.13; text-transform: none; color: var(--dojo-blue); }
+  &__welcome > p:not(.public-eyebrow) { max-width: 35ch; }
+  .cta-button { margin-block: .75rem 1rem; border-color: var(--dojo-blue); }
+  &__kit { padding-left: 1rem; border-left: 3px solid var(--dojo-blue); font-size: .9rem; color: #465b70; }
+  &__journey { position: relative; padding-left: 1.5rem; border-left: 1px solid #aebbc9; }
+  &__label { font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: #465b70; margin: 0 0 1rem; }
+  ol { list-style: none; padding: 0; margin: 0; }
+  li { display: grid; grid-template-columns: 2.25rem minmax(0, 1fr); gap: 1rem; padding-block: 1.25rem; border-bottom: 1px solid #bac4ce; }
+  li span { color: var(--dojo-blue); font: 500 1.5rem 'Oswald', sans-serif; }
+  li p { margin: 0; }
+  &__closing { margin-top: 2rem; font: italic 1.4rem / 1.45 Georgia, 'Times New Roman', serif; }
+  &__closing strong { font-weight: 400; color: var(--dojo-blue); }
+  @include m.respond(md) {
+    &__inner { grid-template-columns: 1.1fr 1fr; gap: 5rem; }
+    &__journey { align-self: center; padding-left: 2.5rem; }
+  }
+}

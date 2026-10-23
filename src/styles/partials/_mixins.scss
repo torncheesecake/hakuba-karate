@@ -1,0 +1,32 @@
+@use './variables' as v;
+
+%panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--space);
+}
+
+@mixin respond($size) {
+  @media (min-width: v.bp($size)) {
+    @content;
+  }
+}
+
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 3px solid rgba(v.color('accent'), 0.28);
+    outline-offset: 2px;
+  }
+}
+
+@mixin interactive-link {
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease;
+
+  &:hover,
+  &.active {
+    border-bottom-color: var(--accent);
+  }
+}

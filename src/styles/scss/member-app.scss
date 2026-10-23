@@ -1,0 +1,569 @@
+@use '../partials/shared-header';
+@use '../partials/member-surfaces';
+@use '../partials/member-polish';
+@use '../partials/member-tools';
+
+$navy: #071b32;
+$blue: #073f78;
+$surface: #0d2946;
+$paper: #e8eff6;
+$ink: #f4f7fb;
+$muted: #bacbde;
+$rule: #34516f;
+$body-font: 'Source Sans 3', sans-serif;
+$heading-font: 'Oswald', 'Arial Narrow', sans-serif;
+
+@mixin panel {
+  background: $surface;
+  border-color: $rule;
+  border-radius: 3px;
+  box-shadow: none;
+}
+
+@mixin heading {
+  font-family: $heading-font;
+  font-weight: 500;
+  letter-spacing: .01em;
+  text-wrap: balance;
+}
+
+// Embed after the legacy app CSS. Belt and answer-state colours remain owned by the app.
+body.wp-hosted {
+  --card-bg: #{$surface};
+  --border-color: #{$rule};
+  --border-radius: 3px;
+  background: $navy;
+  color: $ink;
+  font-family: $body-font;
+  font-size: 18px;
+  line-height: 1.65;
+
+  h1, h2, h3, h4, h5, h6 { @include heading; }
+  button, input, select, textarea { font-family: $body-font; }
+  button, select, input:not([type='checkbox']):not([type='radio']):not([type='range']) {
+    min-height: 44px;
+  }
+  button { touch-action: manipulation; }
+  :is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline: 3px solid #8fc7ff;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px $navy;
+  }
+
+  .member-skip {
+    position: absolute;
+    z-index: 10001;
+    top: .5rem;
+    left: .5rem;
+    transform: translateY(-160%);
+    background: $paper;
+    color: $navy;
+    padding: .65rem 1rem;
+    &:focus { transform: translateY(0); }
+  }
+
+  .next-class-widget {
+    background: $blue;
+    border-bottom-color: $rule;
+    font-size: .9rem;
+  }
+
+  .member-toolbar {
+    background: $navy;
+    color: $ink;
+    border-bottom: 1px solid $rule;
+    padding: 1.4rem 0;
+    .container { max-width: 1440px; }
+  }
+  .header-content {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 2rem;
+    text-align: left;
+  }
+  .member-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 0;
+    max-width: 100%;
+    margin-right: auto;
+    color: $ink;
+    text-decoration: none;
+    img {
+      display: block;
+      flex: 0 0 auto;
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+    &__name {
+      font-family: $body-font;
+      font-weight: 700;
+      display: block;
+      font-size: clamp(1.3rem, 2.5vw, 1.85rem);
+      line-height: 1.2;
+    }
+    &__strap {
+      display: block;
+      margin-top: .35rem;
+      color: $muted;
+      font-size: .75rem;
+      line-height: 1.4;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+  }
+  .member-site-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: $ink;
+    font-size: .95rem;
+    gap: .4rem;
+    text-underline-offset: .3em;
+    text-decoration-thickness: 1px;
+    &:hover { color: #b8d9fb; }
+  }
+  .user-menu { margin: 0; }
+  .user-menu-btn,
+  .user-menu-btn.profile-chip {
+    background: $surface;
+    border: 1px solid $rule;
+    border-radius: 3px;
+    color: $ink;
+    box-shadow: none;
+    padding: .5rem .8rem;
+    &:hover { background: $blue; box-shadow: none; transform: none; }
+  }
+  .user-menu-name { color: $ink; font-weight: 600; }
+  .user-avatar-badge { width: 36px; height: 36px; }
+  .user-menu-dropdown {
+    @include panel;
+    color: $ink;
+    left: auto;
+    right: 0;
+    max-width: calc(100vw - 2rem);
+    transform: translateY(-10px);
+    &.show { transform: translateY(0); }
+  }
+  .user-menu-dropdown-item {
+    color: $ink;
+    &:hover { background: $blue; }
+    &.danger { color: #fca5a5; }
+  }
+  .user-email { color: $muted; border-color: $rule; overflow-wrap: anywhere; }
+
+  .member-tools {
+    background: $navy;
+    border-bottom-color: $rule;
+    backdrop-filter: none;
+  }
+  .nav-container { gap: .25rem; padding-block: .5rem; }
+  .nav-button {
+    border-radius: 0;
+    border-bottom: 2px solid transparent;
+    color: $muted;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.3;
+    &:hover { background: $surface; color: #fff; border-bottom-color: #8fc7ff; }
+    &.active {
+      background: $blue;
+      color: #fff;
+      border-bottom-color: #8fc7ff;
+      box-shadow: none;
+    }
+  }
+
+  main {
+    background: linear-gradient(180deg, #0b2542, $navy 42rem);
+    padding-block: 2rem 4rem;
+    .container {
+      width: 100%;
+      max-width: 1440px;
+      margin-inline: auto;
+      padding-inline: clamp(1rem, 4vw, 3rem);
+    }
+    h1, h2, h3, h4, h5, h6 { @include heading; line-height: 1.22; }
+  }
+  .card { border-radius: 3px; }
+  #home-tab {
+    gap: 1.5rem;
+    .intro-card {
+      background: $paper;
+      color: $navy;
+      border-top: 4px solid $blue;
+      border-radius: 0;
+      padding: clamp(1.5rem, 4vw, 3rem);
+      margin: 0 0 .25rem;
+      h1, h2 {
+        @include heading;
+        color: $navy;
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        line-height: 1.08;
+        margin: 0 0 1rem;
+      }
+      .member-kicker {
+        color: $blue;
+        font-size: .78rem;
+        font-weight: 700;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        margin: 0 0 .85rem;
+      }
+      .intro-description {
+        display: block;
+        color: #3d536a;
+        max-width: 62ch;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin: 0;
+      }
+    }
+  }
+  .progress-dashboard .dashboard-card { @include panel; padding: 1.5rem; }
+  #overall-progress { background: $blue; border-color: #42678d; }
+  .dashboard-title {
+    font-size: .85rem;
+    font-weight: 600;
+    letter-spacing: .09em;
+  }
+  .grading-set-card, .grading-dashboard { @include panel; }
+  .training-action-panel {
+    @include panel;
+    border-left: 3px solid var(--current-training-color);
+    border-radius: 3px 3px 0 0;
+  }
+  .training-action-title { @include heading; font-size: 1.6rem; }
+  .training-action-copy { color: $muted; }
+  .progress-summary {
+    background: $surface;
+    border-color: $rule;
+    border-radius: 0 0 3px 3px;
+  }
+  .collapsible-section { @include panel; margin-bottom: 1.25rem; }
+  .collapsible-header {
+    background: #123252;
+    min-height: 56px;
+    &:hover { background: #173e64; }
+    h3 { @include heading; font-size: 1.45rem; }
+  }
+  .stance-card, .sparring-section, .belt-step,
+  .weak-spots-dashboard, .weak-spots-summary-stat { @include panel; }
+
+  // Geometry only: learned cards, quiz answers, badges and belt strips keep their colours.
+  .technique-card, .count-card, .req-chip, .learn-btn, .change-belt-btn,
+  .btn-primary, .training-action-btn, .grading-save-btn, .grading-input-new,
+  .profile-btn, .import-mode-btn, .level-btn, .quiz-option {
+    border-radius: 3px;
+  }
+  .req-chip, .learn-btn, .member-site-link { min-height: 44px; }
+  .training-action-btn, .grading-save-btn, .change-belt-btn { font-weight: 600; }
+  .profile-panel, .profile-section, .grading-calendar-popover { @include panel; }
+  .profile-section-title { color: #b8d9fb; }
+  .profile-setting-control select { min-height: 44px; }
+  .grading-calendar-popover {
+    width: min(380px, calc(100vw - 24px));
+    overflow-x: auto;
+  }
+  .grading-calendar-header { grid-template-columns: 44px minmax(0, 1fr) 44px; }
+  .grading-calendar-nav { width: 44px; height: 44px; }
+  .grading-calendar-grid, .grading-calendar-weekdays {
+    grid-template-columns: repeat(7, minmax(44px, 1fr));
+  }
+  .grading-calendar-day { min-width: 44px; min-height: 44px; }
+
+  @media (min-width: 1401px) {
+    .nav-container {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      overflow: visible;
+    }
+    .member-tools .container { max-width: 1440px; padding-inline: 3rem; }
+  }
+
+  @media (max-width: 1400px) {
+    // The legacy drawer declares these properties important at this same breakpoint.
+    .member-tools { background: $navy !important; border-bottom-color: $rule !important; }
+    .nav-container {
+      background: $navy !important;
+      box-shadow: -8px 0 28px #020d1e66 !important;
+      visibility: hidden;
+      overscroll-behavior: contain;
+      &.active { visibility: visible; }
+    }
+    .nav-button {
+      border-bottom-color: $rule !important;
+      &:hover { background: $surface !important; }
+      &.active { background: $blue !important; }
+    }
+    .nav-close {
+      display: grid !important;
+      position: absolute;
+      top: .75rem;
+      right: .75rem;
+      place-items: center;
+      min-width: 44px;
+      background: $surface;
+      border: 1px solid $rule;
+      border-radius: 3px;
+      color: $ink;
+      font-size: 1.5rem;
+    }
+    .hamburger { width: 44px; height: 44px; padding: 7px 6px; }
+    .hamburger.active { z-index: 0; }
+    .hamburger span { height: 3px; border-radius: 0; }
+  }
+
+  @media (max-width: 640px) {
+    .member-toolbar { padding-block: 1rem; }
+    .header-content { gap: .75rem 1rem; }
+    .member-brand {
+      flex-basis: 100%;
+      gap: .75rem;
+      img { width: 52px; height: 52px; }
+    }
+    .member-site-link { margin-right: auto; }
+    .user-menu { min-width: 0; }
+    .user-menu-name { max-width: 8rem; }
+    main { padding-top: 1rem; }
+    .progress-dashboard .dashboard-card { padding: 1.25rem; }
+    .training-action-panel { padding: 1.25rem; }
+    .training-action-buttons { justify-content: flex-start; }
+    .training-action-btn { white-space: normal; text-align: center; }
+    .collapsible-header { padding: 1rem; }
+    .collapsible-content { padding-inline: 1rem; }
+    .grading-set-card .grading-save-btn { justify-self: start; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    // Include pseudo-elements and important legacy drawer transitions.
+    &, *, *::before, *::after {
+      animation: none !important;
+      transition: none !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+// The app is a website page with an open right-hand menu, not a second masthead.
+body.wp-hosted {
+  background: #f3f2ef;
+  color: $navy;
+  main { background: #f3f2ef; padding-block: 0 3rem; }
+  main .member-page.container { width: min(1120px, 92vw); max-width: none; padding: 0; margin-inline: auto; }
+  .member-layout { display: grid; gap: 2rem; }
+  .member-content { min-width: 0; padding-top: 1rem; }
+  .member-rail { min-width: 0; background: #e8eff6; padding: 1rem; border-top: 3px solid $blue; align-self: start; }
+  .member-tools {
+    position: static; top: auto; z-index: auto;
+    background: transparent !important; border: 0 !important; box-shadow: none; backdrop-filter: none;
+    padding: 0; margin: 0;
+    .container { display: block !important; width: 100%; max-width: none; padding: 0 !important; overflow: visible; }
+    &__heading { margin: 0 0 .75rem; font-family: $heading-font; font-size: 1.4rem; color: $navy; }
+    &__heading span { margin-left: .5rem; font: 400 .85rem $body-font; color: #465b70; }
+    // Override the legacy fixed drawer at all sizes; tools remain visible.
+    .nav-container {
+      display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr));
+      position: static !important; width: 100% !important; height: auto !important;
+      min-height: 0 !important; max-height: none !important; padding: 0 !important;
+      transform: none !important; visibility: visible !important; overflow: visible !important;
+      background: transparent !important; box-shadow: none !important; gap: .15rem;
+    }
+    .nav-button {
+      width: 100%; min-height: 44px; margin: 0; padding: .5rem .65rem;
+      text-align: left; font-size: .95rem !important; line-height: 1.3;
+      color: #465b70 !important; background: transparent; white-space: normal;
+      border: 0 !important; border-left: 3px solid transparent !important;
+      &:hover { background: #d7e3ef !important; }
+      &.active { background: $blue !important; border-left-color: $blue !important; color: #fff !important; }
+    }
+  }
+  .next-class-widget {
+    background: transparent; border: 0; border-top: 1px solid #bdcbd9;
+    color: #465b70; margin: 1rem 0 0; padding: 1rem 0 0;
+    .container { width: 100%; max-width: none; padding: 0; }
+    .next-class-info { display: block; text-align: left; }
+    .next-class-container { justify-content: flex-start; min-height: 0; }
+    .next-class-title { display: block; color: $navy; font-size: .9rem; }
+    .next-class-value { color: #465b70; font-size: .9rem; }
+  }
+  #home-tab .intro-card { background: transparent; border: 0; margin-top: 0; padding: 0 0 1rem; }
+  #home-tab .intro-card h1 { color: $navy; font-size: clamp(2rem, 4vw, 3rem); margin: 0 0 .5rem; }
+  #home-tab .intro-description { margin-top: 0; }
+  .tab-content:not(#home-tab):not(.member-tool-page) > .card { background: $navy; color: $ink; padding: clamp(1.25rem, 4vw, 2rem); }
+  .req-chip { background: #e8eff6; border-color: #cbd6e2; color: $navy; }
+
+  @media (min-width: 980px) {
+    .member-layout { grid-template-columns: minmax(0, 1fr) 230px; gap: 2.5rem; align-items: start; }
+    .member-content { grid-column: 1; grid-row: 1; padding-top: 2.5rem; }
+    .member-rail { grid-column: 2; grid-row: 1; padding: 1.25rem .75rem; position: static; }
+    .member-tools .nav-container { grid-template-columns: 1fr; }
+    .member-tools__heading span { display: block; margin: .25rem 0 0; }
+    .progress-dashboard { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 979px) {
+    .member-rail { padding: .85rem; }
+  }
+}
+body.wp-hosted {
+  @media (min-width: 980px) {
+    // Hidden overflow on an ancestor creates a non-scrolling sticky container.
+    & { overflow-x: clip !important; }
+    #member-main { overflow-x: clip; overflow-y: visible; }
+    .member-rail {
+      position: sticky;
+      top: 83px;
+      max-height: calc(100dvh - 83px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+    }
+  }
+}
+// These requirement links sit on the paper page rather than a dark training panel.
+body.wp-hosted #belt-content {
+  .req-label { color: #465b70; }
+  .req-chip, .req-chip span { color: $navy; }
+  .req-chip:hover { background: #d7e3ef; border-color: $blue; }
+}
+
+// Selected-belt progress belongs to the same panel as its training actions.
+body.wp-hosted .training-action-panel {
+  border-radius: 3px;
+  .training-progress { grid-column: 1 / -1; min-width: 0; }
+  .progress-summary {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    width: 100%;
+    margin: 1rem 0 0;
+    padding: 1rem 0 0;
+    background: transparent;
+    border: 0;
+    border-top: 1px solid $rule;
+    border-radius: 0;
+  }
+  .training-progress__row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: .4rem 1rem;
+    width: 100%;
+  }
+}
+
+@include member-surfaces.apply;
+
+body.wp-hosted .journey-belt-picker {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: .5rem 1rem;
+  margin-block: 1.25rem;
+  color: #f4f7fb;
+  label { font-weight: 600; font-size: 1rem; }
+  output { font-size: .95rem; }
+  input[type='range'] {
+    grid-column: 1 / -1;
+    appearance: none;
+    width: 100%; height: 44px; margin: 0;
+    background: transparent; cursor: pointer; accent-color: #fff;
+    &::-webkit-slider-runnable-track {
+      height: 10px; border-radius: 999px;
+      background: linear-gradient(to right, #dc2626, #fbbf24 9%, #f97316 18%, #059669 27%, #2563eb 36%, #7c3aed 45%, #92400e 55%, #78350f 64%, #451a03 73%, #1f2937 82%, #111827 91%, #000);
+    }
+    &::-moz-range-track {
+      height: 10px; border-radius: 999px;
+      background: linear-gradient(to right, #dc2626, #fbbf24 9%, #f97316 18%, #059669 27%, #2563eb 36%, #7c3aed 45%, #92400e 55%, #78350f 64%, #451a03 73%, #1f2937 82%, #111827 91%, #000);
+    }
+    &::-webkit-slider-thumb { appearance: none; width: 24px; height: 24px; margin-top: -7px; border-radius: 50%; background: #fff; border: 3px solid #073f78; box-shadow: 0 0 0 2px #b9d7f4; }
+    &::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 3px solid #073f78; box-shadow: 0 0 0 2px #b9d7f4; }
+  }
+  .journey-belt-ends { grid-column: 1 / -1; display: flex; justify-content: space-between; font-size: .8rem; color: #c7d8e9; margin-top: -.5rem; }
+  #journey-belt-help { grid-column: 1 / -1; color: #d4e3f2; font-size: .85rem; line-height: 1.5; margin: .25rem 0 0; }
+  @media (max-width: 640px) { grid-template-columns: 1fr; output { grid-column: 1; } }
+}
+
+body.wp-hosted {
+  .grading-pass-status { background: #e5f3ec; color: #185334; border-left: 3px solid #478562; border-radius: 9px; padding: .9rem 1.1rem; margin: 0 0 1rem; }
+  .grading-pass-status[hidden] { display: none; }
+  #belt-content .grading-next-btn { margin-top: 1rem; background: #073f78; color: #fff; border-color: #073f78; }
+}
+
+// Optional grading tools belong with the dates in the rail, not the daily syllabus.
+body.wp-hosted .member-grading {
+  margin: 1rem 0 0;
+  padding: .5rem 0 0;
+  border: 0;
+  border-top: 1px solid #bdcbd9;
+  background: transparent;
+  color: $navy;
+
+  > summary {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: .5rem; min-height: 44px; padding: .4rem 0;
+    font: 700 .95rem / 1.4 $body-font; color: $navy;
+    list-style: none; cursor: pointer;
+    &::-webkit-details-marker { display: none; }
+    &::after { content: none; }
+    &:focus-visible { outline: 2px solid $blue; outline-offset: 3px; }
+    svg { flex: 0 0 16px; }
+  }
+  &[open] > summary svg { transform: rotate(180deg); }
+  &__content { padding-top: .5rem; }
+  .dashboard-card {
+    margin: 0; padding: 0; border: 0; border-radius: 0;
+    background: transparent; box-shadow: none; color: $navy;
+    &::before, &::after { content: none; }
+  }
+  .dashboard-header { display: none; }
+  .grading-content { display: block; }
+  .grading-ring { width: auto; height: auto; margin: 0 0 .5rem; padding-right: 44px; }
+  .grading-ring svg { display: none; }
+  .grading-ring-text { position: static; transform: none; display: flex; align-items: baseline; gap: .3rem; }
+  .grading-ring-days, .grading-ring-label { color: $navy; font-size: 1rem; text-shadow: none; }
+  .grading-info, .grading-date-text, .grading-prompt, .grading-motivation { color: #40566e; text-align: left; font-size: .9rem; }
+  .grading-motivation { padding: 0; background: transparent; margin-top: .5rem; }
+  .grading-date-controls { grid-template-columns: minmax(0, 1fr); width: 100%; gap: .5rem; }
+  .grading-input-new { min-width: 0; width: 100%; background: #fafbfd; border-color: #a8bacb; color: $navy; font-size: 16px; }
+  .grading-input-new::placeholder { color: #52677c; opacity: 1; }
+  .grading-save-btn { min-height: 44px; width: 100%; background: $blue; color: #fff; border-color: $blue; }
+  .grading-x-btn { top: 0; right: 0; width: 44px; height: 44px; background: transparent; color: $navy; }
+}
+body.wp-hosted .progress-dashboard { grid-template-columns: minmax(0, 1fr); }
+
+@include member-polish.apply;
+
+// Keep the dashboard distinct from the syllabus reference, within the shared shell.
+body.wp-hosted {
+  .member-tools .nav-button[data-tab='home'] { margin-bottom: .35rem; }
+  .member-syllabus-heading {
+    .member-kicker { color: $blue; font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+    margin-bottom: 1.5rem;
+    h1 { @include heading; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; margin: .5rem 0 1rem; color: $navy; }
+    p { max-width: 58ch; color: #40566e; }
+    label { display: block; margin: 1.5rem 0 .5rem; font-weight: 600; color: $navy; }
+    select { width: min(100%, 360px); min-height: 48px; padding: .65rem .9rem; border: 1px solid #9bb4cb; border-radius: 8px; background: #fafbfd; color: $navy; font: 400 1rem $body-font; }
+  }
+  .member-home-links {
+    margin-top: 2rem; border-top: 1px solid #bdcede;
+    button {
+      display: grid; gap: .35rem; padding: 1.1rem 0; width: 100%; min-height: 64px;
+      text-align: left; color: $navy; background: transparent; border: 0; border-bottom: 1px solid #bdcede;
+      font: 400 1rem / 1.5 $body-font; cursor: pointer;
+      strong { font-weight: 600; }
+      > span { display: flex; justify-content: space-between; gap: 1rem; font-size: .95rem; color: #40566e; }
+      &:hover strong { text-decoration: underline; text-underline-offset: .2em; }
+    }
+  }
+  @media (max-width: 979px) {
+    .member-tools .nav-button:is([data-tab='home'], [data-tab='search']) { grid-column: 1 / -1; flex-direction: row; min-height: 44px; justify-content: flex-start; padding-inline: .75rem; border-bottom: 1px solid #cbd7e3 !important; border-radius: 8px; }
+  }
+}
+
+@include member-tools.apply;

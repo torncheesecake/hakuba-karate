@@ -1,0 +1,156 @@
+@use './mixins' as m;
+
+// Native WordPress integration only; the approved React reference stays unchanged.
+.hakuba-wordpress {
+  [hidden] { display: none !important; }
+  .public-header nav { display: flex; flex-wrap: wrap; align-items: center; gap: 1.1rem; }
+  .public-header .nav-toggle { display: none; }
+  .club-post { max-width: 850px; margin-inline: auto; }
+  .club-post h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); }
+  .club-post__body { max-width: 68ch; margin-block: 2rem; }
+  .club-post > img { width: 100%; height: auto; }
+  .contact-form-panel fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: .7rem; }
+  .contact-form-panel fieldset legend { margin-bottom: 1rem; font-weight: 600; }
+  .contact-form-panel :disabled { cursor: not-allowed; }
+  .venue-photo-pending { min-height: 12rem; padding: 2rem; background: #e8eff6; display: grid; place-items: center; color: #465b70; }
+  .news-band__list article { display: block; }
+  .news-band__list article > img { display: block; width: 100%; max-height: 32rem; object-fit: contain; object-position: left; margin-block: 1.5rem; }
+  .news-band__list h3 { margin-block: 1rem; }
+  .wp-block-gallery, .wp-block-image { max-width: 100%; }
+}
+
+@media (max-width: 979px) {
+  .hakuba-wordpress .public-header .site-header__inner { display: block; }
+  .hakuba-wordpress .public-header .nav-toggle:not([hidden]) { display: flex; }
+  .hakuba-wordpress .public-header nav { display: block; margin-top: 1rem; }
+  .hakuba-js .hakuba-wordpress .public-header nav:not(.open) { display: none; }
+}
+.hakuba-wordpress.admin-bar .public-header { top: 32px; }
+@media (max-width: 782px) { .hakuba-wordpress.admin-bar .public-header { top: 46px; } }
+
+.hakuba-wordpress {
+  .contact-form-panel {
+    fieldset { min-width: 0; gap: 1.25rem; }
+    .contact-fields { margin: 0; }
+    .contact-field label { line-height: 1.35; }
+    .contact-consent { font-weight: 400; line-height: 1.5; }
+    .contact-submit {
+      min-height: 48px;
+      border: 1px solid #bdcede;
+      padding: .75rem 1rem;
+      background: #e8eff6;
+      color: #465b70;
+      font: 600 1rem / 1.4 'Source Sans 3', sans-serif;
+      opacity: 1;
+    }
+    > .editorial-link { justify-self: start; }
+  }
+  .news-pagination {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-block: 1.5rem;
+    .page-numbers {
+      min-width: 44px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: .5rem .8rem;
+      border: 1px solid var(--line);
+      font-weight: 600;
+      text-decoration: none;
+      &.current { color: #fff; background: var(--dojo-blue); border-color: var(--dojo-blue); }
+    }
+  }
+}
+
+.hakuba-wordpress .news-post-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  min-height: 44px;
+  line-height: 1.4;
+  .news-post-link__arrow { flex: 0 0 auto; }
+}
+.hakuba-wordpress .contact-form-panel > .contact-email { justify-self: start; }
+
+// Photographic pathways: distinct entrances with shared, accessible structure.
+.hakuba-wordpress .hakuba-home {
+  .dojo-pathways {
+    .public-section-heading { align-items: end; }
+    &__grid { display: grid; gap: 2rem; }
+    &__start { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem 2rem; border-top: 1px solid var(--rule); margin-top: 1.5rem; padding-top: 1.5rem; }
+    &__start p { margin: 0; max-width: 58ch; font-size: .95rem; }
+    &__start strong { color: var(--dojo-navy); }
+  }
+  .dojo-pathway {
+    --public-focus: var(--dojo-blue);
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: transparent;
+    color: var(--dojo-navy);
+    &__image {
+      position: relative; isolation: isolate; display: grid; align-items: end;
+      align-self: stretch; order: 0; min-height: 29rem; background: var(--dojo-navy);
+      text-decoration: none; color: #fff; overflow: hidden;
+      &::after { content: ''; position: absolute; z-index: -1; inset: 0; background: linear-gradient(180deg, transparent 30%, #071b3240 46%, #071b32e8 77%, #071b32 100%); }
+      &:focus-visible { outline-offset: 5px; }
+      &:hover .dojo-pathway__action { border-color: #fff; }
+      img { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; object-fit: cover; object-position: center 20%; }
+    }
+    &--juniors .dojo-pathway__image img { height: 66%; object-position: center 70%; }
+    &__overlay { padding: 1.6rem; }
+    &__overlay h3 { color: #fff; font-size: clamp(2rem, 3.2vw, 3rem); line-height: 1.08; margin: .7rem 0 1.2rem; text-wrap: balance; }
+    &__label { color: #c4dcf8; font-size: .72rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; margin: 0; }
+    &__action { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-top: 1rem; border-top: 1px solid #ffffff55; font-weight: 600; font-size: .95rem; min-height: 44px; }
+    &__action svg { flex: 0 0 auto; }
+    &__copy { align-self: stretch; padding: 1.25rem 0 0; border: 0; }
+    &__copy p { color: var(--quiet); margin: 0 0 .8rem; max-width: 48ch; font-size: 1rem; }
+    &__copy .dojo-pathway__reassurance { color: var(--dojo-navy); font-size: .85rem; padding-left: .75rem; border-left: 2px solid var(--dojo-blue); }
+    @include m.respond(sm) { &__image { min-height: 32rem; } }
+    @include m.respond(lg) { &__image { min-height: 35rem; } &__overlay { padding: 2rem; } }
+  }
+  .dojo-teachers {
+    li { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; gap: .9rem; }
+    strong { font-size: clamp(1.2rem, 2vw, 1.5rem); }
+    &__portrait { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; object-position: center 16%; border: 1px solid #a7c9ef; }
+    &__portrait--initials { display: grid; place-items: center; background: #ffffff0d; color: #c4dcf8; font: 500 1.3rem 'Oswald', sans-serif; letter-spacing: .05em; }
+    &__grade { font-size: .75rem; padding-inline: .4rem; }
+  }
+  @include m.respond(sm) {
+    .dojo-pathways__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2rem, 4vw, 4rem); }
+  }
+  @media (max-width: 399px) {
+    .dojo-teachers {
+      li { grid-template-columns: 52px minmax(0, 1fr); }
+      &__portrait { width: 52px; height: 52px; }
+      &__grade { grid-column: 2; justify-self: start; margin-top: -.35rem; }
+    }
+  }
+}
+
+// Practical first-visit facts, without introducing another row of cards.
+.hakuba-wordpress {
+  .first-visit-facts {
+    display: grid;
+    gap: 0;
+    margin-block: 0;
+    padding-block: 1.5rem;
+    border-bottom: 1px solid var(--line);
+    > div { padding-block: 1rem; }
+    > div + div { border-top: 1px solid var(--line); }
+    dt { color: var(--dojo-navy); font-weight: 700; font-size: 1.1rem; }
+    dd { margin: .35rem 0 0; color: var(--quiet); }
+    @include m.respond(sm) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+      > div + div { border-top: 0; border-left: 1px solid var(--line); padding-left: 1.5rem; }
+    }
+  }
+  .editorial-split__image figcaption { margin-top: .75rem; color: var(--quiet); font-size: .85rem; }
+  #class-times { scroll-margin-top: 7rem; }
+  .editorial-page :is(h1, h2, h3) { text-wrap: balance; }
+  .editorial-page p { text-wrap: pretty; }
+}

@@ -1,0 +1,9 @@
+.enquiry-mode { padding: 1rem; border-left: 3px solid var(--dojo-blue); background: var(--dojo-light); color: var(--dojo-navy); }
+.enquiry-error { color: #9c2727; font-weight: 600; }
+.enquiry-honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.contact-submit:disabled, .member-access button:disabled { opacity: .65; cursor: not-allowed; }
+.member-access {
+  scroll-margin-top: 7rem;
+  p { max-width: 45ch; font-size: .95rem; }
+  [role='status']:empty { display: none; }
+}

@@ -1,0 +1,202 @@
+#hakuba-site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid #31465e;
+  background: #071b32;
+  color: #fff;
+  font: 400 16px / 1.65 'Source Sans 3', sans-serif;
+  text-align: left;
+  backdrop-filter: none;
+
+  &, *, *::before, *::after { box-sizing: border-box; }
+
+  .container.site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    width: min(1120px, 92vw);
+    max-width: none;
+    margin: 0 auto;
+    padding: 13.6px 0;
+  }
+
+  .site-header__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12.8px;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12.8px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    font: 700 18.4px / 1.65 'Source Sans 3', sans-serif;
+    letter-spacing: normal;
+    text-decoration: none;
+    text-transform: none;
+  }
+
+  .brand__logo {
+    display: block;
+    flex: 0 0 54px;
+    width: 54px;
+    height: 54px;
+    max-width: none;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    object-fit: contain;
+  }
+
+  .brand small {
+    display: block;
+    color: #aeb7b9;
+    font: 700 9.6px / 1.65 'Source Sans 3', sans-serif;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+  }
+
+  .nav-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    margin: 0;
+    padding: 6.4px 11.2px;
+    border: 1px solid #6c7579;
+    border-radius: 0;
+    background: transparent;
+    color: #fff;
+    font: inherit;
+    letter-spacing: normal;
+    text-transform: none;
+    box-shadow: none;
+    cursor: pointer;
+
+    svg { display: block; flex: 0 0 20px; width: 20px; height: 20px; }
+  }
+
+  nav#main-nav {
+    position: static;
+    inset: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 17.6px;
+    width: auto;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+
+    a {
+      display: block;
+      margin: 0;
+      padding: 8px 0;
+      border: 0;
+      border-bottom: 2px solid transparent;
+      border-radius: 0;
+      background: transparent;
+      color: #fff;
+      font: 400 14.4px / 1.65 'Source Sans 3', sans-serif;
+      letter-spacing: normal;
+      text-decoration: none;
+      text-transform: none;
+      box-shadow: none;
+    }
+
+    a.active { border-bottom-color: #a7c9ef; }
+    a.public-nav-trial { padding: 8px 13.6px; background: #073f78; }
+  }
+
+  a:focus-visible, .nav-toggle:focus-visible {
+    outline: 2px solid #a7c9ef;
+    outline-offset: 4px;
+  }
+}
+
+.admin-bar #hakuba-site-header { top: 32px; }
+
+@media (max-width: 979px) {
+  #hakuba-site-header {
+    .container.site-header__inner { display: block; }
+    .nav-toggle:not([hidden]) { display: flex; }
+
+    nav#main-nav {
+      display: block;
+      margin-top: 16px;
+
+      a { min-height: 44px; border-top: 1px solid #31465e; }
+    }
+  }
+
+  html.hakuba-js #hakuba-site-header nav#main-nav:not(.open) { display: none; }
+}
+
+@media (max-width: 782px) {
+  .admin-bar #hakuba-site-header { top: 46px; }
+}
+
+// The website and protected app share account geometry at every breakpoint.
+#hakuba-site-header {
+  .container.site-header__inner { gap: 16px; }
+  .brand { white-space: nowrap; }
+  nav#main-nav { gap: 12.8px; margin-left: auto; }
+  #member-account-slot { flex-shrink: 0; }
+  .site-account {
+    position: relative; margin: 0; padding: 0; border: 0; background: transparent; color: #fff;
+    summary {
+      display: flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px; padding: 0; border: 1px solid #52708b;
+      border-radius: 50%; background: transparent; color: #fff;
+      list-style: none; cursor: pointer;
+      &::-webkit-details-marker { display: none; }
+      &::after { content: none; }
+      svg { display: block; }
+      &:focus-visible { outline: 2px solid #a7c9ef; outline-offset: 4px; }
+    }
+    &__panel {
+      position: absolute; z-index: 30; top: calc(100% + 12px); right: 0;
+      width: 260px; max-width: 90vw; padding: 12px; border: 1px solid #31465e;
+      border-radius: 12px; background: #071b32; box-shadow: 0 12px 32px #0003;
+      text-align: left;
+      a, button {
+        display: block; width: 100%; min-height: 44px; padding: 10px 12px;
+        margin: 0; border: 0; border-radius: 6px; background: transparent;
+        color: #fff; font: 400 15px / 1.5 'Source Sans 3', sans-serif;
+        text-align: left; text-decoration: none; cursor: pointer;
+        &:hover { background: #153753; }
+        &:focus-visible { outline: 2px solid #a7c9ef; }
+      }
+    }
+    &__name { margin: 0 0 8px; padding: 8px 12px; border-bottom: 1px solid #31465e; font: 600 15px / 1.5 'Source Sans 3', sans-serif; color: #a7c9ef; overflow-wrap: anywhere; }
+  }
+}
+@media (max-width: 979px) {
+  #hakuba-site-header {
+    .container.site-header__inner { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px; }
+    .site-header__bar { display: contents; }
+    .brand { grid-column: 1; grid-row: 1; gap: 8px; font-size: 16px; }
+    .brand__logo { width: 44px; height: 44px; flex-basis: 44px; }
+    .brand small { font-size: 7.2px; }
+    .nav-toggle { grid-column: 2; grid-row: 1; padding-inline: 8px; }
+    #member-account-slot { grid-column: 3; grid-row: 1; }
+    nav#main-nav { grid-column: 1 / -1; grid-row: 2; width: 100%; margin: 0; }
+  }
+}

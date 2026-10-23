@@ -1,0 +1,87 @@
+@use './mixins' as m;
+
+.resource-hero {
+  padding-block: clamp(2rem, 4vw, 3rem);
+  background: #e8eff6;
+  h1 { font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.05; margin: 0 0 1.5rem; text-wrap: balance; }
+  p { max-width: 58ch; }
+  nav { display: flex; flex-wrap: wrap; gap: .25rem 2rem; margin-top: 1.5rem; }
+  nav a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; text-underline-offset: .3em; }
+}
+.syllabus-library {
+  scroll-margin-top: 110px;
+  padding-block: 0 2rem;
+  &__intro { display: grid; gap: .75rem 3rem; align-items: start; }
+  &__note { font-size: .95rem; color: #465d72; padding-left: 1rem; border-left: 3px solid #a7c9ef; margin-bottom: 2rem; }
+  &__list { border-top: 1px solid #bdcede; }
+  @include m.respond(md) { &__intro { grid-template-columns: 1fr 1fr; } }
+}
+.syllabus-reader {
+  --belt: #b73535;
+  border-bottom: 1px solid #bdcede;
+  scroll-margin-top: 100px;
+  summary {
+    display: grid; grid-template-columns: 8px 6rem 1fr; gap: .5rem 1rem;
+    align-items: center; min-height: 80px; padding: 1rem .5rem;
+    cursor: pointer; list-style: none;
+    &::-webkit-details-marker { display: none; }
+    &:hover { background: #e8eff6; }
+    &:focus-visible { outline: 3px solid #073f78; outline-offset: 3px; }
+    strong { font-size: 1.1rem; }
+  }
+  &__belt { width: 8px; height: 32px; background: var(--belt); grid-row: span 2; }
+  &__action { grid-column: 2 / -1; font-size: .85rem; color: #465d72; display: flex; justify-content: space-between; gap: 1rem; }
+  &[open] > summary { background: #e8eff6; }
+  &[open] .syllabus-reader__action > span { transform: rotate(45deg); }
+  &__body {
+    background: #fff; padding: clamp(1.25rem, 4vw, 3rem); border-top: 1px solid #bdcede;
+    header { padding-bottom: 1.5rem; }
+    h3 { font-size: clamp(1.6rem, 3vw, 2.25rem); margin: .5rem 0; }
+    footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #dce4ec; font-size: .9rem; color: #465d72; }
+    p { line-height: 1.75; overflow-wrap: anywhere; }
+    a { text-underline-offset: .25em; }
+  }
+  &__section {
+    border-top: 1px solid #dce4ec; padding-block: 1.25rem; display: grid; gap: .5rem 2rem;
+    h4 { font: 600 1rem/1.5 'Source Sans 3', sans-serif; margin: 0; overflow-wrap: anywhere; }
+    p { margin: 0 0 .8rem; }
+  }
+  &--8th-kyu { --belt: #d0a400; }
+  &--7th-kyu { --belt: #c75c0a; }
+  &--6th-kyu { --belt: #267447; }
+  &--5th-kyu { --belt: #215eac; }
+  &--4th-kyu { --belt: #7252a0; }
+  &--3rd-kyu { --belt: #785039; }
+  &--2nd-kyu { --belt: linear-gradient(90deg, #785039 35%, #fff 35%, #fff 65%, #785039 65%); }
+  &--1st-kyu { --belt: linear-gradient(90deg, #785039 35%, #101820 35%, #101820 65%, #785039 65%); }
+  &--shodan { --belt: #101820; }
+  @include m.respond(sm) {
+    summary { grid-template-columns: 8px 7rem 1fr auto; gap: 1.5rem; }
+    &__belt { grid-row: auto; }
+    &__action { grid-column: auto; gap: 1.5rem; }
+    &__section { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+  }
+}
+.resource-app {
+  background: #0b2744; color: #fff; padding-block: clamp(3rem, 6vw, 5rem); scroll-margin-top: 90px;
+  &__inner { display: grid; gap: 2.5rem; align-items: center; }
+  .kicker { color: #a7c9ef; }
+  h2 { color: #fff; }
+  p, li { color: #d0ddeb; }
+  ul { padding-left: 1.2rem; }
+  li { padding: .5rem 0; }
+  figure { margin: 0; }
+  img { display: block; width: 100%; height: auto; border: 1px solid #58738c; }
+  figcaption { margin-top: .75rem; font-size: .85rem; color: #becfe0; }
+  .member-access { margin-top: 1.75rem; }
+  .member-access .cta-button { background: #fff; color: #071b32; border-color: #fff; }
+  .member-access a { color: #fff; }
+  .member-access p { font-size: .95rem; }
+  :is(a, button):focus-visible { outline-color: #fff; }
+  &__note { font-size: .9rem; margin-top: 1.5rem; }
+  @include m.respond(md) { &__inner { grid-template-columns: 1fr 1fr; gap: 3.5rem; } }
+}
+.resource-reference {
+  display: grid; gap: 2rem 4rem; padding-block: clamp(3rem, 6vw, 5rem); scroll-margin-top: 100px;
+  @include m.respond(md) { grid-template-columns: 1fr 1fr; }
+}

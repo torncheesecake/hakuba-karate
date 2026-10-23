@@ -1,0 +1,250 @@
+@use './mixins' as m;
+
+// The public shells own their palette; CRM and the standalone member app do not.
+.public-home, .editorial-page, .public-header, .public-footer {
+  --dojo-blue: #073f78;
+  --dojo-navy: #071b32;
+  --dojo-light: #e8eff6;
+  --accent: var(--dojo-blue);
+  --accent-dark: #062e58;
+  --navy: var(--dojo-navy);
+  --text: var(--dojo-navy);
+  --line: #cbd6e2;
+  --ink: var(--dojo-navy);
+  --quiet: #465b70;
+  --rule: #cbd6e2;
+  --red: var(--dojo-blue);
+  --paper: #f9fafb;
+}
+
+.public-header {
+  background: var(--dojo-navy);
+  border-bottom-color: #31465e;
+  .brand__logo { width: 54px; height: 54px; }
+  nav a { border-top-color: #31465e; }
+  nav a.active { border-bottom-color: #a7c9ef; }
+  @include m.respond(lg) { nav .public-nav-trial { background: var(--dojo-blue); } }
+}
+
+.hakuba-home {
+  h2 { font-size: clamp(2.65rem, 4.6vw, 4.25rem); }
+  h2 span { color: var(--dojo-blue); }
+  .public-eyebrow { color: var(--dojo-blue); }
+  .public-text-link { gap: .75rem; }
+  .public-text-link svg { flex: 0 0 auto; }
+  .public-section { padding-block: clamp(3.5rem, 7vw, 6rem); }
+}
+
+.hakuba-hero {
+  --public-focus: #fff;
+  background: var(--dojo-navy);
+  color: #fff;
+  position: relative;
+  isolation: isolate;
+  &__image { position: absolute; inset: 0; z-index: auto; }
+  &__image img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 60% center; }
+  &::after { content: ''; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, #071b32f5 0%, #071b32b8 40%, #071b3220 78%), linear-gradient(0deg, #071b32e6, transparent 60%); }
+  &__inner { position: relative; display: grid; min-height: 720px; padding-block: 1.5rem 4.5rem; }
+  &__rail { display: flex; flex-wrap: wrap; gap: .5rem 2rem; justify-content: space-between; align-self: start; border-bottom: 1px solid #ffffff4d; padding-bottom: 1rem; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; }
+  &__copy { align-self: end; padding-top: 3.5rem; }
+  .public-eyebrow { color: #c4dcf8; }
+  h1 { font-size: clamp(5.75rem, 9vw, 8.5rem); line-height: .98; letter-spacing: -.035em; margin-bottom: 1.75rem; }
+  h1 span { color: #c4dcf8; }
+  &__copy > p:not(.public-eyebrow) { color: #ecf1f7; max-width: 34ch; font-size: 1.18rem; }
+  .cta-button { background: #fff; border-color: #fff; color: var(--dojo-navy); }
+  .cta-button:hover { background: #d9e8f7; border-color: #d9e8f7; }
+  .public-text-link, .public-text-link svg { color: #fff; }
+  .public-text-link:hover { color: #c4dcf8; }
+  &__note { color: #fff !important; font-size: .9rem; margin: 1.5rem 0 0; border-left: 2px solid #b52c2b; padding-left: 1rem; }
+  figcaption { position: absolute; z-index: 2; inset: auto 4vw 1rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 2rem; color: #e1eaf4; font-size: .67rem; letter-spacing: .06em; text-transform: uppercase; }
+  figcaption a { color: #fff; display: inline-flex; align-items: center; gap: .5rem; text-underline-offset: .3em; }
+  @include m.respond(md) {
+    &__inner { min-height: 690px; grid-template-columns: 1.5fr 1fr; }
+    &__rail { grid-column: 1 / -1; }
+    &__note { align-self: end; justify-self: end; text-align: left; margin-bottom: .5rem; }
+    figcaption { inset-inline: max(4vw, calc((100vw - 1120px) / 2)); }
+  }
+  @media (max-width: 699px) {
+    &__inner { min-height: 760px; padding-top: 1rem; }
+    &__image img { object-position: 67% center; }
+    &::after { background: linear-gradient(0deg, #071b32 2%, #071b32eb 30%, #071b3266 75%, #071b3255); }
+    &__copy { padding-top: 14rem; }
+    h1 { font-size: clamp(5rem, 22vw, 8rem); }
+    .button-row { gap: .5rem 1.5rem; }
+  }
+}
+
+.dojo-start {
+  display: block;
+  background: var(--dojo-blue);
+  --public-focus: #fff;
+  color: #fff;
+  &__inner { display: grid; grid-template-columns: minmax(0, 1fr); }
+  p { color: #d3e3f7; margin: 0; padding-block: 1.75rem; line-height: 1.4; font-size: .95rem; }
+  p strong { color: #fff; font-weight: 600; }
+  .public-eyebrow { display: block; color: #bfd8f5; margin-bottom: .65rem; }
+  a { color: #fff; position: relative; display: grid; padding: 1.25rem 2.5rem 1.25rem 0; text-decoration: none; border-top: 1px solid #ffffff40; }
+  a > span { color: #bfd8f5; text-transform: uppercase; font-size: .68rem; letter-spacing: .09em; }
+  a > strong { font: 500 1.65rem 'Oswald', sans-serif; }
+  a > svg { position: absolute; right: 0; top: 50%; transform: translateY(-50%); }
+  a:hover { background: #ffffff0a; }
+  @include m.respond(md) {
+    &__inner { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    p { padding-right: 1.5rem; }
+    a { border-top: 0; border-left: 1px solid #ffffff40; padding: 2rem 3rem 2rem 1.5rem; align-content: center; }
+    a > svg { right: .5rem; width: 20px; }
+  }
+}
+
+.dojo-opening {
+  display: grid;
+  gap: 1rem 3rem;
+  align-items: center;
+  border-bottom: 1px solid var(--rule);
+  h2 { margin-bottom: 0; }
+  p:not(.public-eyebrow) { max-width: 56ch; font-size: 1.15rem; }
+  p.dojo-opening__detail { font-size: .95rem; }
+  @include m.respond(sm) { grid-template-columns: 1fr 1.25fr; }
+}
+
+.dojo-pathways {
+  &__grid { display: grid; gap: 2.5rem; }
+  .public-section-heading > p { margin: 0; }
+}
+.dojo-pathway {
+  background: #e8eff6;
+  &__image { position: relative; display: block; overflow: hidden; }
+  &__image img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: center 25%; }
+  &__image > span { position: absolute; inset: auto 0 0; display: flex; align-items: center; justify-content: space-between; padding: .9rem 1.25rem; color: #fff; background: #071b32e6; font-size: .85rem; }
+  &__copy { padding: 1.75rem; }
+  h3 { font-size: clamp(2rem, 3.2vw, 3rem); line-height: 1.08; }
+  p { max-width: 43ch; }
+  &--adult { background: #071b32; color: #fff; --public-focus: #fff; }
+  &--adult p { color: #c6d8ea; }
+  &--adult .public-text-link, &--adult .public-text-link svg { color: #fff; }
+  &--adult .public-text-link:hover { color: #a7c9ef; }
+  @include m.respond(sm) { display: grid; grid-template-columns: .85fr 1fr; &__image img { height: 100%; aspect-ratio: 3 / 4; } &__copy { align-self: center; padding: 2rem; } }
+  @include m.respond(lg) { &__copy { padding: 3rem; } &--adult { grid-template-columns: 1fr .85fr; } &--adult &__image { order: 2; } }
+}
+
+.dojo-tradition {
+  --public-focus: #fff;
+  background: radial-gradient(ellipse at 100% 10%, #144b7c 0, transparent 55%), #071b32;
+  color: #fff;
+  &__inner { display: grid; gap: 2rem; padding-block: clamp(3.5rem, 7vw, 6rem); }
+  .public-eyebrow { color: #a7c9ef; }
+  h2 { margin-bottom: 0; }
+  h2 span { color: #a7c9ef; }
+  p { color: #cedbec; }
+  &__photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  figcaption { color: #a7bdd6; font-size: .8rem; padding-top: .75rem; }
+  &__copy > p:first-child { margin-top: 0; }
+  .dojo-lineage {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    img { width: 76px; height: 76px; flex-shrink: 0; border-radius: 50%; object-fit: cover; object-position: center 20%; border: 2px solid #a7c9ef; }
+    p { margin: 0; }
+  }
+  &__guidance { font-size: .9rem; }
+  .public-text-link, .public-text-link svg { color: #fff; }
+  .public-text-link:hover { color: #a7c9ef; }
+  &__affiliations { border-top: 1px solid #3b5270; padding-top: 1.5rem; display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 2rem; }
+  &__affiliations > span { color: #a7bdd6; font-size: .73rem; text-transform: uppercase; letter-spacing: .09em; }
+  &__affiliations a { color: #fff; display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; text-underline-offset: .3em; font-size: .9rem; }
+  &__affiliations img { width: 64px; height: 64px; object-fit: contain; background: #fff; padding: .3rem; border-radius: 50%; flex-shrink: 0; }
+  @include m.respond(md) {
+    &__inner { grid-template-columns: 1.1fr 1fr; gap: 3rem 4rem; }
+    &__heading, &__affiliations { grid-column: 1 / -1; }
+    &__photo img { aspect-ratio: 4 / 5; }
+  }
+}
+.dojo-teachers {
+  list-style: none; padding: 0; margin: 1.5rem 0;
+  li { display: flex; justify-content: space-between; align-items: center; gap: 1rem; border-top: 1px solid #3b5270; padding-block: 1rem; }
+  li:last-child { border-bottom: 1px solid #3b5270; }
+  strong { display: block; font: 500 1.7rem 'Oswald', sans-serif; }
+  li div > span { display: block; color: #a7bdd6; font-size: .8rem; }
+  &__grade { color: #c4dcf8; border: 1px solid #567497; font-size: .8rem; padding: .25rem .65rem; flex-shrink: 0; }
+}
+
+.dojo-locations {
+  &__grid { display: grid; gap: 2rem; }
+  @include m.respond(md) { &__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3rem; } }
+}
+.dojo-location {
+  &__image { display: block; }
+  &__image img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+  &__copy { padding-block: 1.5rem 0; }
+  .public-eyebrow { margin-bottom: .5rem; }
+  h3 { margin-bottom: 1rem; }
+  address { display: grid; font-style: normal; font-size: .95rem; line-height: 1.5; gap: .25rem; }
+  address span { color: var(--quiet); }
+  p:not(.public-eyebrow) { max-width: 48ch; }
+}
+
+.dojo-first {
+  background: #e8eff6;
+  &__inner { display: grid; gap: 2rem; padding-block: clamp(3.5rem, 7vw, 6rem); }
+  &__inner > div > p:not(.public-eyebrow) { max-width: 38ch; }
+  .cta-button { margin-top: 1rem; }
+  &__steps { list-style: none; padding: 0; margin: 0; }
+  &__steps li { display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); gap: 1rem; border-top: 1px solid #bdcede; padding-block: 1.15rem; }
+  &__steps li:last-child { border-bottom: 1px solid #bdcede; }
+  &__steps span { color: var(--dojo-blue); font: 500 1.8rem 'Oswald', sans-serif; line-height: 1.4; }
+  &__steps p { margin: 0; }
+  @include m.respond(md) { &__inner { grid-template-columns: 1fr 1.1fr; gap: 4rem; } }
+}
+
+.hakuba-home {
+  .public-practice { background: #0c2745; }
+  .public-practice .public-eyebrow { color: #c4dcf8; }
+  .public-practice h2 span { color: #a7c9ef; }
+  .public-practice__screen { border-top-color: #a7c9ef; }
+  .public-practice__screen { max-width: 480px; }
+  .public-news h3 { font-size: clamp(1.55rem, 2.6vw, 2.5rem); }
+  .public-news h3 svg { color: var(--dojo-blue); flex-shrink: 0; margin-top: .25rem; }
+  .public-invitation { background: var(--dojo-blue); border-top: 3px solid #b52c2b; }
+  .public-invitation h2 { font-size: clamp(4rem, 8vw, 7rem); }
+}
+
+.editorial-page {
+  .community-video-gallery {
+    display: grid;
+    gap: 1rem;
+    @include m.respond(sm) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .community-video-still {
+    margin: 1.5rem 0 0;
+    max-width: 420px;
+    img { width: 100%; height: auto; }
+    figcaption { margin-top: .65rem; font-size: .85rem; color: var(--quiet); }
+  }
+  .federation-index a { justify-content: flex-start; gap: 1rem; }
+  .federation-index img { width: 64px; height: 64px; object-fit: contain; flex-shrink: 0; }
+  .federation-index a > span:last-child { margin-left: auto; }
+  .kicker { color: var(--dojo-blue); }
+  .editorial-hero { background: radial-gradient(ellipse at 0 100%, #144b7c, transparent 65%), var(--dojo-navy); }
+  .editorial-hero .kicker { color: #a7c9ef; }
+  .editorial-band { background: var(--dojo-light); }
+  .editorial-band ol li::before { color: var(--dojo-blue); }
+  .join-band { background: var(--dojo-blue); border-top: 3px solid #b52c2b; }
+  .join-band .kicker { color: #fff; }
+  .contact-form-panel { border-top-color: var(--dojo-blue); }
+  .contact-venues { display: grid; gap: 2rem; }
+  .contact-venues article { border-block: 1px solid var(--line); padding-block: 1.5rem; }
+  .contact-venues h3 { margin: 0 0 1rem; font-size: 2rem; }
+  .contact-venues h3 small { display: block; margin-top: .4rem; color: #465b70; font: 400 .85rem 'Source Sans 3', sans-serif; }
+  .contact-venues address { font-style: normal; color: #465b70; line-height: 1.6; }
+  .contact-venues address strong { color: var(--dojo-navy); }
+  .contact-venues article > a { display: inline-flex; align-items: center; min-height: 44px; margin-top: .75rem; color: var(--dojo-blue); font-weight: 600; text-underline-offset: .3em; }
+  @include m.respond(sm) { .contact-venues { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  :is(a, button):focus-visible { outline-color: var(--dojo-blue); }
+  .editorial-hero :is(a, button):focus-visible, .join-band :is(a, button):focus-visible { outline-color: #fff; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hakuba-hero__copy { animation: dojo-arrive .6s ease-out both; }
+  .hakuba-hero__note { animation: dojo-arrive .6s .15s ease-out both; }
+  @keyframes dojo-arrive { from { transform: translateY(8px); } to { transform: translateY(0); } }
+}

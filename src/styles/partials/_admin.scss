@@ -1,0 +1,72 @@
+.club-admin {
+  --admin-ink: #202c28;
+  --admin-line: #dce0d7;
+  min-height: 100vh;
+  background: #f4f5ef;
+  color: var(--admin-ink);
+  display: grid;
+  font-family: 'Source Sans 3', sans-serif;
+
+  * { min-width: 0; }
+  button, input, select, textarea { font: inherit; }
+  button { cursor: pointer; display: inline-flex; gap: .5rem; align-items: center; justify-content: center; min-height: 44px; border: 1px solid var(--admin-line); background: #fff; border-radius: 6px; padding: .55rem .9rem; color: inherit; }
+  button:disabled { cursor: not-allowed; opacity: .5; }
+  h1 { font-size: clamp(2.4rem, 4vw, 3.8rem); margin: .4rem 0 1.5rem; }
+  h2 { font-size: 1.6rem; }
+  p { overflow-wrap: anywhere; }
+  section { margin-top: 2rem; }
+
+  &__sidebar { background: #1e2925; color: #eef1e8; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem;
+    nav { display: flex; flex-wrap: wrap; gap: .45rem; margin: 0;
+      button { background: transparent; color: #d5ddd3; border: 0; justify-content: flex-start; }
+      button[aria-pressed='true'] { background: #35433a; color: #fff; }
+    }
+  }
+  &__brand { display: flex; align-items: center; gap: .8rem; color: #fff; text-decoration: none; font-size: 1.8rem;
+    img { width: 48px; height: 48px; object-fit: contain; background: #faf8f0; border-radius: 50%; }
+    span span { display: block; font-size: .78rem; letter-spacing: .04em; color: #bbc6b8; }
+  }
+  &__back { color: #d5ddd3; display: flex; align-items: center; gap: .5rem; }
+  &__main { padding: clamp(1rem, 4vw, 3.5rem); max-width: 1240px; width: 100%; }
+  &__top { display: flex; justify-content: space-between; gap: 1rem; align-items: center; font-size: .75rem; letter-spacing: .08em; margin-bottom: 1.5rem; }
+  &__badge { background: #e5e9df; border-radius: 20px; padding: .4rem .7rem; }
+  &__disclaimer { font-size: .9rem; padding: .9rem 1rem; background: #f7edda; border-left: 3px solid #b18b48; }
+  &__heading { margin-top: 2rem; }
+  &__error { background: #fbe9e6; padding: 1rem; color: #882e25; }
+  &__success { display: flex; gap: .5rem; align-items: center; background: #e8efdf; padding: 1rem; }
+  &__overview { display: grid; gap: 1rem;
+    article { border-bottom: 1px solid var(--admin-line); padding: 1rem 0; }
+    strong { font-family: Georgia, serif; display: block; font-size: 3rem; }
+  }
+  &__intro { border-top: 1px solid var(--admin-line); padding-block: 1.5rem; max-width: 65ch; }
+  &__primary { background: #263b2e !important; border-color: #263b2e !important; color: #fff !important; }
+  &__connections { div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .75rem; padding: 1.2rem 0; border-bottom: 1px solid var(--admin-line); } span { color: #726c59; font-size: .9rem; } }
+  &__form { display: grid; gap: 1.2rem; background: #fff; border: 1px solid var(--admin-line); border-radius: 10px; padding: clamp(1rem, 3vw, 2rem);
+    label:not(.club-admin__check) { display: grid; gap: .5rem; }
+    input:not([type='checkbox']):not([type='file']), select, textarea { width: 100%; padding: .75rem; border: 1px solid #c7cec1; border-radius: 5px; background: #fafbf7; }
+    fieldset { padding: 1rem; border: 1px solid var(--admin-line); display: grid; gap: .7rem; }
+  }
+  &__check { display: flex; align-items: flex-start; gap: .7rem; input { width: 18px; height: 18px; flex: 0 0 auto; margin-top: .25rem; } }
+  &__upload { border: 1px dashed #9ca992; border-radius: 8px; padding: 2rem; background: #f5f8f0; justify-items: center; input { width: 100%; max-width: 280px; } }
+  &__photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: .7rem;
+    figure { margin: 0; }
+    img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 5px; }
+    figcaption { font-size: .8rem; overflow-wrap: anywhere; }
+  }
+  &__album, &__notice { padding-block: 1.5rem; border-top: 1px solid var(--admin-line); }
+  &__notice-heading { display: flex; justify-content: space-between; align-items: center; font-size: .85rem; }
+  &__reply { padding: .65rem 1rem; background: #e8ecdf; margin-left: 1rem; border-left: 2px solid #87947b; }
+  &__reply-form { display: grid; gap: .5rem; input { padding: .65rem; border: 1px solid var(--admin-line); } }
+
+  :is(a, button, input, select, textarea):focus-visible {
+    outline: 3px solid #c07800;
+    outline-offset: 3px;
+  }
+
+  @media (min-width: 900px) {
+    grid-template-columns: 240px minmax(0, 1fr);
+    &__sidebar { position: sticky; top: 0; height: 100vh; nav { flex-direction: column; } }
+    &__back { margin-top: auto; }
+    &__overview { grid-template-columns: 1fr 1fr; }
+  }
+}

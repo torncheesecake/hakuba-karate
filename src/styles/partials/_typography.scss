@@ -1,0 +1,62 @@
+// Keep the editorial rhythm without leaving short final lines at narrow widths.
+.public-home, .editorial-page, .public-footer {
+  :is(h1, h2, h3) { text-wrap: balance; }
+  :is(p, li, figcaption) { text-wrap: pretty; }
+  .cta-button {
+    max-width: 100%;
+    line-height: 1.35;
+    text-align: center;
+    text-wrap: balance;
+    svg { flex: 0 0 auto; }
+  }
+  .button-row { align-items: center; gap: .75rem 1rem; }
+  .public-text-link, .editorial-link {
+    max-width: 100%;
+    line-height: 1.45;
+    svg { flex: 0 0 auto; }
+  }
+  :is(h2, h3, section[id], nav[id]) { scroll-margin-top: 7rem; }
+}
+
+.editorial-hero h1 {
+  max-width: none;
+  font-size: clamp(2.8rem, 5.6vw, 4.6rem);
+}
+
+.dojo-schedule {
+  &__time, &__next time { white-space: nowrap; }
+  &__when, &__who { min-width: 0; }
+  &__audience { line-height: 1.4; }
+}
+
+.public-footer {
+  .footer-mega > div { min-width: 0; }
+  a[href^='mailto:'] { overflow-wrap: anywhere; }
+  .footer-meta { gap: .75rem 2rem; }
+}
+
+@media (max-width: 699px) {
+  .hakuba-home .hakuba-hero h1 { font-size: clamp(4rem, 21vw, 8rem); }
+  .editorial-page .contact-hero h1 { font-size: clamp(2.35rem, 10.5vw, 4rem); }
+  .hakuba-home {
+    .dojo-pathway__copy h3 { font-size: clamp(1.65rem, 7vw, 2rem); }
+    .dojo-tradition__heading h2 { font-size: clamp(2.1rem, 8.8vw, 3.5rem); }
+  }
+}
+
+@media (max-width: 979px) {
+  .public-header {
+    max-height: 100svh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
+
+@media (max-width: 359px) {
+  .editorial-hero h1 { font-size: 2.5rem; }
+  .hakuba-home {
+    .dojo-pathway__copy h3 { font-size: 1.5rem; }
+    .dojo-tradition__heading h2 { font-size: 2.1rem; }
+    .public-practice h2 { font-size: 2.15rem; }
+  }
+}

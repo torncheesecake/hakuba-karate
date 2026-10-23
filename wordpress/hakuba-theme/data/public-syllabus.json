@@ -1,0 +1,596 @@
+[
+  {
+    "id": "9th-kyu",
+    "grade": "9th Kyu",
+    "colour": "Red",
+    "source": "https://hakuba-karate.co.uk/wp-content/uploads/2018/09/9thKyu_RedBelt_Syllabus.pdf",
+    "pdf": "/resources/syllabus/9th-kyu.pdf",
+    "sections": [
+      {
+        "title": "Grading notes",
+        "blocks": [
+          "During 9th & 8th Kyu Gradings all terminology & commands will be spoken first in Japanese followed by English. 7th Kyu and upwards all terminology & commands will be in Japanese.",
+          "Commands on this grading will be given first in Japanese then in English.",
+          "For 9th Kyu, you will also be tested on correct traditional Wado-ryu belt-tying technique (Hon-Musubi). 本結び"
+        ]
+      },
+      {
+        "title": "KIHON-WAZA (Fundamental techniques)",
+        "blocks": [
+          "Performed from Junzuki-dachi.",
+          "1.   Jodan-uke: Head block.",
+          "2.   Chudan-soto-uke: Body outer block.",
+          "3.   Chudan-uchi-uke: Body inner block.",
+          "4.   Gedan-barai: Lower body sweeping block.",
+          "Performed from Hanmi-gamae.",
+          "1.   Jodan-tsuki: Head snap-punch.",
+          "2.   Uraken-uchi-jodan: Head back-fist strike.",
+          "3.   Maegeri-chudan: Body front kick.",
+          "4.   Surikomi-maegeri-chudan: One step body front kick.",
+          "5.   Mawashigeri-chudan: Body round-house kick.",
+          "6.   Surikomi-mawashigeri-chudan: One step body round-house kick."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "8th-kyu",
+    "grade": "8th Kyu",
+    "colour": "Yellow",
+    "source": "https://hakuba-karate.co.uk/wp-content/uploads/2018/09/8thKyu_YellowBelt_Syllabus.pdf",
+    "pdf": "/resources/syllabus/8th-kyu.pdf",
+    "sections": [
+      {
+        "title": "Grading notes",
+        "blocks": [
+          "Commands on this grading will be given first in Japanese then in English.",
+          "For 8th Kyu, you will also be tested on your belt-tying technique."
+        ]
+      },
+      {
+        "title": "KIHON-WAZA (Fundamental techniques)",
+        "blocks": [
+          "1.   Junzuki, Mawatte-jodan-uke: Straight punch, turn with head block.",
+          "2.   Gyakuzuki, Mawatte-gedan-barai: Reverse punch, turn with lower body sweeping block.",
+          "3.   Maegeri-chudan: Front kick to the body.",
+          "4.   Surikomi-maegeri-chudan: One step front kick to the body.",
+          "5.   Sokuto-fumikomi-hiza: Side edge stamping kick to the knee."
+        ]
+      },
+      {
+        "title": "RENRAKU-WAZA (Combination techniques)",
+        "blocks": [
+          "1. Maegeri-chudan-tobikomizuki-jodan: Front kick to the body, snap punch to the head.",
+          "2. Surikomi-maegeri-chudan-tobikomizuki-jodan: One step front kick to the body, snap punch to the head.",
+          "3. Maegeri-chudan-gyakuzuki-chudan: Front kick, reverse punch to the body.",
+          "4. Surikomi-maegeri-chudan-gyakuzuki-chudan: One step front kick, reverse punch to the body."
+        ]
+      },
+      {
+        "title": "UKE (Blocking techniques)",
+        "blocks": [
+          "Performed from Junzuki-dachi",
+          "1. Chudan-soto-uke-gyakuzuki: Body outer block, reverse punch.",
+          "2. Chudan-uchi-uke-gyakuzuki: Body inner block, reverse punch.",
+          "All blocks are performed with turning block (outer/inner), reverse punch."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "7th-kyu",
+    "grade": "7th Kyu",
+    "colour": "Orange",
+    "source": "https://hakuba-karate.co.uk/wp-content/uploads/2018/09/7thKyu_OrangeBelt_Syllabus.pdf",
+    "pdf": "/resources/syllabus/7th-kyu.pdf",
+    "sections": [
+      {
+        "title": "Grading notes",
+        "blocks": [
+          "Commands for 7th Kyu & above will be in Japanese."
+        ]
+      },
+      {
+        "title": "KIHON-WAZA 基本技",
+        "blocks": [
+          "1. Junzuki-no-tsukkomi",
+          "2. Gyakuzuki-no-tsukkomi",
+          "3. Mawashigeri-chudan"
+        ]
+      },
+      {
+        "title": "RENRAKU-WAZA 連絡技",
+        "blocks": [
+          "1. Maegeri-chudan – Mawashigeri-chudan – Gyakuzuki-chudan",
+          "2. Surikomi-maegeri-chudan – Mawashigeri-chudan – Gyakuzuki-chudan"
+        ]
+      },
+      {
+        "title": "UKE 受け",
+        "blocks": []
+      },
+      {
+        "title": "SANBON-GUMITE 三本組手",
+        "blocks": [
+          "1.   Junzuki-uke; Gohonme (chudan soto-uke - maegeri - gyakuzuki), Ropponme (chudan uchi-uke - empi)"
+        ]
+      },
+      {
+        "title": "KATA 形",
+        "blocks": [
+          "1.   Pinan Nidan"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "6th-kyu",
+    "grade": "6th Kyu",
+    "colour": "Green",
+    "source": "https://hakuba-karate.co.uk/wp-content/uploads/2018/09/6thKyu_GreenBelt_Syllabus.pdf",
+    "pdf": "/resources/syllabus/6th-kyu.pdf",
+    "sections": [
+      {
+        "title": "KIHON-WAZA 基本技",
+        "blocks": [
+          "1. Kette-junzuki",
+          "2. Kette-gyakuzuki",
+          "3. Tobikomizuki-jodan",
+          "4. Surikomi-mawashigeri-chudan",
+          "5. Surikomi-sokuto-chudan"
+        ]
+      },
+      {
+        "title": "RENRAKU-WAZA 連絡技",
+        "blocks": [
+          "1. Maegeri-chudan – Sokuto-fumikomi-hiza – Gyakuzuki-chudan",
+          "2. Surikomi-maegeri-chudan – Sokuto-chudan – Gyakuzuki-chudan"
+        ]
+      },
+      {
+        "title": "UKE 受け",
+        "blocks": []
+      },
+      {
+        "title": "SANBON-GUMITE 三本組手",
+        "blocks": [
+          "1. Junzuki-uke; Ipponme, Nihonme",
+          "2. Maegeri-uke; Ipponme, Nihonme"
+        ]
+      },
+      {
+        "title": "OHYO-GUMITE 応用組手",
+        "blocks": [
+          "1.   Ipponme"
+        ]
+      },
+      {
+        "title": "KATA 形",
+        "blocks": [
+          "1. Pinan Shodan",
+          "2. Pinan Sandan"
+        ]
+      },
+      {
+        "title": "JIYU-GUMITE 自由組手",
+        "blocks": []
+      }
+    ]
+  },
+  {
+    "id": "5th-kyu",
+    "grade": "5th Kyu",
+    "colour": "Blue",
+    "source": "https://hakuba-karate.co.uk/wp-content/uploads/2018/09/5thKyu_BlueBelt_Syllabus.pdf",
+    "pdf": "/resources/syllabus/5th-kyu.pdf",
+    "sections": [
+      {
+        "title": "KIHON-WAZA 基本技",
+        "blocks": [
+          "1. Kette-junzuki",
+          "2. Kette-gyakuzuki",
+          "3. Kette-junzuki-no-tsukkomi",
+          "4. Kette-gyakuzuki-no-tsukkomi",
+          "5. Nagashizuki-jodan",
+          "6. Ushirogeri-gedan",
+          "7. Sokuto-chudan",
+          "8. Nidangeri-jodan"
+        ]
+      },
+      {
+        "title": "RENRAKU-WAZA 連絡技",
+        "blocks": [
+          "1. Mawashigeri-chudan – Ushirogeri-gedan – Gyakuzuki-chudan",
+          "2. Surikomi-sokuto-fumikomi-hiza – Ushirogeri-gedan – Uraken-uchi-jodan"
+        ]
+      },
+      {
+        "title": "UKE 受け",
+        "blocks": []
+      },
+      {
+        "title": "SANBON-GUMITE 三本組手",
+        "blocks": [
+          "1. Junzuki-uke; Sanbonme, Yonhonme",
+          "2. Maegeri-uke; Sanbonme, Yonhonme"
+        ]
+      },
+      {
+        "title": "OHYO-GUMITE 応用組手",
+        "blocks": [
+          "1.   Nihonme"
+        ]
+      },
+      {
+        "title": "KATA 形",
+        "blocks": [
+          "1. Pinan Sandan",
+          "2. Pinan Yodan"
+        ]
+      },
+      {
+        "title": "JIYU-GUMITE 自由組手",
+        "blocks": []
+      }
+    ]
+  },
+  {
+    "id": "4th-kyu",
+    "grade": "4th Kyu",
+    "colour": "Purple",
+    "source": "https://hakuba-karate.co.uk/wp-content/uploads/2018/09/4thKyu_PurpleBelt_Syllabus.pdf",
+    "pdf": "/resources/syllabus/4th-kyu.pdf",
+    "sections": [
+      {
+        "title": "KIHON-WAZA 基本技",
+        "blocks": [
+          "1. Kette-junzuki",
+          "2. Kette-gyakuzuki",
+          "3. Kette-junzuki-no-tsukkomi",
+          "4. Kette-gyakuzuki-no-tsukkomi",
+          "5. Nagashizuki-jodan",
+          "6. Mawashigeri-chudan",
+          "7. Ushirogeri-chudan",
+          "8. Sokuto-chudan"
+        ]
+      },
+      {
+        "title": "RENRAKU-WAZA 連絡技",
+        "blocks": [
+          "1. Maegeri-chudan – Nagashizuki-jodan – Gyakuzuki-chudan",
+          "2. Surikomi-maegeri-chudan – Nagashizuki-jodan – Mawashigeri-chudan",
+          "3. Maegeri-chudan – Sokuto-fumikomi-hiza – Ushirogeri-gedan – Gyakuzuki-chudan"
+        ]
+      },
+      {
+        "title": "UKE 受け",
+        "blocks": []
+      },
+      {
+        "title": "SANBON-GUMITE 三本組手",
+        "blocks": [
+          "1. Junzuki-uke; Gohonme, Ropponme",
+          "2. Maegeri-uke; Gohonme, Ropponme"
+        ]
+      },
+      {
+        "title": "OHYO-GUMITE 応用組手",
+        "blocks": [
+          "1.   Sanbonme"
+        ]
+      },
+      {
+        "title": "KATA 形",
+        "blocks": [
+          "1. Pinan Yodan",
+          "2. Pinan Godan"
+        ]
+      },
+      {
+        "title": "JIYU-GUMITE 自由組手",
+        "blocks": []
+      }
+    ]
+  },
+  {
+    "id": "3rd-kyu",
+    "grade": "3rd Kyu",
+    "colour": "Brown",
+    "source": "https://hakuba-karate.co.uk/wp-content/uploads/2023/03/3rdKyu_BrownBelt_Syllabus.pdf",
+    "pdf": "/resources/syllabus/3rd-kyu.pdf",
+    "sections": [
+      {
+        "title": "KIHON-WAZA 基本技",
+        "blocks": [
+          "1.   Kette-junzuki",
+          "2.   Kette-gyakuzuki",
+          "3.   Kette-junzuki-no-tsukkomi",
+          "4.   Kette-gyakuzuki-no-tsukkomi",
+          "5.   Tobikomizuki-jodan",
+          "6.   Nagashizuki-jodan",
+          "7.   Mawashigeri-jodan",
+          "8.   Ushirogeri-chudan",
+          "9.   Surikomi-sokuto-jodan"
+        ]
+      },
+      {
+        "title": "RENRAKU-WAZA 連絡技",
+        "blocks": [
+          "1. Surikomi-maegeri-chudan – Mawashigeri-chudan – Ushirogeri-chudan – Uraken-uchi-jodan",
+          "2. Maegeri-chudan - Nagashizuki-jodan – Gyakuzuki-chudan – Mawashigeri-chudan",
+          "3. Surikomi-maegeri-chudan – Sokuto-fumikomi-hiza – Ushirogeri-chudan – Uraken-uchi-jodan"
+        ]
+      },
+      {
+        "title": "UKE 受け",
+        "blocks": []
+      },
+      {
+        "title": "SANBON-GUMITE 三本組手",
+        "blocks": [
+          "1. Junzuki-uke; Ipponme, Nihonme",
+          "2. Maegeri-uke; Ipponme, Nihonme"
+        ]
+      },
+      {
+        "title": "OHYO-GUMITE 応用組手",
+        "blocks": [
+          "1.   Yonhonme"
+        ]
+      },
+      {
+        "title": "KIHON-GUMITE 基本組手",
+        "blocks": [
+          "1. Ipponme",
+          "2. Nihonme"
+        ]
+      },
+      {
+        "title": "MACHI-OHYO 町応用",
+        "blocks": [
+          "1. Ipponme",
+          "2. Nihonme"
+        ]
+      },
+      {
+        "title": "KATA 形",
+        "blocks": [
+          "1.   Ku-Shanku"
+        ]
+      },
+      {
+        "title": "JIYU-GUMITE 自由組手",
+        "blocks": []
+      }
+    ]
+  },
+  {
+    "id": "2nd-kyu",
+    "grade": "2nd Kyu",
+    "colour": "Brown & White",
+    "source": "https://hakuba-karate.co.uk/wp-content/uploads/2023/03/2ndKyu_BrownWhiteBelt_Syllabus.pdf",
+    "pdf": "/resources/syllabus/2nd-kyu.pdf",
+    "sections": [
+      {
+        "title": "KIHON-WAZA 基本技",
+        "blocks": [
+          "1.   Kette-junzuki",
+          "2.   Kette-gyakuzuki",
+          "3.   Kette-junzuki-no-tsukkomi",
+          "4.   Kette-gyakuzuki-no-tsukkomi",
+          "5.   Nagashizuki-jodan",
+          "6.   Mawashigeri-jodan",
+          "7.   Sokuto-jodan",
+          "8.   Ushirogeri-chudan",
+          "9.   Nidangeri-jodan"
+        ]
+      },
+      {
+        "title": "RENRAKU-WAZA 連絡技",
+        "blocks": [
+          "1. Surikomi-maegeri-chudan – Nagashizuki-jodan – Mawashigeri-jodan",
+          "2. Maegeri-chudan – Sokuto-chudan – Ushirogeri-chudan – Gyakuzuki-chudan",
+          "3. Zenshinshite-jodan - Renzuki-chudan - Surikomi-maegeri-chudan -Mawashigeri-chudan - Gyakuzuki-chudan"
+        ]
+      },
+      {
+        "title": "UKE 受け",
+        "blocks": []
+      },
+      {
+        "title": "SANBON-GUMITE 三本組手",
+        "blocks": [
+          "1. Junzuki-uke; Sanbonme, Yonhonme",
+          "2. Maegeri-uke; Sanbonme, Yonhonme"
+        ]
+      },
+      {
+        "title": "OHYO-GUMITE 応用組手",
+        "blocks": [
+          "1. Gohonme",
+          "2. Ropponme"
+        ]
+      },
+      {
+        "title": "KIHON-GUMITE 基本組手",
+        "blocks": [
+          "1. Sanbonme",
+          "2. Yonhonme"
+        ]
+      },
+      {
+        "title": "MACHI-OHYO 町応用",
+        "blocks": [
+          "1. Ipponme",
+          "2. Nihonme",
+          "3. Sanbonme",
+          "4. Yonhonme"
+        ]
+      },
+      {
+        "title": "KATA 形",
+        "blocks": [
+          "1. Ku-Shanku",
+          "2. Nai-hanchi"
+        ]
+      },
+      {
+        "title": "JIYU-GUMITE 自由組手",
+        "blocks": []
+      }
+    ]
+  },
+  {
+    "id": "1st-kyu",
+    "grade": "1st Kyu",
+    "colour": "Brown & Black",
+    "source": "https://hakuba-karate.co.uk/wp-content/uploads/2023/03/1stKyu_BrownBlackBeltSyllabus.pdf",
+    "pdf": "/resources/syllabus/1st-kyu.pdf",
+    "sections": [
+      {
+        "title": "KIHON-WAZA 基本技",
+        "blocks": [
+          "1.   Kette-junzuki",
+          "2.   Kette-gyakuzuki",
+          "3.   Kette-junzuki-no-tsukkomi",
+          "4.   Kette-gyakuzuki-no-tsukkomi",
+          "5.   Nagashizuki-jodan",
+          "6.   Surikomi-mawashigeri-jodan",
+          "7.   Surikomi-sokuto-jodan",
+          "8.   Ushirogeri-chudan",
+          "9.   Nidangeri-jodan"
+        ]
+      },
+      {
+        "title": "RENRAKU-WAZA 連絡技",
+        "blocks": [
+          "1. Zenshinshite-jodan – Renzuki-chudan – Maegeri-chudan – Mawashigeri-chudan – Ushirogeri-chudan – Gyakuzuki-chudan",
+          "2. Surikomi-jodan – Renzuki-chudan – Surikomi-maegeri-chudan – Mawashigeri-chudan – Ushirogeri-chudan – Uraken-uchi-jodan",
+          "3. Zenshinshite-jodan – Renzuki-chudan – Maegeri-chudan – Nagashizuki-jodan – Gyakuzuki-chudan – Mawashigeri-jodan"
+        ]
+      },
+      {
+        "title": "UKE 受け",
+        "blocks": []
+      },
+      {
+        "title": "SANBON-GUMITE 三本組手",
+        "blocks": [
+          "1. Junzuki-uke; Gohonme, Ropponme",
+          "2. Maegeri-uke; Gohonme, Ropponme"
+        ]
+      },
+      {
+        "title": "OHYO-GUMITE 応用組手",
+        "blocks": [
+          "1. Nanahonme",
+          "2. Napponme"
+        ]
+      },
+      {
+        "title": "KIHON-GUMITE 基本組手",
+        "blocks": [
+          "1.   Gohonme"
+        ]
+      },
+      {
+        "title": "MACHI-OHYO 町応用",
+        "blocks": [
+          "1. Ipponme",
+          "2. Nihonme",
+          "3. Sanbonme",
+          "4. Yonhonme",
+          "5. Gohonme",
+          "6. Ropponme"
+        ]
+      },
+      {
+        "title": "KATA 形",
+        "blocks": [
+          "1. Ku-Shanku",
+          "2. Seishan",
+          "3. Chinto"
+        ]
+      },
+      {
+        "title": "JIYU-GUMITE 自由組手",
+        "blocks": []
+      }
+    ]
+  },
+  {
+    "id": "shodan",
+    "grade": "Shodan",
+    "colour": "Black",
+    "source": "https://hakuba-karate.co.uk/wp-content/uploads/2023/03/SHODAN-壱段.pdf",
+    "pdf": "/resources/syllabus/shodan.pdf",
+    "sections": [
+      {
+        "title": "KIHON-WAZA 基本技",
+        "blocks": [
+          "1. Kette-junzuki",
+          "2. Kette-gyakuzuki",
+          "3. Kette-junzuki-no-tsukkomi",
+          "4. Kette-gyakuzuki-no-tsukkomi",
+          "5. Tobikomizuki-jodan",
+          "6. Nagashizuki-jodan",
+          "7. Mawashigeri-jodan",
+          "8. Sokuto-jodan",
+          "9. Ushirogeri-chudan",
+          "10. Nidangeri-jodan"
+        ]
+      },
+      {
+        "title": "RENRAKU-WAZA 連絡技",
+        "blocks": [
+          "1. Zenshinshite-jodan – Renzuki-chudan – Maegeri-chudan – Mawashigeri-jodan – Ushirogeri-chudan –Uraken-uchi-jodan",
+          "2. Surikomi-jodan – Renzuki-chudan – Surikomi-sokuto-jodan – Ushirogeri-chudan – Gyakuzuki-chudan",
+          "3. Zenshinshite-jodan – Renzuki-chudan – Maegeri-chudan – Nagashizuki-jodan – Gyakuzuki-chudan – Mawashigeri-jodan – Ushirogeri-chudan – Uraken-uchi-jodan"
+        ]
+      },
+      {
+        "title": "SANBON-GUMITE 三本組手",
+        "blocks": [
+          "All"
+        ]
+      },
+      {
+        "title": "OHYO-GUMITE 応用組手",
+        "blocks": [
+          "Ipponme, Nihonme, Sanbonme, Yonhonme"
+        ]
+      },
+      {
+        "title": "KIHON-GUMITE 基本組手",
+        "blocks": [
+          "Ipponme, Nihonme, Sanbonme, Yonhonme"
+        ]
+      },
+      {
+        "title": "MACHI-OHYO 町応用",
+        "blocks": [
+          "Ipponme, Nihonme, Sanbonme, Yonhonme, Gohonme, Ropponme, Nanahonme, Happonme"
+        ]
+      },
+      {
+        "title": "KATA 形",
+        "blocks": [
+          "At least three Kata will be selected from the first nine, as Examiner/s choice, in addition to:",
+          "Bassai 披塞 - 抜砦, Wanshu 汪楫 - 腕秀"
+        ]
+      },
+      {
+        "title": "JIYU-GUMITE 自由組手",
+        "blocks": [
+          "‘Free fighting’"
+        ]
+      },
+      {
+        "title": "HIKKI-SHIKEN 筆記試験",
+        "blocks": [
+          "Written test."
+        ]
+      }
+    ]
+  }
+]
